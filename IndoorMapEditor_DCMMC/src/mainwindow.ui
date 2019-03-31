@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>895</width>
+    <height>566</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="IndoorMapEditor.qrc">
+    <normaloff>:/src/icon/icon.png</normaloff>:/src/icon/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>895</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSetBg"/>
+    <addaction name="actionRecent"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrintCurrent"/>
+    <addaction name="actionPrint"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>编辑</string>
+    </property>
+<!--    <addaction name="actionUndo"/>-->
+<!--    <addaction name="actionRedo"/>-->
+    <addaction name="separator"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="separator"/>
+    <addaction name="actionRotate"/>
+    <addaction name="actionFlip"/>
+    <addaction name="separator"/>
+    <addaction name="actionFind"/>
+    <addaction name="actionFindRepeat"/>
+    <addaction name="separator"/>
+    <addaction name="actionDelete"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>显示</string>
+    </property>
+    <addaction name="actionShowShopText"/>
+    <addaction name="actionShowPointText"/>
+    <addaction name="actionShowDir"/>
+    <addaction name="actionFont"/>
+    <addaction name="separator"/>
+    <addaction name="actionZoomIn"/>
+    <addaction name="actionZoomOut"/>
+    <addaction name="actionResetZoom"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>分析</string>
+    </property>
+    <addaction name="actionSortAreas"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <widget class="QMenu" name="menu_5">
+     <property name="title">
+      <string>语言</string>
+     </property>
+     <addaction name="action_3"/>
+     <addaction name="actionEnglish"/>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="menu_5"/>
+    <addaction name="action_4"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionPrint"/>
+   <addaction name="separator"/>
+   <addaction name="actionCut"/>
+   <addaction name="actionCopy"/>
+   <addaction name="actionPaste"/>
+   <addaction name="separator"/>
+   <addaction name="actionFind"/>
+   <addaction name="separator"/>
+   <addaction name="actionZoomIn"/>
+   <addaction name="actionZoomOut"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSelectTool"/>
+   <addaction name="separator"/>
+   <addaction name="actionPolygonTool"/>
+   <addaction name="actionPubPointTool"/>
+   <addaction name="separator"/>
+   <addaction name="actionMergeTool"/>
+   <addaction name="actionSplitTool"/>
+   <addaction name="separator"/>
+   <addaction name="actionScaleTool"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QDockWidget" name="dockTreeWidget">
+   <property name="windowTitle">
+    <string>场景结构</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockTreeWidgetContents">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addLayerButton">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>新建楼层</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="IndoorMapEditor.qrc">
+           <normaloff>:/src/icon/addlayer.png</normaloff>:/src/icon/addlayer.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteButton">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>删除</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="IndoorMapEditor.qrc">
+           <normaloff>:/src/icon/trash.png</normaloff>:/src/icon/trash.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockPropertyWidget">
+   <property name="windowTitle">
+    <string>属性</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockPropWidgetContents"/>
+  </widget>
+  <widget class="QDockWidget" name="dockOutputWidget">
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/fileopen.png</normaloff>:/src/icon/fileopen.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开...</string>
+   </property>
+   <property name="toolTip">
+    <string>打开文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSetBg">
+   <property name="text">
+    <string>设置背景图</string>
+   </property>
+   <property name="toolTip">
+    <string>设置背景图</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/filesave.png</normaloff>:/src/icon/filesave.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="toolTip">
+    <string>保存文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/filenew.png</normaloff>:/src/icon/filenew.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建</string>
+   </property>
+   <property name="toolTip">
+    <string>新建文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>关闭</string>
+   </property>
+   <property name="toolTip">
+    <string>关闭文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionRecent">
+   <property name="text">
+    <string>最近打开的文件</string>
+   </property>
+   <property name="toolTip">
+    <string>最近打开的文件</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="text">
+    <string>另存为...</string>
+   </property>
+   <property name="toolTip">
+    <string>另存为文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="toolTip">
+    <string>退出程序</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/fileprint.png</normaloff>:/src/icon/fileprint.png</iconset>
+   </property>
+   <property name="text">
+    <string>打印...</string>
+   </property>
+   <property name="toolTip">
+    <string>打印</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>导出</string>
+   </property>
+  </action>
+  <action name="actionPolygonTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/polygon.png</normaloff>:/src/icon/polygon.png</iconset>
+   </property>
+   <property name="text">
+    <string>polygonTool</string>
+   </property>
+   <property name="toolTip">
+    <string>创建多边形</string>
+   </property>
+  </action>
+  <action name="actionSelectTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/select.png</normaloff>:/src/icon/select.png</iconset>
+   </property>
+   <property name="text">
+    <string>selectTool</string>
+   </property>
+   <property name="toolTip">
+    <string>选择工具</string>
+   </property>
+  </action>
+  <action name="actionPubPointTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/pubpoint.png</normaloff>:/src/icon/pubpoint.png</iconset>
+   </property>
+   <property name="text">
+    <string>pubPointTool</string>
+   </property>
+   <property name="toolTip">
+    <string>添加公共设施点</string>
+   </property>
+  </action>
+  <action name="actionPanTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/pan.png</normaloff>:/src/icon/pan.png</iconset>
+   </property>
+   <property name="text">
+    <string>panTool</string>
+   </property>
+   <property name="toolTip">
+    <string>平移工具</string>
+   </property>
+  </action>
+<!--  <action name="actionUndo">-->
+<!--   <property name="icon">-->
+<!--    <iconset resource="IndoorMapEditor.qrc">-->
+<!--     <normaloff>:/src/icon/editundo.png</normaloff>:/src/icon/editundo.png</iconset>-->
+<!--   </property>-->
+<!--   <property name="text">-->
+<!--    <string>撤销</string>-->
+<!--   </property>-->
+<!--   <property name="shortcut">-->
+<!--    <string>Ctrl+Z</string>-->
+<!--   </property>-->
+<!--  </action>-->
+<!--  <action name="actionRedo">-->
+<!--   <property name="icon">-->
+<!--    <iconset resource="IndoorMapEditor.qrc">-->
+<!--     <normaloff>:/src/icon/editredo.png</normaloff>:/src/icon/editredo.png</iconset>-->
+<!--   </property>-->
+<!--   <property name="text">-->
+<!--    <string>重做</string>-->
+<!--   </property>-->
+<!--   <property name="shortcut">-->
+<!--    <string>Ctrl+Shift+Z</string>-->
+<!--   </property>-->
+<!--  </action>-->
+  <action name="actionAddFloor">
+   <property name="text">
+    <string>添加楼层</string>
+   </property>
+  </action>
+  <action name="actionAddFuncArea">
+   <property name="text">
+    <string>添加房间</string>
+   </property>
+  </action>
+  <action name="actionAddPubpoint">
+   <property name="text">
+    <string>添加公共设施点</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>删除</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionZoomTool">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/zoomin.png</normaloff>:/src/icon/zoomin.png</iconset>
+   </property>
+   <property name="text">
+    <string>放缩</string>
+   </property>
+   <property name="toolTip">
+    <string>缩放场景</string>
+   </property>
+  </action>
+  <action name="actionShowShopText">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>显示店铺名称</string>
+   </property>
+   <property name="toolTip">
+    <string>显示视图中的店铺名称</string>
+   </property>
+  </action>
+  <action name="actionFont">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/font.png</normaloff>:/src/icon/font.png</iconset>
+   </property>
+   <property name="text">
+    <string>字体...</string>
+   </property>
+   <property name="toolTip">
+    <string>设置视图中的字体</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/zoomin.png</normaloff>:/src/icon/zoomin.png</iconset>
+   </property>
+   <property name="text">
+    <string>放大</string>
+   </property>
+   <property name="toolTip">
+    <string>放大场景</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/zoomout.png</normaloff>:/src/icon/zoomout.png</iconset>
+   </property>
+   <property name="text">
+    <string>缩小</string>
+   </property>
+   <property name="toolTip">
+    <string>缩小场景</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionResetZoom">
+   <property name="text">
+    <string>重置缩放</string>
+   </property>
+   <property name="toolTip">
+    <string>重置场景缩放</string>
+   </property>
+  </action>
+  <action name="actionMergeTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/merge.png</normaloff>:/src/icon/merge.png</iconset>
+   </property>
+   <property name="text">
+    <string>合并</string>
+   </property>
+   <property name="toolTip">
+    <string>合并形状工具</string>
+   </property>
+  </action>
+  <action name="actionSplitTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/split.png</normaloff>:/src/icon/split.png</iconset>
+   </property>
+   <property name="text">
+    <string>分裂</string>
+   </property>
+   <property name="toolTip">
+    <string>分裂形状工具</string>
+   </property>
+  </action>
+  <action name="actionScaleTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/scale.png</normaloff>:/src/icon/scale.png</iconset>
+   </property>
+   <property name="text">
+    <string>比例尺</string>
+   </property>
+   <property name="toolTip">
+    <string>比例尺工具</string>
+   </property>
+  </action>
+  <action name="actionPrintCurrent">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/fileprint.png</normaloff>:/src/icon/fileprint.png</iconset>
+   </property>
+   <property name="text">
+    <string>打印视口...</string>
+   </property>
+   <property name="toolTip">
+    <string>打印当前视图</string>
+   </property>
+  </action>
+  <action name="actionShowPointText">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>显示设施点</string>
+   </property>
+  </action>
+  <action name="actionShowDir">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>显示主轴向</string>
+   </property>
+   <property name="toolTip">
+    <string>显示主轴向</string>
+   </property>
+  </action>
+  <action name="actionFindRepeat">
+   <property name="text">
+    <string>检查同铺</string>
+   </property>
+   <property name="toolTip">
+    <string>检查所有相同品牌的店铺</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/rotateright.png</normaloff>:/src/icon/rotateright.png</iconset>
+   </property>
+   <property name="text">
+    <string>旋转...</string>
+   </property>
+   <property name="toolTip">
+    <string>旋转地图</string>
+   </property>
+  </action>
+  <action name="actionFlip">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/flip.png</normaloff>:/src/icon/flip.png</iconset>
+   </property>
+   <property name="text">
+    <string>对称...</string>
+   </property>
+   <property name="toolTip">
+    <string>对称翻转地图</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/edit-find.png</normaloff>:/src/icon/edit-find.png</iconset>
+   </property>
+   <property name="text">
+    <string>查找...</string>
+   </property>
+   <property name="toolTip">
+    <string>查找店铺</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionSortAreas">
+   <property name="text">
+    <string>铺位分类</string>
+   </property>
+  </action>
+  <action name="actionShowAreaSort">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>显示铺位类别</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/cut.png</normaloff>:/src/icon/cut.png</iconset>
+   </property>
+   <property name="text">
+    <string>剪切</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/copy.png</normaloff>:/src/icon/copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>复制</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+     <normaloff>:/src/icon/editpaste.png</normaloff>:/src/icon/editpaste.png</iconset>
+   </property>
+   <property name="text">
+    <string>粘贴</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>简体中文</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>关于...</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="IndoorMapEditor.qrc"/>
+ </resources>
+ <connections/>
+</ui>

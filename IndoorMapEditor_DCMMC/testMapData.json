@@ -1,0 +1,487 @@
+{
+    "data": {
+        "Floors": [
+            {
+                "Area": 1359,
+                "Brief": "1",
+                "FuncAreas": [
+                    {
+                        "Area": 10,
+                        "AreaStatus": 0,
+                        "BrandShop": 3145776,
+                        "Brief": "车库1",
+                        "Category": 109,
+                        "Center": [
+                            -129,
+                            -128
+                        ],
+                        "MateId": 0,
+                        "Name": "车库1",
+                        "Name_en": "车库1",
+                        "Outline": [
+                            [
+                                [
+                                    -152,
+                                    -115,
+                                    -130,
+                                    -106,
+                                    -105,
+                                    -143,
+                                    -130,
+                                    -150
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "1",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1048897,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 60,
+                        "AreaStatus": 1,
+                        "BrandShop": 0,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            63,
+                            -107
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    -134,
+                                    -156,
+                                    -134,
+                                    -161,
+                                    -106,
+                                    -154,
+                                    -98,
+                                    -161,
+                                    303,
+                                    -50,
+                                    309,
+                                    -38,
+                                    307,
+                                    -35
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1035157,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 8,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "车库2",
+                        "Category": 109,
+                        "Center": [
+                            -121,
+                            -46
+                        ],
+                        "MateId": 0,
+                        "Name": "车库2",
+                        "Name_en": "车库2",
+                        "Outline": [
+                            [
+                                [
+                                    -136,
+                                    -30,
+                                    -110,
+                                    -29,
+                                    -108,
+                                    -59,
+                                    -133,
+                                    -66
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "2",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1105740,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 4,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            328,
+                            -22
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    308,
+                                    -33,
+                                    313,
+                                    -40,
+                                    346,
+                                    -14,
+                                    345,
+                                    -2
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1095544,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 5,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            333,
+                            31
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    342,
+                                    1,
+                                    349,
+                                    0,
+                                    349,
+                                    18,
+                                    346,
+                                    27,
+                                    305,
+                                    78,
+                                    300,
+                                    75,
+                                    343,
+                                    20
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1052155,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 7,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            261,
+                            128
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    302,
+                                    80,
+                                    298,
+                                    77,
+                                    219,
+                                    177,
+                                    225,
+                                    181
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1088287,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 39,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            84,
+                            155
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    215,
+                                    179,
+                                    224,
+                                    184,
+                                    210,
+                                    195,
+                                    -243,
+                                    81,
+                                    -233,
+                                    74,
+                                    21,
+                                    139,
+                                    96,
+                                    157,
+                                    148,
+                                    172,
+                                    197,
+                                    185,
+                                    207,
+                                    189
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1062983,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 7,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            -285,
+                            51
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    -237,
+                                    73,
+                                    -245,
+                                    81,
+                                    -302,
+                                    56,
+                                    -319,
+                                    23,
+                                    -314,
+                                    22,
+                                    -296,
+                                    51
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1082248,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 8,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            -271,
+                            -44
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    -315,
+                                    18,
+                                    -309,
+                                    21,
+                                    -265,
+                                    -60,
+                                    -234,
+                                    -89,
+                                    -239,
+                                    -93,
+                                    -269,
+                                    -65
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1028467,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 8,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "",
+                        "Category": 109,
+                        "Center": [
+                            -180,
+                            -104
+                        ],
+                        "MateId": 0,
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    -231,
+                                    -85,
+                                    -188,
+                                    -74,
+                                    -169,
+                                    -97,
+                                    -170,
+                                    -105,
+                                    -134,
+                                    -150,
+                                    -138,
+                                    -154,
+                                    -174,
+                                    -111,
+                                    -177,
+                                    -97,
+                                    -191,
+                                    -82,
+                                    -232,
+                                    -92
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1054309,
+                        "dianping_id": -1
+                    },
+                    {
+                        "Area": 8,
+                        "AreaStatus": 1,
+                        "BrandShop": 3145776,
+                        "Brief": "车库3",
+                        "Category": 109,
+                        "Center": [
+                            -105,
+                            -118
+                        ],
+                        "MateId": 0,
+                        "Name": "车库3",
+                        "Name_en": "车库3",
+                        "Outline": [
+                            [
+                                [
+                                    -126,
+                                    -103,
+                                    -105,
+                                    -97,
+                                    -86,
+                                    -134,
+                                    -105,
+                                    -139
+                                ]
+                            ]
+                        ],
+                        "ShopNo": "车库3",
+                        "SortType": 0,
+                        "Type": "400",
+                        "_id": 1068005,
+                        "dianping_id": -1
+                    }
+                ],
+                "High": 4,
+                "ImageLayer": [
+                ],
+                "Name": "1",
+                "Name_en": "1",
+                "Outline": [
+                    [
+                        [
+                            -134,
+                            -153,
+                            308,
+                            -32,
+                            344,
+                            -5,
+                            349,
+                            20,
+                            210,
+                            193,
+                            -248,
+                            77,
+                            -302,
+                            56,
+                            -318,
+                            24,
+                            -267,
+                            -59,
+                            -232,
+                            -91,
+                            -205,
+                            -85,
+                            -188,
+                            -79,
+                            -172,
+                            -97,
+                            -172,
+                            -105
+                        ]
+                    ]
+                ],
+                "PubPoint": [
+                ],
+                "_id": 1
+            }
+        ],
+        "building": {
+            "Adcode": "",
+            "Address": "",
+            "Area": 0,
+            "Brief": "",
+            "FloorsId": "1",
+            "FrontAngle": 0.005996929608693743,
+            "GroundFloors": 1,
+            "High": 0,
+            "Mall": 1077552,
+            "Name": "未命名建筑",
+            "Name_en": "",
+            "Outline": [
+                [
+                    [
+                    ]
+                ]
+            ],
+            "Tel": "",
+            "Time": "",
+            "Type": "0",
+            "UnderFloors": 0,
+            "Version": 1,
+            "_xLon": 6.90110740156404e-310,
+            "_yLat": 6.90110740156404e-310
+        }
+    }
+}
