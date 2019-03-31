@@ -80,7 +80,7 @@ private:
     bool m_ctrlKeyPressed;
     int m_zoom;
 
-    // 鼠标右键拖动
+    // 空格+鼠标左键拖动
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 

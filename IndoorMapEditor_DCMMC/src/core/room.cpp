@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QApplication>
 #include <QGraphicsTextItem>
-
+#include <QDebug>
 
 #pragma execution_character_set("utf-8")
 
@@ -251,4 +251,53 @@ void Room::updateColor(){
     }else{
         m_color = QColor(248, 203, 173, 150);
     }
+}
+
+void Room::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton && shape().contains(event->pos()))
+    {
+        QGraphicsItem::mousePressEvent(event);
+        m_dragValid = true;
+        this->setCursor(QCursor(Qt::ClosedHandCursor));
+    } else {
+//        Q_UNUSED(event);
+        QGraphicsObject::mousePressEvent(event);
+    }
+//    else
+//        event->ignore();
+}
+
+void Room::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(m_dragValid) {
+        //        QGraphicsItem::mouseMoveEvent(event);
+        auto epsilon = event->scenePos() - this->center();
+        for (auto i = 0; i < this->m_outline.size(); i++) {
+            this->m_outline[i] = QPointF(this->m_outline[i] + epsilon).toPoint();
+        }
+        this->setCenter(event->scenePos());
+        this->scene()->update();
+    } else {
+//        Q_UNUSED(event);
+        QGraphicsObject::mouseMoveEvent(event);
+    }
+
+//    else
+//        event->ignore();
+}
+
+void Room::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton && m_dragValid) {
+        this->setCursor(QCursor(Qt::ArrowCursor));
+        QGraphicsItem::mouseReleaseEvent(event);
+        m_dragValid = false;
+    } else {
+//        Q_UNUSED(event);
+        m_dragValid = false;
+        QGraphicsObject::mouseReleaseEvent(event);
+    }
+//    else
+//        event->ignore();
 }

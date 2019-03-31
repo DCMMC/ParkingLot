@@ -5,6 +5,7 @@
 #include <QHash>
 #include <QString>
 #include <QJsonObject>
+#include <QGraphicsSceneMouseEvent>
 
 class QGraphicsTextItem;
 
@@ -91,6 +92,11 @@ private:
     static QHash<QString, int> m_typeHash;
     AreaStatus m_areaStatus;    //铺位状态
     SORT_TYPE m_sortType;       //铺位类别，边铺或中岛
+    // 鼠标拖动
+    bool m_dragValid = false;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 };
 
 #endif // ROOM_H

@@ -318,7 +318,7 @@ void Building::mousePressEvent(QGraphicsSceneMouseEvent *event)
         m_dragValid = true;
         this->setCursor(QCursor(Qt::ClosedHandCursor));
     } else {
-        Q_UNUSED(event);
+//        Q_UNUSED(event);
         QGraphicsObject::mousePressEvent(event);
     }
 //    else
@@ -331,7 +331,7 @@ void Building::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         //        QGraphicsItem::mouseMoveEvent(event);
         this->setPos(mapToScene(event->pos()));
     } else {
-        Q_UNUSED(event);
+//        Q_UNUSED(event);
         QGraphicsObject::mouseMoveEvent(event);
     }
 
@@ -346,12 +346,10 @@ void Building::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         QGraphicsItem::mouseReleaseEvent(event);
         m_dragValid = false;
     } else {
-        Q_UNUSED(event);
+//        Q_UNUSED(event);
         m_dragValid = false;
         QGraphicsObject::mouseReleaseEvent(event);
     }
 //    else
 //        event->ignore();
-
-
 }
