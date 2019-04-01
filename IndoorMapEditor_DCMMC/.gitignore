@@ -1,5 +1,0 @@
-.*
-!.gitignore
-*.user
-cmake-build-debug
-IndoorMapEditor
