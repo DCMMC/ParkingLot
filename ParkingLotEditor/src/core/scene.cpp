@@ -139,12 +139,15 @@ void Scene::setBackground(const QString & fileName) {
 
 void Scene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     // 用 scenePos 而不是 pos
-    if (this->m_building->shape().contains(event->scenePos())) {
-        ToolManager::instance()->currentTool().contextMenuEvent(event);
-    } else {
+//    if ( this->m_building->shape().contains(event->scenePos()) ||
+//            this->currentFloor()->shape().contains(event->scenePos())) {
+//        ToolManager::instance()->currentTool().contextMenuEvent(event);
+//    } else {
 //        event->ignore();
 //        QGraphicsScene::contextMenuEvent(event);
-    }
+//    }
+    ToolManager::instance()->currentTool().contextMenuEvent(event);
+//    QGraphicsScene::contextMenuEvent(event);
 }
 
 
@@ -166,13 +169,13 @@ void Scene::mouseMoveEvent( QGraphicsSceneMouseEvent *event ){
     ToolManager::instance()->currentTool().mouseMoveEvent(event);
 }
 
-//bool Scene::event(QEvent *event){
-//
-//    if(event->type() == QEvent::FontChange){
-//        emit fontChanged(font());
-//    }
-//    return QGraphicsScene::event(event);
-//}
+bool Scene::event(QEvent *event){
+
+    if(event->type() == QEvent::FontChange){
+        emit fontChanged(font());
+    }
+    return QGraphicsScene::event(event);
+}
 
 void Scene::setSelectable(bool b){
     m_selectable = b;
@@ -244,7 +247,7 @@ void Scene::deleteMapFeature(Feature *feature){
 
     //如果是floor或building，仅清空其轮廓
     if(feature->isClassOf("Floor")||feature->isClassOf("Building")){
-        PolygonFeature* poly = dynamic_cast<PolygonFeature*>(feature);
+        auto poly = dynamic_cast<PolygonFeature*>(feature);
         poly->outline().clear();
     }else{ //否则直接删除
         removeMapFeature(feature);

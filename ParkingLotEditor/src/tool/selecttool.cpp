@@ -2,6 +2,7 @@
 #include "../gui/documentview.h"
 #include "../core/scene.h"
 #include "../core/feature.h"
+#include "../core/room.h"
 #include <QMenu>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsSceneContextMenuEvent>
@@ -17,7 +18,6 @@ SelectTool::SelectTool(DocumentView *doc) :
 
 void SelectTool::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     Scene *scene = m_doc->scene();
-    auto size = scene->selectedItems().size();
     if(!scene->selectedItems().empty()){ //if sth selected
         auto feature = dynamic_cast<Feature*>(scene->selectedItems().at(0));
         if(feature != nullptr && feature->inherits("PolygonFeature")){ //if polygon feature selected
@@ -29,10 +29,10 @@ void SelectTool::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
                 connect(toBuildingAction, SIGNAL(triggered()), scene, SLOT(convertSelectedToBuilding()));
                 connect(toFloorAction, SIGNAL(triggered()), scene, SLOT(convertSelectedToFloor()));
-                connect(toFuncAreaAction, SIGNAL(triggered()), scene, SLOT(convertSelectedToFuncArea()));
+                connect(toFuncAreaAction, SIGNAL(triggered()), scene, SLOT(convertSelectedToRoom()));
             }
             m_contextMenu->exec(event->screenPos());
         }
+        event->accept();
     }
-    event->accept();
 }

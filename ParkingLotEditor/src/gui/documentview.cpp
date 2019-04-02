@@ -178,7 +178,9 @@ void DocumentView::updateSelection(){
         auto selectedFeature = dynamic_cast<Feature*>(mapFeature);
         m_scene->clearSelectedLayers();
         m_scene->setSelectedLayer(m_scene->currentFloor());
+        assert(m_scene->selectedItems().size() > 0);
         emit selectionChanged(selectedFeature);
+        assert(m_scene->selectedItems().size() > 0);
     }else{
         emit selectionChanged(nullptr);
     }

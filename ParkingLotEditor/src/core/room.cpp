@@ -258,6 +258,7 @@ void Room::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->button() == Qt::LeftButton && shape().contains(event->pos()))
     {
         QGraphicsItem::mousePressEvent(event);
+        this->setSelected(true);
         m_dragValid = true;
         this->setCursor(QCursor(Qt::ClosedHandCursor));
     } else {

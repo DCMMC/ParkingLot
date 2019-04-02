@@ -78,11 +78,10 @@ public slots:
     void convertSelectedToFloor();
     void convertSelectedToRoom();
 protected:
-    //virtual void event(QEvent *event);
     void mousePressEvent( QGraphicsSceneMouseEvent *event );
     void mouseReleaseEvent( QGraphicsSceneMouseEvent *event );
     void mouseMoveEvent( QGraphicsSceneMouseEvent *event );
-//    bool event(QEvent *event);
+    bool event(QEvent *event);
     //context menu
     void contextMenuEvent(QGraphicsSceneContextMenuEvent * event);
 private:
