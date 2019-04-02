@@ -16,14 +16,14 @@ class Feature : public QGraphicsObject
     Q_PROPERTY(QString brief READ brief WRITE setBrief NOTIFY briefChanged)
 
 public:
-    explicit Feature(QGraphicsItem *parent = 0);
-    explicit Feature(const QString & name, QGraphicsItem *parent = 0);
+    explicit Feature(QGraphicsItem *parent = nullptr);
+    explicit Feature(const QString & name, QGraphicsItem *parent = nullptr);
 
     bool isClassOf(const QString &className) const;
 
     //setters and getters
     int id() const;
-    void setId(const int id);
+    void setId(int id);
     const QString & enName() const;
     void setEnName(const QString & name);
     const QPointF & center() const;
@@ -39,8 +39,8 @@ public:
 
     void setParentFeature(Feature* feature);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     //io
     virtual bool load(const QJsonObject & jsonObject);

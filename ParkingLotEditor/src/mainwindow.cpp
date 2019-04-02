@@ -43,13 +43,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     m_maxRecentFiles(5),
     m_lastFilePath("."),
-    m_printer(NULL),
-    m_propertyView(NULL),
-    m_timer(NULL),
+    m_printer(nullptr),
+    m_propertyView(nullptr),
+    m_timer(nullptr),
     m_searchResultIter(m_searchResults)
 {
     ui->setupUi(this);
-    qsrand(time(0));
+    qsrand(time(nullptr));
 
     m_sceneTreeView = new QTreeView(ui->dockTreeWidget);
     ui->verticalLayout->insertWidget(0,m_sceneTreeView);
@@ -80,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionRecent->setMenu(recentFileMenu);
     //menus action
     connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
+    connect(ui->actionSetBackground, SIGNAL(triggered()), this, SLOT(setBackground()));
     connect(ui->actionSetBg, SIGNAL(triggered()), this, SLOT(setBackground()));
     connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
     connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
@@ -190,8 +191,10 @@ void MainWindow::setBackground() {
                 "设置背景图片", m_lastFilePath,
                 "全部文件 (*.jpg *.jpeg *.png *.bmp *.gif)\n"
                 "图片文件 (*.jpg *.jpeg *.png *.bmp *.gif)");
-        if(!fileName.isEmpty())
+        if(!fileName.isEmpty()) {
+            m_lastFilePath = QFileInfo(fileName).absoluteFilePath();
             this->currentDocument()->scene()->setBackground(fileName);
+        }
     }
 }
 
@@ -317,7 +320,7 @@ void MainWindow::printFile()
 }
 
 void MainWindow::printCurrent(){
-    if(m_printer == NULL)
+    if(m_printer == nullptr)
         m_printer = new QPrinter(QPrinter::HighResolution);
 
     if(!m_printer->isValid()){
@@ -430,7 +433,7 @@ bool MainWindow::okToContinue(){
 }
 
 void MainWindow::rebuildTreeView(){
-    SceneModel *model = new SceneModel(m_docView->scene()->root());
+    auto model = new SceneModel(m_docView->scene()->root());
     m_sceneTreeView->setModel(model);
     m_sceneTreeView->expandToDepth(0);
 }

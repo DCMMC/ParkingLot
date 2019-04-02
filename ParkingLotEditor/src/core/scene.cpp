@@ -179,15 +179,15 @@ void Scene::setSelectable(bool b){
 }
 
 void Scene::convertSelectedToBuilding(){
-    PolygonFeature* selectedFeature = static_cast<PolygonFeature*>(selectedItems().at(0));
+    PolygonFeature* selectedFeature = dynamic_cast<PolygonFeature*>(selectedItems().at(0));
     m_building->copy(*selectedFeature);
     deleteMapFeature(selectedFeature);
     emit buildingChanged();
 }
 
 void Scene::convertSelectedToFloor(){
-    PolygonFeature* selectedFeature = static_cast<PolygonFeature*>(selectedItems().at(0));
-    if(m_curFloor != NULL && m_curFloor->outline().empty()){
+    PolygonFeature* selectedFeature = dynamic_cast<PolygonFeature*>(selectedItems().at(0));
+    if(m_curFloor != nullptr && m_curFloor->outline().empty()){
         m_curFloor->setOutline(selectedFeature->outline());
     }else{
         addFloor(new Floor(*selectedFeature));
@@ -196,7 +196,7 @@ void Scene::convertSelectedToFloor(){
 }
 
 void Scene::convertSelectedToRoom(){
-    PolygonFeature* selectedFeature = static_cast<PolygonFeature*>(selectedItems().at(0));
+    PolygonFeature* selectedFeature = dynamic_cast<PolygonFeature*>(selectedItems().at(0));
     addRoom(new Room(*selectedFeature));
     selectedFeature->outline().clear();
 }
@@ -223,18 +223,21 @@ void Scene::deleteSelectedLayers(){
     bool isBuilding = false;
     foreach(QGraphicsItem* item, m_selectedLayers){
         if(item){
-            Feature *mapFeature = qgraphicsitem_cast<Feature*>(item);
+            auto mapFeature = qgraphicsitem_cast<Feature*>(item);
             if(mapFeature->isClassOf("Building"))
                 isBuilding = true;
             removeMapFeature(mapFeature);
             delete item;
-            item = NULL;
+//            item = nullptr;
         }
     }
     if(isBuilding){
         reset();
     }
     clearSelectedLayers();
+    if (!isBuilding) {
+        showFloor(currentFloor()->id());
+    }
 }
 
 void Scene::deleteMapFeature(Feature *feature){
@@ -246,14 +249,14 @@ void Scene::deleteMapFeature(Feature *feature){
     }else{ //否则直接删除
         removeMapFeature(feature);
         delete feature;
-        feature = NULL;
+//        feature = NULL;
     }
     emit buildingChanged();
 }
 
 void Scene::removeMapFeature(Feature *feature){
-    feature->setParent(NULL);
-    feature->setParentItem(NULL);
+    feature->setParent(nullptr);
+    feature->setParentItem(nullptr);
 }
 
 bool Scene::showFloor(int floorId) {
@@ -288,6 +291,8 @@ bool Scene::showDefaultFloor(){
 
 void Scene::setCurrentFloor(Floor *floor){
     m_curFloor = floor;
+    m_curFloor->setSelected(true);
+//    setSelectedLayer(m_curFloor);
 }
 
 Floor* Scene::currentFloor() const {
@@ -306,7 +311,7 @@ QList<QList<Feature*> > Scene::findAllRepeat(){
         const QVector<Floor*> & floors = m_building->getFloors();
         Floor* floor;
         foreach(floor, floors){
-            Q_ASSERT_X(floor != NULL, "findAllRepeat", "floor is NULL");
+            Q_ASSERT_X(floor != nullptr, "findAllRepeat", "floor is NULL");
             Room* room;
             const QList<Room *> & rooms = floor->getRooms();
             foreach (room, rooms) {
@@ -358,7 +363,6 @@ void Scene::addScale(double s) {
     mat.scale(scale, scale);
     m_building->transformFeature(mat);
     m_curScale = scale;
-
 }
 
 void Scene::setSelectedLayer(Feature *feature){
@@ -368,11 +372,13 @@ void Scene::setSelectedLayer(Feature *feature){
 
 void Scene::clearSelectedLayers(){
     m_selectedLayers.clear();
+    // SeletedLayers must have objects to ensure polygontool to get correct target Layer
+//    m_selectedLayers.append(currentFloor());
 }
 
 Feature *Scene::currentLayer(){
     if(m_selectedLayers.empty())
-        return NULL;
+        return nullptr;
     else
         return m_selectedLayers.back();
 }

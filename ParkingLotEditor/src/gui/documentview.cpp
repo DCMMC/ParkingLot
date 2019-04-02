@@ -38,9 +38,7 @@ DocumentView::DocumentView()
     connect(m_scene, SIGNAL(selectionChanged()), this, SLOT(updateSelection()));
 }
 
-DocumentView::~DocumentView()
-{
-}
+DocumentView::~DocumentView() = default;
 
 bool DocumentView::isModified()
 {
@@ -163,7 +161,7 @@ void DocumentView::printCurrentView(QPrinter *printer){
 //selection from graphics view
 void DocumentView::updateSelection(){
     QList<QGraphicsItem*> selectedItems = m_scene->selectedItems();
-    QGraphicsItem *mapFeature;
+    QGraphicsItem *mapFeature = nullptr;
     if(!selectedItems.isEmpty()){
         //textItems
         QList<QGraphicsItem*>::iterator iter;
@@ -175,7 +173,8 @@ void DocumentView::updateSelection(){
             }else
                 mapFeature = *iter;
         }
-
+        if (!mapFeature)
+            return;
         auto selectedFeature = dynamic_cast<Feature*>(mapFeature);
         m_scene->clearSelectedLayers();
         m_scene->setSelectedLayer(m_scene->currentFloor());
@@ -189,26 +188,27 @@ void DocumentView::updateSelection(){
 void DocumentView::updateSelection(const QModelIndex & index){
     auto mapFeature = static_cast<Feature*>(index.internalPointer());
 
-
     QString className = mapFeature->metaObject()->className();
-    qDebug() << "Debug: update tree view." << className << "\n";
     //a floor selected, change the visible floor
     if(!className.compare("Building")){
         QObject *floorObject;
         foreach (floorObject, m_scene->building()->children()) {
-                dynamic_cast<Feature*>(floorObject)->setVisible(false);
+            dynamic_cast<Feature*>(floorObject)->setVisible(false);
         }
-        m_scene->setCurrentFloor(nullptr);
+        m_scene->showDefaultFloor();
+//        m_scene->setCurrentFloor(nullptr);
     }
     //a floor selected, change the visible floor
     else if( !className.compare("Floor")){
-        QObject *floorObject;
-        foreach (floorObject, m_scene->building()->children()) {
+        if (m_scene->currentFloor()->id() != mapFeature->id() && !mapFeature->isSelected()) {
+            QObject *floorObject;
+                foreach (floorObject, m_scene->building()->children()) {
                 dynamic_cast<Feature*>(floorObject)->setVisible(false);
+            }
+            mapFeature->setVisible(true);
+            auto floor = dynamic_cast<Floor*>(mapFeature);
+            m_scene->setCurrentFloor(floor);
         }
-        mapFeature->setVisible(true);
-        Floor *floor = dynamic_cast<Floor*>(mapFeature);
-        m_scene->setCurrentFloor(floor);
     }
     //a room or pubPoint selected, change the visible floor
    // else if( !className.compare("Room") || !className.compare("PubPoint") || !className.compare("ImageLayer")){
@@ -219,17 +219,17 @@ void DocumentView::updateSelection(const QModelIndex & index){
             foreach (floor, m_scene->building()->children()) {
                     dynamic_cast<Feature*>(floor)->setVisible(false);
             }
+//            if (!parent->isVisible() && m_scene->currentFloor()->id() != parent->id())
             parent->setVisible(true);
             m_scene->setCurrentFloor(dynamic_cast<Floor*>(parent));
         }
         m_scene->clearSelection();
-        mapFeature->setSelected(true);
     }
+    mapFeature->setSelected(true);
     m_scene->setSelectedLayer(mapFeature);
     this->update();
 
     emit selectionChanged(mapFeature);
-    qDebug() << "finished.\n";
 }
 
 Scene * DocumentView::scene() const{

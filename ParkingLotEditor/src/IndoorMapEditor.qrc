@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>src/icon/background.png</file>
         <file>src/icon/copy.png</file>
         <file>src/icon/cut.png</file>
         <file>src/icon/editredo.png</file>

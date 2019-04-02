@@ -37,8 +37,8 @@ void Feature::setBrief(const QString & brief)
 }
 
 bool Feature::isClassOf(const QString &className) const {
-    QString myClassName;
-    myClassName = this->metaObject()->className();
+    auto a = this->metaObject();
+    QString myClassName = this->metaObject()->className();
     return (!myClassName.compare(className));
 }
 int Feature::id() const

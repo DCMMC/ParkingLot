@@ -112,6 +112,7 @@
    </attribute>
    <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
+   <addaction name="actionSetBackground"/>
    <addaction name="actionSave"/>
    <addaction name="actionPrint"/>
    <addaction name="separator"/>
@@ -249,6 +250,19 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSetBackground">
+   <property name="icon">
+    <iconset resource="IndoorMapEditor.qrc">
+      <normaloff>:/src/icon/background.png</normaloff>:/src/icon/background.png
+    </iconset>
+   </property>
+   <property name="text">
+    <string>设置背景图</string>
+   </property>
+   <property name="toolTip">
+    <string>设置背景图</string>
    </property>
   </action>
   <action name="actionSetBg">
