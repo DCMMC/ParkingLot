@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js ie" lang="en-us"><![endif]-->
+<!--[if gte IE 9]>--><html class="no-js" lang="en-us"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>404 未找到</title>
+    <meta name="description" content="404">
+    <meta name="og:title" content="404 未找到">
+    <meta name="og:description" content="404">
+    <meta name="og:site_name" content="Booom Slim">
+    <meta name="article:author" content="DCMMC">
+    <meta name="og:image:width" content="1500">
+    <meta name="og:image:height" content="750">
+    <meta property="fb:admins" content="930628" />
+    <script>
+(function(w){
+	"use strict";
+	/* exported loadCSS */
+	var loadCSS = function( href, before, media ){
+		// Arguments explained:
+		// `href` [REQUIRED] is the URL for your CSS file.
+		// `before` [OPTIONAL] is the element the script should use as a reference for injecting our stylesheet <link> before
+			// By default, loadCSS attempts to inject the link after the last stylesheet or script in the DOM. However, you might desire a more specific location in your document.
+		// `media` [OPTIONAL] is the media type or query of the stylesheet. By default it will be 'all'
+		var doc = w.document;
+		var ss = doc.createElement( "link" );
+		var ref;
+		if( before ){
+			ref = before;
+		}
+		else {
+			var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+			ref = refs[ refs.length - 1];
+		}
+
+		var sheets = doc.styleSheets;
+		ss.rel = "stylesheet";
+		ss.href = href;
+		// temporarily set media to something inapplicable to ensure it'll fetch without blocking render
+		ss.media = "only x";
+
+		// Inject link
+			// Note: the ternary preserves the existing behavior of "before" argument, but we could choose to change the argument to "after" in a later release and standardize on ref.nextSibling for all refs
+			// Note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+		// A method (exposed on return object for external use) that mimics onload by polling until document.styleSheets until it includes the new sheet.
+		var onloadcssdefined = function( cb ){
+			var resolvedHref = ss.href;
+			var i = sheets.length;
+			while( i-- ){
+				if( sheets[ i ].href === resolvedHref ){
+					return cb();
+				}
+			}
+			setTimeout(function() {
+				onloadcssdefined( cb );
+			});
+		};
+
+		// once loaded, set link's media back to `all` so that the stylesheet applies once it loads
+		ss.onloadcssdefined = onloadcssdefined;
+		onloadcssdefined(function() {
+			ss.media = media || "all";
+		});
+		return ss;
+	};
+	// commonjs
+	if( typeof module !== "undefined" ){
+		module.exports = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ));
+
+
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js')
+    // loadCSS('/404/css/fonts.css')
+    </script>
+    <link rel="stylesheet" href="/404/css/index.css">
+    <link rel="apple-touch-icon-precomposed" href="404/images/favicon.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="/404/images/favicon.png">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <noscript><link rel="stylesheet" href="404/css/noscript.css"></noscript>
+  </head>
+  <body class="bg-teal container container-wide px1 sm-px2 md-px4" spellcheck="false">
+    <main id="main" class="px1 sm-px2 md-px4 py2">
+  <div class="container white">
+    <div id="404" class="p2 lg-py4 h4 sm-col-10 md-col-9 mx-auto clearfix">
+      <h1 class="h2 md-h0 h0-responsive uppercase mt3 mb3 regular relative mxn1 white" aria-label="404 -- Page not found">
+        <pre contenteditable class="z1 block relative top-0 left-0 not-rounded left-align plaintext pre p1 speak-none hint" style="text-align: center;" data-hint="Edit me…">404--Page<br>Not&nbsp;Found</pre>
+        <pre class="block absolute top-0 left-0 not-rounded muted p1 speak-none" style="text-align: left;">Booom--Slim&nbsp;<br>&nbsp;Backend&nbsp;</pre>
+      </h1>
+      <p>对不起，当前 URL 未找到。你可以:</p>
+      <ul>
+        <li>进入 <a href="/view-coach.html">查看教练信息界面</a></li>
+        <li>进入 <a href="/view-student.html">查看学员信息界面</a></li>
+        <li>进入 <a href="/add-coach.html">添加教练信息界面</a></li>
+        <li>进入 <a href="/add-student.html">添加学员信息界面</a></li>
+        <li>留在 <a href="/404/404.html">这里</a> 继续欣赏</li>
+      </ul>
+      </div>
+  </div>
+</main>
+
+<script src="/404/js/404.js"></script>
+    <script>
+      // Respect “Do Not Track”
+      var track = navigator ? !navigator.doNotTrack : false
+
+      if (track) {
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-7821813-2', 'auto');
+      ga('set', 'anonymizeIp', true); // https://support.google.com/analytics/answer/2905384?hl=en
+      ga('create','UA-23393770-10','auto','koTracker');ga('send','pageview');ga('koTracker.send','pageview');
+      } else {
+        console.info('Respecting Do Not Track')
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: mongo:latest
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      # - MONGODB_USER="user"
+      # - MONGODB_PASS="pass"
+    volumes:
+      - ./mongo_db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod
+    restart: on-failure
+    # macOS compatiable
+    network_mode: host
+
+  demo:
+    restart: on-failure
+    build: ./parking_lot
+    image: parking_lot:latest
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "off"
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@127.0.0.1:5432/BooomSlim_db
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
+      DJANGO_MANAGEPY_COLLECTSTATIC: "on"
+    command: bash -c "python3 -m pipenv run python ./parking_lot/manage.py runserver 0.0.0.0:8080 --insecure"
+    network_mode: host
+    volumes:
+      - ./parking_lot:/project/parking_lot
+    ports:
+      - 8080:8080
+    depends_on:
+    # links:
+      - db
