@@ -2320,39 +2320,6 @@
                         "Type": "400",
                         "_id": 1259662,
                         "dianping_id": -1
-                    },
-                    {
-                        "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
-                        "Brief": "",
-                        "Category": 109,
-                        "Center": [
-                            177,
-                            76
-                        ],
-                        "MateId": 0,
-                        "Name": "",
-                        "Name_en": "",
-                        "Outline": [
-                            [
-                                [
-                                    163,
-                                    90,
-                                    192,
-                                    94,
-                                    191,
-                                    60,
-                                    162,
-                                    60
-                                ]
-                            ]
-                        ],
-                        "ShopNo": "",
-                        "SortType": 0,
-                        "Type": "400",
-                        "_id": 1367948,
-                        "dianping_id": -1
                     }
                 ],
                 "High": 4,
