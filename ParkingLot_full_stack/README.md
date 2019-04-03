@@ -10,6 +10,8 @@ ParkingLot_full_stack
 $ docker-compose up
 ```
 
+等待自动创建容器, 下载安装依赖, 编译完成之后在浏览器浏览 `localhost:8080`
+
 > 依赖 `docker-compose` 和 `Docker`
 
 > 可以使用 `docker-compose up --build` 强制重新构建容器
@@ -23,6 +25,7 @@ $ docker-compose up
 ## 1.1 技术栈
 
 * Docker
+* hyperlpr 中国车牌识别
 
 前端:
 
