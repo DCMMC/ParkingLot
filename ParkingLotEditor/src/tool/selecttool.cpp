@@ -23,9 +23,9 @@ void SelectTool::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
         if(feature != nullptr && feature->inherits("PolygonFeature")){ //if polygon feature selected
             if(m_contextMenu == nullptr){ //create the menu
                 m_contextMenu = new QMenu();
-                QAction *toBuildingAction = m_contextMenu->addAction("设为建筑");
+                QAction *toBuildingAction = m_contextMenu->addAction("设为停车场");
                 QAction *toFloorAction = m_contextMenu->addAction("设为楼层");
-                QAction *toFuncAreaAction = m_contextMenu->addAction("设为房间");
+                QAction *toFuncAreaAction = m_contextMenu->addAction("设为实体");
 
                 connect(toBuildingAction, SIGNAL(triggered()), scene, SLOT(convertSelectedToBuilding()));
                 connect(toFloorAction, SIGNAL(triggered()), scene, SLOT(convertSelectedToFloor()));

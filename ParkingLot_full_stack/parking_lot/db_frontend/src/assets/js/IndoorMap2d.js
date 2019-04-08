@@ -145,13 +145,14 @@ var IndoorMap2d = function(mapdiv){
 
     //get the selected object
     this.getSelectedId = function(){
-        var id;
-        if(_selected && _selected.BrandShop) {
-            id = _selected.BrandShop;
-        }else{
-            id = -1;
-        }
-        return id;
+        // var id;
+        // if(_selected && _selected.BrandShop) {
+        //     id = _selected.BrandShop;
+        // }else{
+        //     id = -1;
+        // }
+        // return id;
+        return -1;
     }
 
     //the callback function when sth is selected
@@ -161,13 +162,14 @@ var IndoorMap2d = function(mapdiv){
     }
 
     //select object by id
+    // TODO: 更改为按照ParkingNo来选择
     this.selectById = function(id){
         var floor = _this.mall.getCurFloor();
         for(var i = 0; i < floor.FuncAreas.length; i++){
-            if(floor.FuncAreas[i].BrandShop && floor.FuncAreas[i].BrandShop == id) {
-                _this.deselectAll();
-                _this.select(floor.FuncAreas[i]);
-            }
+            // if(floor.FuncAreas[i].BrandShop && floor.FuncAreas[i].BrandShop == id) {
+            //     _this.deselectAll();
+            //     _this.select(floor.FuncAreas[i]);
+            // }
         }
     }
 

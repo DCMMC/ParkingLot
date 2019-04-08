@@ -86,6 +86,7 @@ var IndoorMap3d = function(mapdiv){
         _theme = default3dTheme;
         loader.load(fileName, function(mall){
             _this.mall = mall;
+            // console.log('load ' + _this.mall)
             _scene.add(_this.mall.root);
             _scene.mall = mall;
             if(callback) {
@@ -109,6 +110,7 @@ var IndoorMap3d = function(mapdiv){
         }
         _this.mall = ParseModel(json, _this.is3d, _theme);
         _scene.mall = _this.mall;
+        console.log('parse: ' + _this.mall)
         _this.showFloor(_this.mall.getDefaultFloorId());
         _this.renderer.setClearColor(_theme.background);
         _scene.add(_this.mall.root);
@@ -123,7 +125,10 @@ var IndoorMap3d = function(mapdiv){
         var camDir = [Math.cos(camAngle), Math.sin(camAngle)];
         var camLen = 500;
         var tiltAngle = 75.0 * Math.PI/180.0;
-        _this.camera.position.set(camDir[1]*camLen, Math.sin(tiltAngle) * camLen, camDir[0]*camLen);//TODO: adjust the position automatically
+        _this.camera.position.set(camDir[1]*camLen,
+                                    Math.sin(tiltAngle) * camLen,
+                                    camDir[0]*camLen);
+        //TODO: adjust the position automatically
         _this.camera.lookAt(_scene.position);
 
         _controls.reset();
@@ -240,6 +245,24 @@ var IndoorMap3d = function(mapdiv){
         }
     }
 
+    // DCMMC: 通过停车位号码来更改停车位占用信息
+    this.updateParkingLotStatus = function(parkingNo, status,
+            floor_id = null) {
+        if (floor_id === null) {
+            floor_id = _this.mall.getCurFloorId();
+        }
+        var floor = _this.mall.getFloor(floor_id);
+        for(var i = 0; i < floor.children.length; i++){
+            if(floor.children[i].parkingNo &&
+                    floor.children[i].parkingNo == parkingNo) {
+                floor.children[i].material.color = 
+                    new THREE.Color(_theme.selected);
+            }
+        }
+        redraw();
+        return _this;
+    }
+
     //select object(just hight light it)
     function select(obj){
         obj.currentHex = _selected.material.color.getHex();
@@ -302,7 +325,6 @@ var IndoorMap3d = function(mapdiv){
             }
         }
         redraw();
-
     }
 
     function redraw(){

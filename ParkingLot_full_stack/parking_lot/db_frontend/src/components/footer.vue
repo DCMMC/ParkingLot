@@ -2,6 +2,7 @@
   <v-footer
       height="auto"
       color="primary lighten-1"
+      style="padding-top: 50px;"
     >
     <v-layout
       justify-center

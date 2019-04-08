@@ -193,11 +193,13 @@ void DocumentView::updateSelection(const QModelIndex & index){
     QString className = mapFeature->metaObject()->className();
     //a floor selected, change the visible floor
     if(!className.compare("Building")){
-        QObject *floorObject;
-        foreach (floorObject, m_scene->building()->children()) {
-            dynamic_cast<Feature*>(floorObject)->setVisible(false);
-        }
-        m_scene->showDefaultFloor();
+        // 啥也不做了...
+        // 反正只有一个停车场
+//        QObject *floorObject;
+//        foreach (floorObject, m_scene->building()->children()) {
+//            dynamic_cast<Feature*>(floorObject)->setVisible(false);
+//        }
+//        m_scene->showDefaultFloor();
 //        m_scene->setCurrentFloor(nullptr);
     }
     //a floor selected, change the visible floor

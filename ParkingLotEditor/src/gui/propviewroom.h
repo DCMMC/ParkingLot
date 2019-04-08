@@ -20,32 +20,32 @@ class PropViewRoom : public PropertyView
     Q_OBJECT
 public:
     explicit PropViewRoom(Feature *mapFeature, QWidget *parent = 0);
-    ~PropViewRoom();
-    virtual bool match(const Feature *mapFeature) const;
-    virtual void updateWidgets();
+    ~PropViewRoom() override;
+    bool match(const Feature *mapFeature) const override;
+    void updateWidgets() override;
 public slots:
-   void updateShopNo(const QString &shopNo);
+   void updateParkingNo(const QString &parkingNo);
    void updateArea(const QString &area);
-   void updateDianpingId(const QString &dpId);
-   void updateMateId(const QString &mateId);
-   void onQuery();
-   void queryFinished();
-   void addJsObject();
+//   void updateDianpingId(const QString &dpId);
+//   void updateMateId(const QString &mateId);
+//   void onQuery();
+//   void queryFinished();
+//   void addJsObject();
    void updateSortType(const QString &sortType);
-   void updateAreaStatus(const int state);
+   void updateAreaStatus(int state);
 
 private:
    QString getSortTypeName(Room::SORT_TYPE sortType);
 
-    QPushButton *m_queryButton;
-    QLineEdit *m_shopNoEdit;
+//    QPushButton *m_queryButton;
+    QLineEdit *m_parkingNoEdit;
     QLineEdit *m_areaEdit;
-    QLineEdit *m_dianpingIdEdit;
-    QPushButton *m_checkDianpingBtn;
-    QLineEdit *m_mateIdEdit;
+//    QLineEdit *m_dianpingIdEdit;
+//    QPushButton *m_checkDianpingBtn;
+//    QLineEdit *m_mateIdEdit;
     Room *m_room;
-    QComboBox * m_typeComboBox; //业态类别
-    QComboBox * m_sortComboBox; //铺位类别
+//    QComboBox * m_typeComboBox; //业态类别
+    QComboBox * m_sortComboBox; // 实体类别
     QCheckBox * m_vacancyCheckBox;
 };
 

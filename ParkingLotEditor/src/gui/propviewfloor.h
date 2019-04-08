@@ -22,7 +22,8 @@ public slots:
 private:
     QLineEdit * m_heightEdit;
     QLabel * m_funcAreaNumLabel;
-    QLabel * m_pubPointNumLabel;
+    QLabel * m_inDoorNumLabel;
+    QLabel * m_outDoorNumLabel;
 
 };
 

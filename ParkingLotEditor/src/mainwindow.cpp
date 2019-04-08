@@ -64,14 +64,14 @@ MainWindow::MainWindow(QWidget *parent) :
     toolActionGroup->addAction(ui->actionSelectTool);
     toolActionGroup->addAction(ui->actionPolygonTool);
     toolActionGroup->addAction(ui->actionPubPointTool);
-    toolActionGroup->addAction(ui->actionMergeTool);
-    toolActionGroup->addAction(ui->actionSplitTool);
+//    toolActionGroup->addAction(ui->actionMergeTool);
+//    toolActionGroup->addAction(ui->actionSplitTool);
     toolActionGroup->addAction(ui->actionScaleTool);
 
     //recent file actions
     QMenu *recentFileMenu = new QMenu(this);
     m_recentFileActions.resize(m_maxRecentFiles);
-    for(int i = 0; i < m_recentFileActions.size(); i++){
+    for (int i = 0; i < m_recentFileActions.size(); i++){
         m_recentFileActions[i]= new QAction(this);
         m_recentFileActions[i]->setVisible(false);
         connect(m_recentFileActions[i], SIGNAL(triggered()), this, SLOT(openRecentFile()));
@@ -109,10 +109,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionPolygonTool, SIGNAL(triggered()), this, SLOT(setPolygonTool()));
     connect(ui->actionSelectTool, SIGNAL(triggered()), this, SLOT(setSelectTool()));
     connect(ui->actionPubPointTool, SIGNAL(triggered()), this, SLOT(setPubPointTool()));
-    connect(ui->actionMergeTool, SIGNAL(triggered()), this, SLOT(setMergeTool()));
-    connect(ui->actionSplitTool, SIGNAL(triggered()), this, SLOT(setSplitTool()));
+//    connect(ui->actionMergeTool, SIGNAL(triggered()), this, SLOT(setMergeTool()));
+//    connect(ui->actionSplitTool, SIGNAL(triggered()), this, SLOT(setSplitTool()));
     connect(ui->actionScaleTool, SIGNAL(triggered()), this, SLOT(setScaleTool()));
-
 
     //other actions
     connect(m_sceneTreeView, SIGNAL(clicked(QModelIndex)), m_docView, SLOT(updateSelection(QModelIndex)));
@@ -125,15 +124,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_docView->scene()->setFont(QFont(tr("微软雅黑"), 26));
 
-    //autosave
-    m_autoSaveTime = 300000; //autosave every 5min
+    // Auto Save
+    m_autoSaveTime = 30000; // Auto save every 30sec
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(autoSave()) );
     m_timer->start(m_autoSaveTime);
 
     setAcceptDrops(true);
     readSettings();
-    QSettings settings("Wolfwind", "IndoorMapEditor");
+    QSettings settings("DCMMC", "ParkingLotEditor");
     settings.setValue("normallyClosed", false);
 }
 
@@ -200,7 +199,7 @@ void MainWindow::setBackground() {
 
 void MainWindow::openRecentFile(){
     if(okToContinue()){
-        QAction *action = qobject_cast<QAction *>(sender());
+        auto action = qobject_cast<QAction *>(sender());
         if(action){
             openDocument(action->data().toString());
         }
@@ -360,18 +359,18 @@ void MainWindow::setCurrentFile(const QString & fileName){
     m_curFile = fileName;
     currentDocument()->setModified(false);
 
-    QString shownName = tr("Untitle");
+    QString shownName = tr("未命名");
     if(! m_curFile.isEmpty()){
         shownName = QFileInfo(fileName).fileName();
         m_recentFiles.removeAll(m_curFile);
         m_recentFiles.prepend(m_curFile);
         updateRecentFileActions();
     }
-    setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("IndoorMap Editor")));
+    setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("停车场编辑器")));
 }
 
 void MainWindow::readSettings(){
-    QSettings settings("Wolfwind", "IndoorMapEditor");
+    QSettings settings("DCMMC", "ParkingLotEditor");
 
     bool normallyClosed = settings.value("normallyClosed", false).toBool();
     if(!normallyClosed){

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     MainWindow w;
 
-    QCoreApplication::setApplicationName("IndoorMap Editor. ");
+    QCoreApplication::setApplicationName("停车场编辑器");
     QCoreApplication::setApplicationVersion("1.14");
 
     //解析命令行参数

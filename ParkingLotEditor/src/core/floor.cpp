@@ -60,7 +60,7 @@ bool Floor::load(const QJsonObject &jsonObject) {
     QJsonArray imageArray = jsonObject["ImageLayer"].toArray();
     for(int i = 0; i < imageArray.size(); ++i){
         QJsonObject imageObject = imageArray[i].toObject();
-        ImageLayer* imageLayer = new ImageLayer(this);
+        auto imageLayer = new ImageLayer(this);
         if(!imageLayer->load(imageObject)){
 
         }
@@ -88,15 +88,15 @@ bool Floor::save(QJsonObject &jsonObject) const
         QString className = object->metaObject()->className();
         if(className == "Room"){
             QJsonObject roomObject;
-            static_cast<Room*>(object)->save(roomObject);
+            dynamic_cast<Room*>(object)->save(roomObject);
             roomArray.append(roomObject);
         }else if(className == "PubPoint"){
             QJsonObject pubObject;
-            static_cast<PubPoint*>(object)->save(pubObject);
+            dynamic_cast<PubPoint*>(object)->save(pubObject);
             pubArray.append(pubObject);
         }else if(className == "ImageLayer"){
             QJsonObject imageObject;
-            static_cast<ImageLayer*>(object)->save(imageObject);
+            dynamic_cast<ImageLayer*>(object)->save(imageObject);
             imageArray.append(imageObject);
         }
     }
@@ -145,10 +145,9 @@ void Floor::transformFeature(const QMatrix &mat)
 
     const QList<QGraphicsItem*> & children = this->childItems();
     foreach (QGraphicsItem* item, children) {
-        Feature *mapFeature = static_cast<Feature*>(item);
-        if(mapFeature != NULL){
+        auto mapFeature = dynamic_cast<Feature*>(item);
+        if(mapFeature){
             mapFeature->transformFeature(mat);
         }
     }
-
 }

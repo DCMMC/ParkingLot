@@ -141,8 +141,8 @@
    <addaction name="actionPolygonTool"/>
    <addaction name="actionPubPointTool"/>
    <addaction name="separator"/>
-   <addaction name="actionMergeTool"/>
-   <addaction name="actionSplitTool"/>
+<!--   <addaction name="actionMergeTool"/>-->
+<!--   <addaction name="actionSplitTool"/>-->
    <addaction name="separator"/>
    <addaction name="actionScaleTool"/>
    <addaction name="separator"/>
@@ -547,36 +547,36 @@
     <string>重置场景缩放</string>
    </property>
   </action>
-  <action name="actionMergeTool">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="IndoorMapEditor.qrc">
-     <normaloff>:/src/icon/merge.png</normaloff>:/src/icon/merge.png</iconset>
-   </property>
-   <property name="text">
-    <string>合并</string>
-   </property>
-   <property name="toolTip">
-    <string>合并形状工具</string>
-   </property>
-  </action>
-  <action name="actionSplitTool">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="IndoorMapEditor.qrc">
-     <normaloff>:/src/icon/split.png</normaloff>:/src/icon/split.png</iconset>
-   </property>
-   <property name="text">
-    <string>分裂</string>
-   </property>
-   <property name="toolTip">
-    <string>分裂形状工具</string>
-   </property>
-  </action>
+<!--  <action name="actionMergeTool">-->
+<!--   <property name="checkable">-->
+<!--    <bool>true</bool>-->
+<!--   </property>-->
+<!--   <property name="icon">-->
+<!--    <iconset resource="IndoorMapEditor.qrc">-->
+<!--     <normaloff>:/src/icon/merge.png</normaloff>:/src/icon/merge.png</iconset>-->
+<!--   </property>-->
+<!--   <property name="text">-->
+<!--    <string>合并</string>-->
+<!--   </property>-->
+<!--   <property name="toolTip">-->
+<!--    <string>合并形状工具</string>-->
+<!--   </property>-->
+<!--  </action>-->
+<!--  <action name="actionSplitTool">-->
+<!--   <property name="checkable">-->
+<!--    <bool>true</bool>-->
+<!--   </property>-->
+<!--   <property name="icon">-->
+<!--    <iconset resource="IndoorMapEditor.qrc">-->
+<!--     <normaloff>:/src/icon/split.png</normaloff>:/src/icon/split.png</iconset>-->
+<!--   </property>-->
+<!--   <property name="text">-->
+<!--    <string>分裂</string>-->
+<!--   </property>-->
+<!--   <property name="toolTip">-->
+<!--    <string>分裂形状工具</string>-->
+<!--   </property>-->
+<!--  </action>-->
   <action name="actionScaleTool">
    <property name="checkable">
     <bool>true</bool>

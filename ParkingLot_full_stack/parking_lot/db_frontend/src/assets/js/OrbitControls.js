@@ -169,6 +169,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
         scale *= zoomScale;
 
+        console.log('zoom out: sclae=' + scale)
     };
 
     this.pan = function ( distance ) {
@@ -520,13 +521,13 @@ THREE.OrbitControls = function ( object, domElement ) {
         scope.dispatchEvent( endEvent );
 
     }
-
     this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
     this.domElement.addEventListener( 'mousedown', onMouseDown, false );
-    this.domElement.addEventListener( 'mousewheel', onMouseWheel,
-                                        { passive: false } );
-    this.domElement.addEventListener( 'DOMMouseScroll', onMouseWheel,
-                                        { passive: false } ); // firefox
+    // DCMMC: 暂时把鼠标滚轮事件取消
+    // this.domElement.addEventListener( 'mousewheel', onMouseWheel,
+                                        // { passive: false } );
+    // this.domElement.addEventListener( 'DOMMouseScroll', onMouseWheel,
+                                        // { passive: false } ); // firefox
     this.domElement.addEventListener( 'touchstart', touchstart, false );
 
     window.addEventListener( 'keydown', onKeyDown, false );

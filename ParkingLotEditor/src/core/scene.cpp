@@ -26,7 +26,7 @@ void Scene::reset(){
     Floor::resetMaxFloorId();
     m_building = NULL;
     createRoot();
-    setBuilding(new Building(tr("未命名建筑")));
+    setBuilding(new Building(tr("未命名停车场")));
     setSelectedLayer(m_building);
     update();
 }
@@ -52,8 +52,7 @@ void Scene::setBuilding(Building *building)
 {
     if(m_building == building)
         return;
-    if(m_building != NULL) //delete the old one
-        delete m_building;
+    delete m_building;
 
     m_building = building;
     m_building->setParentItem(m_root);
@@ -169,13 +168,13 @@ void Scene::mouseMoveEvent( QGraphicsSceneMouseEvent *event ){
     ToolManager::instance()->currentTool().mouseMoveEvent(event);
 }
 
-bool Scene::event(QEvent *event){
-
-    if(event->type() == QEvent::FontChange){
-        emit fontChanged(font());
-    }
-    return QGraphicsScene::event(event);
-}
+//bool Scene::event(QEvent *event){
+//
+//    if(event->type() == QEvent::FontChange){
+//        emit fontChanged(font());
+//    }
+//    return QGraphicsScene::event(event);
+//}
 
 void Scene::setSelectable(bool b){
     m_selectable = b;

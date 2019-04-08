@@ -41,9 +41,7 @@ PropViewBuilding::PropViewBuilding(Feature *mapFeature, QWidget *parent):
     connect(m_telEdit, SIGNAL(textEdited(QString)), this, SLOT(updateTelEdit(QString)));
 }
 
-PropViewBuilding::~PropViewBuilding() {
-
-}
+PropViewBuilding::~PropViewBuilding() = default;
 
 bool PropViewBuilding::match(const Feature *mapFeature) const {
     return mapFeature->isClassOf("Building");

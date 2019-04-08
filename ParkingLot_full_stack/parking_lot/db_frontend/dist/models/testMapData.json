@@ -436,7 +436,7 @@
                     },
                     {
                         "Area": 43,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "入口",
                         "Center": [
                             -253,
@@ -2050,7 +2050,7 @@
                         "_id": 1259662
                     }
                 ],
-                "High": 4,
+                "High": 10,
                 "ImageLayer": [
                 ],
                 "Name": "1",
@@ -2101,8 +2101,8 @@
             "Brief": "停车场",
             "FloorsId": "1",
             "FrontAngle": 0.005996929608693743,
-            "GroundFloors": 2,
-            "High": 0,
+            "GroundFloors": 3,
+            "High": 10,
             "Mall": 2,
             "Name": "停车场",
             "Name_en": "停车场",

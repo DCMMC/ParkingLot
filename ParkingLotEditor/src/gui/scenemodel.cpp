@@ -108,14 +108,14 @@ QVariant SceneModel::data(const QModelIndex &index, int role) const
     }
     if(role == Qt::DisplayRole){
         if(index.column() == 0){
-            Feature * feature = static_cast<Feature *>( index.internalPointer() );
+            auto feature = static_cast<Feature *>( index.internalPointer() );
             QString className = feature->metaObject()->className();
-            if(className == "Room"){
-                Room *room = static_cast<Room*>(feature);
-                if(room->dianpingId() != 0 && room->dianpingId() != -1){
-                    return room->objectName() + '(' + QString::number(room->dianpingId()) + ')';
-                }
-            }
+//            if(className == "Room"){
+//                Room *room = static_cast<Room*>(feature);
+//                if(room->dianpingId() != 0 && room->dianpingId() != -1){
+//                    return room->objectName() + '(' + QString::number(room->dianpingId()) + ')';
+//                }
+//            }
             return feature->objectName();
         }
     }

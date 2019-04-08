@@ -11,8 +11,8 @@ class PolygonFeature : public Feature
 {
     Q_OBJECT
 public:
-    PolygonFeature(QGraphicsItem *parent = 0);
-    PolygonFeature(const QString & name, QGraphicsItem *parent = 0);
+    explicit PolygonFeature(QGraphicsItem *parent = nullptr);
+    explicit PolygonFeature(const QString & name, QGraphicsItem *parent = nullptr);
     PolygonFeature( const QString & name, int id);
     PolygonFeature( const QString & name, const QPolygon& poly);
 
@@ -22,22 +22,22 @@ public:
     QPolygon & outline();
     void setOutline(const QVector<QPoint> & points);
     double area();
-    void setArea(const double area);
+    void setArea(double area);
 
     //add a point to tail
     void addPoint(const QPoint & p);
 
     //move the point at @id by @vector
-    void movePoint(const int id, const QPoint & vector);
+    void movePoint(int id, const QPoint & vector);
 
     //move the point at @id to @point
-    void movePointTo(const int id, const QPoint & point);
+    void movePointTo(int id, const QPoint & point);
 
     //insert a @point at @id
-    void insertPoint(const int id, const QPoint & p);
+    void insertPoint(int id, const QPoint & p);
 
     //remove the point at @id
-    void removePoint(const int id);
+    void removePoint(int id);
 
     int PointNum() const;
 
@@ -54,15 +54,15 @@ public:
     QPointF computeMainDir();
 
     //QGraphicsItem functions
-    QRectF boundingRect() const;
-    QPainterPath shape() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    QPainterPath shape() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     //io
-    virtual bool load(const QJsonObject & jsonObject);
-    virtual bool save(QJsonObject & jsonObject) const;
+    bool load(const QJsonObject & jsonObject) override;
+    bool save(QJsonObject & jsonObject) const override;
 
-    virtual void transformFeature(const QMatrix &matrix);
+    void transformFeature(const QMatrix &matrix) override;
 protected:
 
     double m_frontAngle;

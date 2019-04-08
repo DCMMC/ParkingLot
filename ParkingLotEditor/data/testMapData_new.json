@@ -436,7 +436,7 @@
                     },
                     {
                         "Area": 43,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "入口",
                         "Center": [
                             -253,
@@ -2048,9 +2048,38 @@
                         "SortType": 4,
                         "Type": "400",
                         "_id": 1259662
+                    },
+                    {
+                        "Area": 7,
+                        "AreaStatus": 1,
+                        "Brief": "",
+                        "Center": [
+                            177,
+                            72
+                        ],
+                        "Name": "",
+                        "Name_en": "",
+                        "Outline": [
+                            [
+                                [
+                                    164,
+                                    86,
+                                    193,
+                                    88,
+                                    189,
+                                    59,
+                                    162,
+                                    58
+                                ]
+                            ]
+                        ],
+                        "ParkingNo": "",
+                        "SortType": 1,
+                        "Type": "400",
+                        "_id": 1780258
                     }
                 ],
-                "High": 4,
+                "High": 10,
                 "ImageLayer": [
                 ],
                 "Name": "1",
@@ -2092,6 +2121,54 @@
                 "PubPoint": [
                 ],
                 "_id": 1
+            },
+            {
+                "Area": 1359,
+                "Brief": "1",
+                "FuncAreas": [
+                ],
+                "High": 10,
+                "ImageLayer": [
+                ],
+                "Name": "2",
+                "Name_en": "2",
+                "Outline": [
+                    [
+                        [
+                            -134,
+                            -153,
+                            308,
+                            -32,
+                            344,
+                            -5,
+                            349,
+                            20,
+                            210,
+                            193,
+                            -248,
+                            77,
+                            -302,
+                            56,
+                            -318,
+                            24,
+                            -267,
+                            -59,
+                            -232,
+                            -91,
+                            -205,
+                            -85,
+                            -188,
+                            -79,
+                            -172,
+                            -97,
+                            -172,
+                            -105
+                        ]
+                    ]
+                ],
+                "PubPoint": [
+                ],
+                "_id": 2
             }
         ],
         "building": {
@@ -2099,10 +2176,10 @@
             "Address": "",
             "Area": 1557,
             "Brief": "停车场",
-            "FloorsId": "1",
+            "FloorsId": "1,2",
             "FrontAngle": 0.005996929608693743,
-            "GroundFloors": 2,
-            "High": 0,
+            "GroundFloors": 4,
+            "High": 10,
             "Mall": 2,
             "Name": "停车场",
             "Name_en": "停车场",

@@ -213,7 +213,7 @@ function Mall(){
     this.is3d = true;
     this.jsonData = null; //original json data
 
-    var _curFloorId;
+    this._curFloorId = null;
 
     //get building id
     this.getBuildingId = function(){
@@ -227,7 +227,7 @@ function Mall(){
     }
     //get current floor id
     this.getCurFloorId = function() {
-        return _curFloorId;
+        return _this._curFloorId;
     }
 
     //get floor num
@@ -257,7 +257,7 @@ function Mall(){
 
     //get current floor
     this.getCurFloor = function() {
-        return _this.getFloor(_curFloorId);
+        return _this.getFloor(_this._curFloorId);
     }
 
     //get Floor's json data
@@ -287,7 +287,7 @@ function Mall(){
                 }
             }
         }
-        _curFloorId = id;
+        _this._curFloorId = id;
     }
 
     //show the whole building
@@ -310,7 +310,7 @@ function Mall(){
         }
         this.building.scale.set(1,1,offset);
 
-        _curFloorId = 0;
+        _this._curFloorId = 0;
 
         return _this.root;
     }
@@ -318,6 +318,7 @@ function Mall(){
 
 //----------------------------theme--------------------------------------
 
+// TODO: 重构成 default3dTheme 那样的
 var default2dTheme = {
     name: "test", //theme's name
     background: "#F2F2F2", //background color
@@ -341,11 +342,18 @@ var default2dTheme = {
     selected: "#ffff55",
 
     //rooms' style
-    room: function (type, category) {
+    room: function (type, category, areaStatus) {
         var roomStyle;
         if(!category) {
             switch (type) {
-
+                // 现在 Feature 类型默认只有 400 (未设置), 实体类型是 SortType
+                case 400:
+                    console.log('400')
+                    return {
+                        color: "#8c564b",
+                        opacity: 0.7,
+                        transparent: true
+                    }
                 case 100: //hollow. u needn't change this color. because i will make a hole on the model in the final version.
                     return {
                         color: "#F2F2F2",
@@ -358,12 +366,12 @@ var default2dTheme = {
                         opacity: 0.7,
                         transparent: true
                     };
-                case 400: //empty shop
-                    return {
-                        color: "#D3D3D3",
-                        opacity: 0.7,
-                        transparent: true
-                    };
+                // case 400: //empty shop
+                //     return {
+                //         color: "#D3D3D3",
+                //         opacity: 0.7,
+                //         transparent: true
+                //     };
                 default :
                     break;
             }
@@ -477,7 +485,7 @@ var default3dTheme = {
     //building's style
     building: {
         color: "#000000",
-        opacity: 0.1,
+        opacity: 0.3,
         transparent: true,
         depthTest: false
     },
@@ -490,14 +498,23 @@ var default3dTheme = {
     },
 
     //selected room's style
-    selected: "#ffff55",
+    // selected: "#ffff55",
+    selected: "#ff0000",
 
     //rooms' style
-    room: function (type, category) {
+    room: function (type, sortType, areaStatus) {
         var roomStyle;
-        if(!category) {
+        // console.log('roomStyle: ' + type + ', ' + sortType + ', ' + areaStatus
+            // + ', ' + (sortType !== null))
+        if(sortType === null) {
             switch (type) {
-
+                // 现在 Feature 类型默认只有 400 (未设置), 实体类型是 SortType
+                case 400:
+                    return {
+                        color: "#c49c94",
+                        opacity: 0.7,
+                        transparent: true
+                    }
                 case 100: //hollow. u needn't change this color. because i will make a hole on the model in the final version.
                     return {
                         color: "#F2F2F2",
@@ -510,83 +527,47 @@ var default3dTheme = {
                         opacity: 0.7,
                         transparent: true
                     };
-                case 400: //empty shop
-                    return {
-                        color: "#D3D3D3",
-                        opacity: 0.7,
-                        transparent: true
-                    };
+                // case 400: //empty shop
+                //     return {
+                //         color: "#D3D3D3",
+                //         opacity: 0.7,
+                //         transparent: true
+                //     };
                 default :
                     break;
             }
         }
-
-        switch(category) {
-            case 101: //food
+        switch(sortType) {
+            case 2: // 墙体
                 roomStyle = {
-                    color: "#1f77b4",
-                    opacity: 0.7,
+                    color: "#F2F2F2",
+                    opacity: 0.8,
                     transparent: true
-                };
-                break;
-            case 102: //retail
-                roomStyle = {
-                    color: "#aec7e8",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 103: //toiletry
-                roomStyle = {
-                    color: "#ffbb78",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 104: //parent-child
-                roomStyle = {
-                    color: "#98df8a",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 105: //life services
-                roomStyle = {
-                    color: "#bcbd22",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 106: //education
-                return {
-                    color: "#2ca02c",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 107: //life style
-                roomStyle = {
-                    color: "#dbdb8d",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 108: //entertainment
-                roomStyle = {
-                    color: "#EE8A31",
-                    opacity: 0.7,
-                    transparent: true
-                };
-                break;
-            case 109: //others
-                roomStyle = {
-                    color: "#8c564b",
-                    opacity: 0.7,
-                    transparent: true
-                };
+                }
+                break
+            case 1: // 车位
+                switch (areaStatus) {
+                    case 0: // 空车位
+                        roomStyle = {
+                            color: "#00c853",
+                            opacity: 0.7,
+                            transparent: true
+                        }
+                        break
+                    case 1: // 正在使用
+                    default:
+                        roomStyle = {
+                            color: "#ff0000",
+                            opacity: 0.4,
+                            transparent: true
+                        }
+                        break
+                }
+                break
+            case 0: // 未分类
             default :
                 roomStyle = {
-                    color: "#c49c94",
+                    color: "#8c564b",
                     opacity: 0.7,
                     transparent: true
                 };
@@ -729,7 +710,7 @@ function ParseModel(json, is3d, theme){
         }
 
         var building,shape, extrudeSettings, geometry, material, mesh, wire, points;
-        var scale = 0.1, floorHeight, buildingHeight = 0;
+        var scale = 0.7, floorHeight, buildingHeight = 0;
 
         //floor geometry
         for(var i=0; i<json.data.Floors.length; i++){
@@ -773,15 +754,21 @@ function ParseModel(json, is3d, theme){
                     shape = new THREE.Shape(points);
 
                     var center = funcArea.Center;
-                    floorObj.points.push({ name: funcArea.Name, type: funcArea.Type, position: new THREE.Vector3(center[0] * scale, floorHeight * scale, -center[1] * scale)});
+                    floorObj.points.push({ name: funcArea.Name, type: funcArea.Type,
+                        position: new THREE.Vector3(center[0] * scale, floorHeight * scale, -center[1] * scale)});
 
                     //solid model
                     extrudeSettings = {amount: floorHeight, bevelEnabled: false};
                     geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-                    material = new THREE.MeshLambertMaterial(theme.room(parseInt(funcArea.Type), funcArea.Category));
+                    // material = new THREE.MeshLambertMaterial(theme.room(parseInt(funcArea.Type), funcArea.Category));
+                    // 去除了 Category
+                    material = new THREE.MeshLambertMaterial(
+                        theme.room(parseInt(funcArea.Type), funcArea.SortType,
+                            funcArea.AreaStatus));
                     mesh = new THREE.Mesh(geometry, material);
                     mesh.type = "solidroom";
                     mesh.id = funcArea._id;
+                    mesh.parkingNo = funcArea.ParkingNo;
 
                     floorObj.add(mesh);
 
@@ -792,7 +779,11 @@ function ParseModel(json, is3d, theme){
 
                     floorObj.add(wire);
                 }else{
-                    funcArea.fillColor = theme.room(parseInt(funcArea.Type), funcArea.Category).color;
+                    // funcArea.fillColor = theme.room(parseInt(funcArea.Type), funcArea.Category).color;
+                    // 去除了 Category
+                    funcArea.fillColor = theme.room(
+                        parseInt(funcArea.Type), funcArea.SortType,
+                        funcArea.AreaStatus).color;
                     funcArea.strokeColor = theme.strokeStyle.color;
 
                 }
@@ -827,7 +818,11 @@ function ParseModel(json, is3d, theme){
 
             //scale the mall
             mall.root.scale.set(scale, scale, scale);
-            mall.root.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI / 2);
+            mall.root.rotateOnAxis(new THREE.Vector3(1, 0, 0),
+                -Math.PI / 2);
+            // DCMMC: 修正视角
+            mall.root.rotateOnAxis(new THREE.Vector3(0.8, 0, 1),
+                Math.PI / 4)
         }
 
         return mall;

@@ -7,7 +7,7 @@
                 "FuncAreas": [
                     {
                         "Area": 10,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -129,
@@ -36,7 +36,7 @@
                     },
                     {
                         "Area": 60,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             63,
@@ -71,7 +71,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             39,
@@ -100,7 +100,7 @@
                     },
                     {
                         "Area": 4,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             328,
@@ -129,7 +129,7 @@
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             333,
@@ -164,7 +164,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             261,
@@ -193,7 +193,7 @@
                     },
                     {
                         "Area": 39,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             84,
@@ -234,7 +234,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -285,
@@ -267,7 +267,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -271,
@@ -300,7 +300,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -180,
@@ -341,7 +341,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "车库3",
                         "Center": [
                             -105,
@@ -370,7 +370,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "车库2",
                         "Center": [
                             -14,
@@ -399,7 +399,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -230,
@@ -436,7 +436,7 @@
                     },
                     {
                         "Area": 43,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "入口",
                         "Center": [
                             -253,
@@ -467,7 +467,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -121,
@@ -496,7 +496,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -93,
@@ -525,7 +525,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -67,
@@ -554,7 +554,7 @@
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -41,
@@ -583,7 +583,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             11,
@@ -612,7 +612,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             67,
@@ -641,7 +641,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             93,
@@ -670,7 +670,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             119,
@@ -699,7 +699,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             147,
@@ -728,7 +728,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             174,
@@ -757,7 +757,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -78,
@@ -786,7 +786,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -48,
@@ -815,7 +815,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -15,
@@ -844,7 +844,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             14,
@@ -873,7 +873,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             39,
@@ -902,7 +902,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             66,
@@ -931,7 +931,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             92,
@@ -960,7 +960,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             118,
@@ -989,7 +989,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             146,
@@ -1018,7 +1018,7 @@
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             172,
@@ -1047,7 +1047,7 @@
                     },
                     {
                         "Area": 10,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             196,
@@ -1076,7 +1076,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             228,
@@ -1105,7 +1105,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -155,
@@ -1134,7 +1134,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -126,
@@ -1163,7 +1163,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -98,
@@ -1192,7 +1192,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -72,
@@ -1221,7 +1221,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -45,
@@ -1250,7 +1250,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -18,
@@ -1279,7 +1279,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             8,
@@ -1308,7 +1308,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             35,
@@ -1337,7 +1337,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             63,
@@ -1366,7 +1366,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             89,
@@ -1395,7 +1395,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             116,
@@ -1424,7 +1424,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             145,
@@ -1453,7 +1453,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -117,
@@ -1482,7 +1482,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -92,
@@ -1511,7 +1511,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -65,
@@ -1540,7 +1540,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -38,
@@ -1569,7 +1569,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             -9,
@@ -1598,7 +1598,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             19,
@@ -1627,7 +1627,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             44,
@@ -1656,7 +1656,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             71,
@@ -1685,7 +1685,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             95,
@@ -1714,7 +1714,7 @@
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             124,
@@ -1743,7 +1743,7 @@
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             152,
@@ -1772,7 +1772,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             175,
@@ -1803,7 +1803,7 @@
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             202,
@@ -1832,7 +1832,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             281,
@@ -1861,7 +1861,7 @@
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             295,
@@ -1890,7 +1890,7 @@
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             309,
@@ -1919,7 +1919,7 @@
                     },
                     {
                         "Area": 4,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             318,
@@ -1952,7 +1952,7 @@
                     },
                     {
                         "Area": 2,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             267,
@@ -1985,7 +1985,7 @@
                     },
                     {
                         "Area": 3,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             248,
@@ -2018,7 +2018,7 @@
                     },
                     {
                         "Area": 15,
-                        "AreaStatus": 1,
+                        "AreaStatus": 0,
                         "Brief": "",
                         "Center": [
                             258,
@@ -2050,7 +2050,7 @@
                         "_id": 1259662
                     }
                 ],
-                "High": 4,
+                "High": 10,
                 "ImageLayer": [
                 ],
                 "Name": "1",
@@ -2101,8 +2101,8 @@
             "Brief": "停车场",
             "FloorsId": "1",
             "FrontAngle": 0.005996929608693743,
-            "GroundFloors": 2,
-            "High": 0,
+            "GroundFloors": 3,
+            "High": 10,
             "Mall": 2,
             "Name": "停车场",
             "Name_en": "停车场",

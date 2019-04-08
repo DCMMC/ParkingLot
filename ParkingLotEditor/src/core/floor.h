@@ -26,8 +26,8 @@ public:
     static void resetMaxFloorId();
 
     //transform
-    virtual void transformFeature(const QMatrix &matrix);
-    virtual int generateId();
+    void transformFeature(const QMatrix &matrix) override;
+    int generateId() override;
 signals:
     void heightChanged( double height );
 private:

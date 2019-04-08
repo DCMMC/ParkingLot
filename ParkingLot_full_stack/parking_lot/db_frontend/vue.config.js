@@ -1,10 +1,19 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const path = require('path')
+
 module.exports = {
   assetsDir: 'static',
-  // chainWebpack: config => {
-  //   config.externals({
-  //     'three': 'src/assets/js/three.min.js'
-  //   })
-  // },
+  configureWebpack: {
+    plugins: [
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, './models'),
+          to: 'models',
+          ignore: ['.*']
+        }
+      ]),
+    ]
+  },
   pages: {
     index: {
       entry: 'src/main.js',

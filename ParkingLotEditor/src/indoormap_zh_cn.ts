@@ -579,7 +579,7 @@ Json文件 (*.json)
     </message>
     <message>
         <location filename="mainwindow.cpp" line="355"/>
-        <source>IndoorMap Editor</source>
+        <source>停车场编辑器</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -773,7 +773,7 @@ do you want to save? </source>
     <name>Scene</name>
     <message>
         <location filename="core/scene.cpp" line="28"/>
-        <source>未命名建筑</source>
+        <source>未命名停车场</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
