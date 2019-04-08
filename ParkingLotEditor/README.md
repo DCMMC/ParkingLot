@@ -21,15 +21,11 @@ $ cmake . && make -j5 && ./ParkingLotEditor
 
 ## 3. TODOs
 
-[x] 修复删除实体时 selectedLayer 还是这个被删除对象的问题
-
-[ ] 修复鼠标右键设为xxx
-
-[ ] `building` 在 `propView` 中显示的层数有问题
-
-[x] 精简无用功能
-
-[x] room 类型: 墙体, 车位, etc.
+* [x] 修复删除实体时 selectedLayer 还是这个被删除对象的问题
+* [ ] 修复鼠标右键设为xxx
+* [ ] `building` 在 `propView` 中显示的层数有问题
+* [x] 精简无用功能
+* [x] room 类型: 墙体, 车位, etc.
 
 ## 4. Changelog
 
