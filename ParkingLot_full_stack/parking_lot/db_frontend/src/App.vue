@@ -2,8 +2,7 @@
   <v-app>
     <v-toolbar app color="primary">
       <v-toolbar-title class="title white--text">
-        <span>Demo</span>
-        <span class=""> 数据库管理</span>
+        <span>停车场管理系统 -- 导航页</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
@@ -20,28 +19,23 @@
         <span class="title">登录</span>
       </v-btn>
     </v-toolbar>
-    <v-container>
-      <ParkingLotMap/>
-    </v-container>
     <v-content>
       <SelectView/>
     </v-content>
-    <BooomFooter/>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
 import SelectView from './components/SelectView'
-import BooomFooter from './components/footer'
+import Footer from './components/footer'
 import axios from 'axios'
-import ParkingLotMap from './components/ParkingLotMap'
 
 export default {
   name: 'App',
   components: {
     SelectView,
-    BooomFooter,
-    ParkingLotMap
+    Footer
   },
   // here is code that should be done first before vue render all data
   mounted: function () {

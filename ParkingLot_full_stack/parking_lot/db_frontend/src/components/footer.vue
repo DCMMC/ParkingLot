@@ -2,7 +2,6 @@
   <v-footer
       height="auto"
       color="primary lighten-1"
-      style="padding-top: 50px;"
     >
     <v-layout
       justify-center
@@ -35,15 +34,15 @@
 
 <script>
   export default {
+    name: 'Footer',
     data () {
       return {
           links: [
             ['首页', '/'],
             ['关于我们', '/404/404.html'],
-            ['查看学员信息', '/view-student.html'],
-            ['查看教练信息', '/view-coach.html'],
-            ['添加学员信息', '/add-student.html'],
-            ['添加教练信息', '/add-coach.html']
+            ['入口界面', '/client-indoor.html'],
+            ['出口界面', '/client-outdoor.html'],
+            ['管理员界面', '/admin.html']
           ],
         }
       }
