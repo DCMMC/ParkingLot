@@ -23,29 +23,28 @@ from django.views.static import serve
 from parking_lot.settings import MEDIA_ROOT, NOT_FOUND_ROOT, LOGIN_ROOT
 from parking_lot.settings import MODELS_ROOT
 from django.conf.urls import (
-    handler400, handler403, handler404, handler500
+    handler404
 )
 from django.contrib.auth.decorators import login_required
 
-handler404 = 'parking_lot.views.page_not_found'
+handler404 = 'parking_lot.views.page_not_found' # noqa
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin_django/', admin.site.urls),
     path('addData', add),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
-    path('add-coach.html', login_required(TemplateView.as_view(
-        template_name="add-coach.html"))),
-    path('add-student.html', login_required(TemplateView.as_view(
-        template_name="add-student.html"))),
-    path('view-coach.html', login_required(TemplateView.as_view(
-        template_name="view-coach.html"))),
-    path('view-student.html', login_required(TemplateView.as_view(
-        template_name="view-student.html"))),
-    path('query', search),
+    url(r'^index.html$', TemplateView.as_view(template_name="index.html")),
+    path('admin.html', TemplateView.as_view(
+        template_name="admin.html")),
+    path('client-indoor.html', login_required(TemplateView.as_view(
+        template_name="client-indoor.html"))),
+    path('client-outdoor.html', login_required(TemplateView.as_view(
+        template_name="client-outdoor.html"))),
+    path('query', login_required(search)),
     url(r'^media/(?P<path>.*)$', login_required(serve), {
             'document_root': MEDIA_ROOT,
         }),
-    url(r'^models/(?P<path>.*)$', serve, {
+    url(r'^models/(?P<path>.*)$', login_required(serve), {
             'document_root': MODELS_ROOT,
         }),
     url(r'^404/(?P<path>.*)$', serve, {

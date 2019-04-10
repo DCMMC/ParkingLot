@@ -2,7 +2,7 @@
 cd ./db_frontend
 # fix for docker changing the own to ./dist
 sudo chown -R kevin:kevin ./dist
-yarn run build
+yarn run build:prod
 cd -
 pipenv run python manage.py collectstatic --clear
 pipenv run python manage.py migrate

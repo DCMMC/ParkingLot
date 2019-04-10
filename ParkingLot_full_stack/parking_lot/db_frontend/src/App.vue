@@ -37,16 +37,16 @@ export default {
     SelectView,
     Footer
   },
+  data() {
+    return {
+      logged: false
+    }
+  },
   // here is code that should be done first before vue render all data
   mounted: function () {
     axios.get('/log_state').then(res => {
       this.logged = res.data.result  
     })
-  },
-  data () {
-    return {
-      logged: false,
-    }
   }
 }
 </script>

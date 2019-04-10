@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="/favicon.ico">
-    <title>管理员界面</title>
-    <link rel="stylesheet" href="https://fonts.css.network/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://fonts.css.network/css?family=Material+Icons">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= webpackConfig.name %></title>
   </head>
-  <body id="body-view-student">
-    <noscript>
-      <strong>We're sorry but db_frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="admin"></div>
+  <body>
+    <script src="<%= BASE_URL %>static/tinymce4.7.5/tinymce.min.js"></script>
+    <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

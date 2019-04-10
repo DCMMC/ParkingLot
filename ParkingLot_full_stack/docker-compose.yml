@@ -17,7 +17,7 @@ services:
     network_mode: host
 
   demo:
-    restart: on-failure
+    # restart: on-failure
     build: ./parking_lot
     image: parking_lot:latest
     environment:

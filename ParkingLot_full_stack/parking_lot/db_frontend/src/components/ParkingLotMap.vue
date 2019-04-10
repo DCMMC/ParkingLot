@@ -4,7 +4,7 @@
 			v-on:mouseenter="disable_scroll()"
 			v-on:mouseleave="enable_scroll()"></div>
 		<div class="testButton">
-			<ul >
+			<ul id="controlBtn">
 			    <li v-on:click="map.zoomOut(1.2)">+</li>
 			    <li v-on:click="map.zoomIn(1.2)">-</li>
 			    <li v-on:click="map.setDefaultView()">Default View</li>
@@ -36,8 +36,9 @@ export default {
 	        //map.setTheme(testTheme);
 	        this.map.showAreaNames(true).setSelectable(false);
 	        this.map.showFloor(1);
-	        var ul = IndoorMap.getUI(this.map);
-	        document.body.appendChild(ul);
+	        // DCMMC: 暂时去掉这个, 这个要放在组件里面
+	        // var ul = IndoorMap.getUI(this.map);
+	        // document.body.appendChild(ul);
 	        this.ready = true;
 	    });
 	    if (!this.ready) {

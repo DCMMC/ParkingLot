@@ -1,6 +1,8 @@
 /**
  * Created by gaimeng on 14/12/27.
  */
+ /* eslint-disable */
+ 
 import THREE from './three.min.js'
 import Detector from './Detector.js'
 import IndoorMap3d from './IndoorMap3d.js'
@@ -348,7 +350,7 @@ var default2dTheme = {
             switch (type) {
                 // 现在 Feature 类型默认只有 400 (未设置), 实体类型是 SortType
                 case 400:
-                    console.log('400')
+                    // console.log('400')
                     return {
                         color: "#8c564b",
                         opacity: 0.7,
@@ -710,6 +712,7 @@ function ParseModel(json, is3d, theme){
         }
 
         var building,shape, extrudeSettings, geometry, material, mesh, wire, points;
+        // DCMMC: 缩放比例
         var scale = 0.7, floorHeight, buildingHeight = 0;
 
         //floor geometry
@@ -956,7 +959,9 @@ IndoorMap.getUI = function(indoorMap){
         return null;
     }
     //create the ul list
+    // DCMMC: 这种方式会导致所有路由上都有这个 node...
     IndoorMap._uiRoot = document.createElement('ul');
+    // IndoorMap._uiRoot = document.getElementById("controlBtn");
     IndoorMap._uiRoot.className = 'floorsUI';
 
     if(_indoorMap.is3d) {

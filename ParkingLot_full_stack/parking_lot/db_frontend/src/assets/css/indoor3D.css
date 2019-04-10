@@ -18,37 +18,43 @@
     }
 }
 
-
-.floorsUI, .testButton
-{
+.floorsUI{
+    max-width: 70px;
+    margin-left: auto;
+    margin-right: 2px;
+    top: 200px;
+    float:right;
+    width: 70px;
     position: absolute;;
     list-style: none;
-    padding: 0;
-    left: 0px;
-}
-
-.floorsUI{
-    top:100px;
+    padding: 10px;
+    right: 36px;
 }
 
 .testButton{
+    max-width: 70px;
     margin-left: auto;
     margin-right: 2px;
-    top: 100px;
+    top: 300px;
     float:right;
-    width: 100%;
+    width: 70px;
+    position: absolute;;
+    list-style: none;
+    padding: 10px;
+    right: 16px;
 }
-.testButton ul{
+
+.testButton ul, .floorsUI ul{
     float: right;
 }
+
 .floorsUI li, .testButton li{
-    max-width: 100px;
+    width: 70px;
     padding: 10px;
     background-color: #e8e8e8 ;
     border: 1px solid #bbbbbb;
     text-align: center;
     list-style-type:none;
-
 }
 
 .floorsUI .selected{

@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import './plugins/axios'
-import './plugins/vuetify'
+// import './plugins/vuetify'
+import Vuetify from 'vuetify/lib'
+// import 'vuetify/src/stylus/app.styl'
+import 'vuetify/dist/vuetify.min.css'
+
+Vue.use(Vuetify, {
+  iconfont: 'md'
+})
+
 import App from './App.vue'
-// import './assets/disable-chrome-pull-down-refresh.css'
 
 Vue.config.productionTip = false
 

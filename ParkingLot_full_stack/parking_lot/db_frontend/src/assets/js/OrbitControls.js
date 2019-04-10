@@ -5,6 +5,8 @@
  * @author WestLangley / http://github.com/WestLangley
  * @modified wolfwind
  */
+ /* eslint-disable */
+ 
 import THREE from './three.min.js'
 
 THREE.OrbitControls = function ( object, domElement ) {
@@ -332,7 +334,10 @@ THREE.OrbitControls = function ( object, domElement ) {
 
             panEnd.set(event.clientX, event.clientY);
             panDelta.subVectors(panEnd, panStart);
-            scope.pan( new THREE.Vector3( - panDelta.x, panDelta.y , 0 ) );
+            // DCMMC: 不知道为什么这个 pan 的尺度有问题, 需要乘以 100000 才舒服一点
+                
+            scope.pan( new THREE.Vector3( - panDelta.x * 100000,
+                    panDelta.y * 100000, 0 ) );
             panStart.copy(panEnd);
 
         }
@@ -481,7 +486,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 //                var y = ( event.touches[ 0 ].pageY + event.touches[ 1 ].pageY ) / 2;
                 panEnd.set( event.touches[ 0 ].clientX, event.touches[ 0 ].clientY );
                 panDelta.subVectors(panEnd, panStart);
-                scope.pan(new THREE.Vector3( - panDelta.x, panDelta.y , 0 ));
+                scope.pan(new THREE.Vector3( - panDelta.x,
+                            panDelta.y, 0 ));
                 panStart.copy(panEnd);
                 break;
 

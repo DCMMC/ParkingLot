@@ -1,6 +1,8 @@
 /**
  * Created by gaimeng on 15/3/9.
  */
+ /* eslint-disable */
+ 
 import THREE from './three.min.js'
 import './OrbitControls.js'
 import './Projector.js'
@@ -120,7 +122,7 @@ var IndoorMap3d = function(mapdiv){
 
     //reset the camera to default configuration
     this.setDefaultView = function () {
-
+        // DCMMC: 这里更改相机默认视角
         var camAngle = _this.mall.FrontAngle + Math.PI/2;
         var camDir = [Math.cos(camAngle), Math.sin(camAngle)];
         var camLen = 500;
@@ -145,7 +147,6 @@ var IndoorMap3d = function(mapdiv){
     //TODO:adjust camera to fit the building
     this.adjustCamera = function() {
         _this.setDefaultView();
-
     }
 
     this.zoomIn = function(zoomScale){
