@@ -1,7 +1,7 @@
 #!/bin/bash 
 cd ./db_frontend
 # fix for docker changing the own to ./dist
-sudo chown -R kevin:kevin ./dist
+sudo chown -R kevin:kevin ./dist ./node_modules
 yarn run build:prod
 cd -
 pipenv run python manage.py collectstatic --clear

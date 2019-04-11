@@ -30,13 +30,17 @@ $ docker-compose up
 前端:
 
 * Vue
+* Vuex
 * Vuetify
 * Three.js
+* ElementUI
 
 后端:
 
 * Django
 * MongoDB
+* HyperLPR
+* pipenv-to-requirements
 
 # 2. 前端
 
@@ -45,6 +49,13 @@ $ docker-compose up
 ## 2.2 Admin 端
 
 # 3. 后端
+
+项目是跑在 Docker 里面的, pipenv 实在不好用, 所以我确定
+Docker 里面不用 pipenv 了, 直接用 requirements.txt, 不过
+开发的时候依然用 pipenv
+
+所以如果更新了 pip 包, 需要 `pipenv shell` 进入 python 虚拟环境
+后再 `pipenv-to-requirements -f` 生成对应的 `requirements.txt`
 
 ## 3.1 OCR 车牌识别
 

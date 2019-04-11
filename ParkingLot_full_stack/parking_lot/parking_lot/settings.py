@@ -44,8 +44,9 @@ INSTALLED_APPS = [
 MONGODB_DATABASES = {
     "default": {
         "name": "db",
-        "host": '127.0.0.1',
-        "tz_aware": True, # 设置时区
+        # "host": '127.0.0.1',
+        "host": "db",
+        "tz_aware": True,  # 设置时区
     },
 }
 
@@ -55,10 +56,11 @@ DATABASES = {
     }
 }
 
-from mongoengine import connect
-connect('db', host='127.0.0.1')
+from mongoengine import connect # noqa
+
+# connect('db', host='127.0.0.1')
 # 如果不是 host 模式的话
-# connect('db', host='db')
+connect('db', host='db')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,39 +1,48 @@
-FROM python:3.7.0-alpine3.8
+# 当前 tensorflow 只有 cp3.6m 的编译版本...
+# 而且 alpine 的 musl 替代 glibc 不能安装普通的 tf...
+# 还是 debian 香...
+# FROM python:3.7-alpine3.8
+FROM python:3.7-stretch
 RUN mkdir /project
 WORKDIR /project
-ADD ./Pipfile /project/Pipfile
+# 由 pipenv-to-requirements 生成
+COPY ./requirements.txt /project
 ADD ./docker-entrypoint-initenv.sh /project/docker-entrypoint-initenv.sh
-# 备份
-RUN cp /etc/apk/repositories /etc/apk/repositories.bak
-# 修改为国内镜像源
-RUN echo "http://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories
+# apt-get源 使用163的源
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
+    echo "deb http://mirrors.163.com/debian/ stretch main non-free contrib" > \
+			 /etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/debian/ stretch-proposed-updates main non-free contrib" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/debian/ stretch main non-free contrib" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/debian/ stretch-proposed-updates main non-free contrib" >> /etc/apt/sources.list
 # pipenv, uWSGI, django
-RUN apk update && apk add --no-cache \
-        bash \
+RUN apt update -y && apt install -y \
+  bash \
 	git \
-        pcre \
-        mailcap \
-        # gcc \
-        libc-dev \
-        libuuid \
-        # linux-headers \
-        pcre-dev \
-        jpeg-dev \
-        zlib-dev \
-        musl-dev \
-#         postgresql-dev \
-#         postgresql-client \
-#         nginx \
-        sshpass \
-	openssh-client \
-	npm \
-    && npm install --global yarn \
-    && pip install --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple pip \
-    && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pipenv \
-    && pipenv install --skip-lock \
-    && apk del \
-        # gcc \
-        libc-dev \
-        # linux-headers \
-    && rm -rf /tmp/*
+	apt-utils \
+	build-essential \
+	curl \
+	# pcre \
+# 	mailcap \
+# 	# gcc \
+# 	libc-dev \
+# 	libuuid \
+# 	# linux-headers \
+# 	pcre-dev \
+# 	jpeg-dev \
+# 	zlib-dev \
+# #         postgresql-dev \
+# #         postgresql-client \
+# #         nginx \
+# 	sshpass \
+# 	openssh-client \
+	&& curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+	&& apt-get install -y nodejs \
+	&& npm install --global yarn \
+	&& pip install --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple pip \
+	# 需要提前在我的宿主机环境 pipenv run pipenv-to-requirements -f
+	&& pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt \
+	# && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pipenv \
+	# && pipenv install --skip-lock \
+	&& rm -rf /tmp/*
 ENTRYPOINT ["/project/docker-entrypoint-initenv.sh"]
