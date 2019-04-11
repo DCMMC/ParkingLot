@@ -9,7 +9,7 @@ fi
 
 if [ "x$DJANGO_MANAGEPY_COLLECTSTATIC" = 'xon' ]; then
     echo 'collect static'
-    cd ./parking_lot/db_frontend && yarn install && yarn run build && cd -
+    cd ./parking_lot/db_frontend && yarn install && yarn run build:prod && cd -
     pipenv run ./parking_lot/manage.py collectstatic --noinput
 fi
 

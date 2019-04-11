@@ -8,14 +8,11 @@
                     {
                         "Area": 10,
                         "AreaStatus": 0,
-                        "BrandShop": 3145776,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -129,
                             -128
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -32,23 +29,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "1",
-                        "SortType": 0,
+                        "ParkingNo": "1",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1048897,
-                        "dianping_id": -1
+                        "_id": 1048897
                     },
                     {
                         "Area": 60,
-                        "AreaStatus": 1,
-                        "BrandShop": 0,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             63,
                             -107
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -71,23 +64,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1035157,
-                        "dianping_id": -1
+                        "_id": 1035157
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             39,
                             -7
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -104,23 +93,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "2",
-                        "SortType": 0,
+                        "ParkingNo": "2",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1105740,
-                        "dianping_id": -1
+                        "_id": 1105740
                     },
                     {
                         "Area": 4,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             328,
                             -22
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -137,23 +122,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1095544,
-                        "dianping_id": -1
+                        "_id": 1095544
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             333,
                             31
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -176,23 +157,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1052155,
-                        "dianping_id": -1
+                        "_id": 1052155
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             261,
                             128
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -209,23 +186,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1088287,
-                        "dianping_id": -1
+                        "_id": 1088287
                     },
                     {
                         "Area": 39,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             84,
                             155
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -254,23 +227,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1062983,
-                        "dianping_id": -1
+                        "_id": 1062983
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -285,
                             51
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -291,23 +260,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1082248,
-                        "dianping_id": -1
+                        "_id": 1082248
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -271,
                             -44
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -328,23 +293,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1028467,
-                        "dianping_id": -1
+                        "_id": 1028467
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -180,
                             -104
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -373,23 +334,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1054309,
-                        "dianping_id": -1
+                        "_id": 1054309
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "车库3",
-                        "Category": 109,
                         "Center": [
                             -105,
                             -118
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -406,23 +363,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "车库3",
-                        "SortType": 0,
+                        "ParkingNo": "车库3",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1068005,
-                        "dianping_id": -1
+                        "_id": 1068005
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "车库2",
-                        "Category": 109,
                         "Center": [
                             -14,
                             -19
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -439,23 +392,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "2",
-                        "SortType": 0,
+                        "ParkingNo": "2",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1097215,
-                        "dianping_id": -1
+                        "_id": 1097215
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -230,
                             2
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -480,23 +429,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1236090,
-                        "dianping_id": -1
+                        "_id": 1236090
                     },
                     {
                         "Area": 43,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "入口",
-                        "Category": 109,
                         "Center": [
                             -253,
                             -34
                         ],
-                        "MateId": 0,
                         "Name": "入口",
                         "Name_en": "入口",
                         "Outline": [
@@ -515,23 +460,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 3,
                         "Type": "400",
-                        "_id": 1225693,
-                        "dianping_id": -1
+                        "_id": 1225693
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3342384,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -121,
                             -46
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -548,23 +489,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1220729,
-                        "dianping_id": -1
+                        "_id": 1220729
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -93,
                             -39
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -581,23 +518,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1273422,
-                        "dianping_id": -1
+                        "_id": 1273422
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -67,
                             -31
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -614,23 +547,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1241029,
-                        "dianping_id": -1
+                        "_id": 1241029
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -41,
                             -25
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -647,23 +576,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1237765,
-                        "dianping_id": -1
+                        "_id": 1237765
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             11,
                             -11
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -680,23 +605,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1285053,
-                        "dianping_id": -1
+                        "_id": 1285053
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             67,
                             2
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -713,23 +634,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1274795,
-                        "dianping_id": -1
+                        "_id": 1274795
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             93,
                             13
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -746,23 +663,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1246903,
-                        "dianping_id": -1
+                        "_id": 1246903
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             119,
                             18
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -779,23 +692,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1233136,
-                        "dianping_id": -1
+                        "_id": 1233136
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             147,
                             24
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -812,23 +721,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1268184,
-                        "dianping_id": -1
+                        "_id": 1268184
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             174,
                             36
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -845,23 +750,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1282465,
-                        "dianping_id": -1
+                        "_id": 1282465
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -78,
                             -113
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -878,23 +779,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1274819,
-                        "dianping_id": -1
+                        "_id": 1274819
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -48,
                             -106
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -911,23 +808,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1289756,
-                        "dianping_id": -1
+                        "_id": 1289756
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -15,
                             -98
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -944,23 +837,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1231789,
-                        "dianping_id": -1
+                        "_id": 1231789
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             14,
                             -90
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -977,23 +866,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1259844,
-                        "dianping_id": -1
+                        "_id": 1259844
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 3342384,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             39,
                             -83
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1010,23 +895,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1254472,
-                        "dianping_id": -1
+                        "_id": 1254472
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             66,
                             -75
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1043,23 +924,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1252535,
-                        "dianping_id": -1
+                        "_id": 1252535
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 32743,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             92,
                             -67
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1076,23 +953,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1229654,
-                        "dianping_id": -1
+                        "_id": 1229654
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             118,
                             -59
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1109,23 +982,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1227567,
-                        "dianping_id": -1
+                        "_id": 1227567
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 1081835335,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             146,
                             -55
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1142,23 +1011,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1244314,
-                        "dianping_id": -1
+                        "_id": 1244314
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
-                        "BrandShop": 3342384,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             172,
                             -49
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1175,23 +1040,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1279831,
-                        "dianping_id": -1
+                        "_id": 1279831
                     },
                     {
                         "Area": 10,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             196,
                             -37
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1208,23 +1069,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1207091,
-                        "dianping_id": -1
+                        "_id": 1207091
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             228,
                             -32
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1241,23 +1098,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1287875,
-                        "dianping_id": -1
+                        "_id": 1287875
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -155,
                             -6
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1274,23 +1127,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1230045,
-                        "dianping_id": -1
+                        "_id": 1230045
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -126,
                             -2
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1307,23 +1156,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1227897,
-                        "dianping_id": -1
+                        "_id": 1227897
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -98,
                             3
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1340,23 +1185,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1233774,
-                        "dianping_id": -1
+                        "_id": 1233774
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -72,
                             10
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1373,23 +1214,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1236886,
-                        "dianping_id": -1
+                        "_id": 1236886
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 1081835335,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -45,
                             15
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1406,23 +1243,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1286480,
-                        "dianping_id": -1
+                        "_id": 1286480
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -18,
                             22
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1439,23 +1272,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1200778,
-                        "dianping_id": -1
+                        "_id": 1200778
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             8,
                             30
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1472,23 +1301,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1227792,
-                        "dianping_id": -1
+                        "_id": 1227792
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             35,
                             37
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1505,23 +1330,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1196713,
-                        "dianping_id": -1
+                        "_id": 1196713
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 32743,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             63,
                             44
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1538,23 +1359,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1287102,
-                        "dianping_id": -1
+                        "_id": 1287102
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             89,
                             53
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1571,23 +1388,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1272294,
-                        "dianping_id": -1
+                        "_id": 1272294
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             116,
                             59
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1604,23 +1417,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1273812,
-                        "dianping_id": -1
+                        "_id": 1273812
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             145,
                             66
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1637,23 +1446,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1250793,
-                        "dianping_id": -1
+                        "_id": 1250793
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -117,
                             81
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1670,23 +1475,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1210743,
-                        "dianping_id": -1
+                        "_id": 1210743
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -92,
                             90
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1703,23 +1504,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1288714,
-                        "dianping_id": -1
+                        "_id": 1288714
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 1081835335,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -65,
                             97
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1736,23 +1533,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1240970,
-                        "dianping_id": -1
+                        "_id": 1240970
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -38,
                             104
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1769,23 +1562,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1230549,
-                        "dianping_id": -1
+                        "_id": 1230549
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             -9,
                             112
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1802,23 +1591,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1294205,
-                        "dianping_id": -1
+                        "_id": 1294205
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             19,
                             117
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1835,23 +1620,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1204766,
-                        "dianping_id": -1
+                        "_id": 1204766
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             44,
                             124
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1868,23 +1649,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1288527,
-                        "dianping_id": -1
+                        "_id": 1288527
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             71,
                             131
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1901,23 +1678,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1196389,
-                        "dianping_id": -1
+                        "_id": 1196389
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             95,
                             139
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1934,23 +1707,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1202767,
-                        "dianping_id": -1
+                        "_id": 1202767
                     },
                     {
                         "Area": 8,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             124,
                             144
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -1967,23 +1736,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1285854,
-                        "dianping_id": -1
+                        "_id": 1285854
                     },
                     {
                         "Area": 5,
-                        "AreaStatus": 1,
-                        "BrandShop": 3145776,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             152,
                             152
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2000,23 +1765,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1240058,
-                        "dianping_id": -1
+                        "_id": 1240058
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             175,
                             158
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2035,23 +1796,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1272666,
-                        "dianping_id": -1
+                        "_id": 1272666
                     },
                     {
                         "Area": 7,
-                        "AreaStatus": 1,
-                        "BrandShop": 3342384,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             202,
                             168
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2068,23 +1825,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1198172,
-                        "dianping_id": -1
+                        "_id": 1198172
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 3342384,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             281,
                             53
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2101,23 +1854,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1209348,
-                        "dianping_id": -1
+                        "_id": 1209348
                     },
                     {
                         "Area": 6,
-                        "AreaStatus": 1,
-                        "BrandShop": 3342384,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             295,
                             35
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2134,23 +1883,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1295268,
-                        "dianping_id": -1
+                        "_id": 1295268
                     },
                     {
                         "Area": 9,
-                        "AreaStatus": 1,
-                        "BrandShop": 0,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             309,
                             19
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2167,23 +1912,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 1,
                         "Type": "400",
-                        "_id": 1208398,
-                        "dianping_id": -1
+                        "_id": 1208398
                     },
                     {
                         "Area": 4,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             318,
                             -4
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2204,23 +1945,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1226533,
-                        "dianping_id": -1
+                        "_id": 1226533
                     },
                     {
                         "Area": 2,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             267,
                             96
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2241,23 +1978,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1216295,
-                        "dianping_id": -1
+                        "_id": 1216295
                     },
                     {
                         "Area": 3,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             248,
                             71
                         ],
-                        "MateId": 0,
                         "Name": "",
                         "Name_en": "",
                         "Outline": [
@@ -2278,23 +2011,19 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 2,
                         "Type": "400",
-                        "_id": 1273847,
-                        "dianping_id": -1
+                        "_id": 1273847
                     },
                     {
                         "Area": 15,
-                        "AreaStatus": 1,
-                        "BrandShop": 88,
+                        "AreaStatus": 0,
                         "Brief": "",
-                        "Category": 109,
                         "Center": [
                             258,
                             83
                         ],
-                        "MateId": 0,
                         "Name": "出口",
                         "Name_en": "出口",
                         "Outline": [
@@ -2315,14 +2044,13 @@
                                 ]
                             ]
                         ],
-                        "ShopNo": "",
-                        "SortType": 0,
+                        "ParkingNo": "",
+                        "SortType": 4,
                         "Type": "400",
-                        "_id": 1259662,
-                        "dianping_id": -1
+                        "_id": 1259662
                     }
                 ],
-                "High": 4,
+                "High": 10,
                 "ImageLayer": [
                 ],
                 "Name": "1",
@@ -2373,8 +2101,8 @@
             "Brief": "停车场",
             "FloorsId": "1",
             "FrontAngle": 0.005996929608693743,
-            "GroundFloors": 2,
-            "High": 0,
+            "GroundFloors": 3,
+            "High": 10,
             "Mall": 2,
             "Name": "停车场",
             "Name_en": "停车场",

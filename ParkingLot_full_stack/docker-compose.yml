@@ -25,7 +25,7 @@ services:
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@127.0.0.1:5432/BooomSlim_db
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
       DJANGO_MANAGEPY_COLLECTSTATIC: "on"
-    command: bash -c "python3 -m pipenv run python ./parking_lot/manage.py runserver 0.0.0.0:8080 --insecure"
+    command: bash -c "cd /project && ls -alh . && python3 -m pipenv run python ./parking_lot/manage.py runserver 0.0.0.0:8080 --insecure"
     network_mode: host
     volumes:
       - ./parking_lot:/project/parking_lot
