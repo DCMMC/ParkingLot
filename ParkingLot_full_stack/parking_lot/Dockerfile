@@ -5,6 +5,8 @@
 FROM python:3.7-stretch
 RUN mkdir /project
 WORKDIR /project
+# debconf: unable to initialize frontend: Dialog
+ENV DEBIAN_FRONTEND noninteractive
 # 由 pipenv-to-requirements 生成
 COPY ./requirements.txt /project
 ADD ./docker-entrypoint-initenv.sh /project/docker-entrypoint-initenv.sh
