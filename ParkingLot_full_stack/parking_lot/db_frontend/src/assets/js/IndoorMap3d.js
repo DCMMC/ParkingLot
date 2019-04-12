@@ -401,6 +401,7 @@ var IndoorMap3d = function(mapdiv){
 
     //update sprites
     function updateSprites(spritelist, projectMatrix){
+        console.log('begin updateSprites ' + spritelist.children.length)
         for(var i = 0 ; i < spritelist.children.length; i++){
             var sprite = spritelist.children[i];
             var vec = new THREE.Vector3(sprite.oriX * 0.1, 0, -sprite.oriY * 0.1);
@@ -408,46 +409,52 @@ var IndoorMap3d = function(mapdiv){
 
             var x = Math.round(vec.x * _canvasWidthHalf);
             var y = Math.round(vec.y * _canvasHeightHalf);
-            sprite.position.set(x, y, 1);
+            console.log('set pos: ' + x + ", " + y)
+            // sprite.position.set(x, y, 1);
+            // DCMMC: TODO: 现在的名称的位置有问题
+            sprite.position.set(sprite.oriX, sprite.oriY, 1);
 
             //check collision with the former sprites
-            var visible = true;
-            var visibleMargin = 5;
-            for(var j = 0; j < i; j++){
-                var img = sprite.material.map.image;
-                if(!img){ //if img is undefined (the img has not loaded)
-                    visible = false;
-                    break;
-                }
+            // DCMMC: 这个 visible 会导致有些 text 出不来
+            // 不像是没有名称的实体(e.g. 墙体)
+            var visible = sprite.name !== '';
+            // var visibleMargin = 5;
+            // for(var j = 0; j < i; j++){
+            //     var img = sprite.material.map.image;
+            //     if(!img){ //if img is undefined (the img has not loaded)
+            //         visible = false;
+            //         break;
+            //     }
+            //     // console.log('find img')
 
-                var imgWidthHalf1 = sprite.width / 2;
-                var imgHeightHalf1 = sprite.height / 2;
-                var rect1 = new Rect(sprite.position.x - imgWidthHalf1, sprite.position.y - imgHeightHalf1,
-                        sprite.position.x + imgHeightHalf1, sprite.position.y + imgHeightHalf1 );
+            //     var imgWidthHalf1 = sprite.width / 2;
+            //     var imgHeightHalf1 = sprite.height / 2;
+            //     var rect1 = new Rect(sprite.position.x - imgWidthHalf1, sprite.position.y - imgHeightHalf1,
+            //             sprite.position.x + imgHeightHalf1, sprite.position.y + imgHeightHalf1 );
 
-                var sprite2 = spritelist.children[j];
-                var sprite2Pos = sprite2.position;
-                var imgWidthHalf2 = sprite2.width / 2;
-                var imgHeightHalf2 = sprite2.height / 2;
-                var rect2 = new Rect(sprite2Pos.x - imgWidthHalf2, sprite2Pos.y - imgHeightHalf2,
-                        sprite2Pos.x + imgHeightHalf2, sprite2Pos.y + imgHeightHalf2 );
+            //     var sprite2 = spritelist.children[j];
+            //     var sprite2Pos = sprite2.position;
+            //     var imgWidthHalf2 = sprite2.width / 2;
+            //     var imgHeightHalf2 = sprite2.height / 2;
+            //     var rect2 = new Rect(sprite2Pos.x - imgWidthHalf2, sprite2Pos.y - imgHeightHalf2,
+            //             sprite2Pos.x + imgHeightHalf2, sprite2Pos.y + imgHeightHalf2 );
 
-                if(sprite2.visible && rect1.isCollide(rect2)){
-                    visible = false;
-                    break;
-                }
+            //     if(sprite2.visible && rect1.isCollide(rect2)){
+            //         visible = false;
+            //         break;
+            //     }
 
-                rect1.tl[0] -= visibleMargin;
-                rect1.tl[1] -= visibleMargin;
-                rect2.tl[0] -= visibleMargin;
-                rect2.tl[1] -= visibleMargin;
+            //     rect1.tl[0] -= visibleMargin;
+            //     rect1.tl[1] -= visibleMargin;
+            //     rect2.tl[0] -= visibleMargin;
+            //     rect2.tl[1] -= visibleMargin;
 
 
-                if(sprite.visible == false && rect1.isCollide(rect2)){
-                    visible = false;
-                    break;
-                }
-            }
+            //     if(sprite.visible == false && rect1.isCollide(rect2)){
+            //         visible = false;
+            //         break;
+            //     }
+            // }
             sprite.visible = visible;
         }
     }
@@ -461,11 +468,23 @@ var IndoorMap3d = function(mapdiv){
         }
         var funcAreaJson = _this.mall.getFloorJson(_this.mall.getCurFloorId()).FuncAreas;
         for(var i = 0 ; i < funcAreaJson.length; i++){
-            var sprite = makeTextSprite(funcAreaJson[i].Name_en, _theme.fontStyle);
-            sprite.oriX = funcAreaJson[i].Center[0];
-            sprite.oriY = funcAreaJson[i].Center[1];
-            _nameSprites.add(sprite);
+            // console.log('funcArea ' + i + ': '  + funcAreaJson[i].Name);
+            // var sprite = makeT.position.set(extSprite(funcAreaJson[i].Name, _theme.fontStyle);
+            // if (funcAreaJson[i].Name === 'OutDoor' ||
+            //         funcAreaJson[i].Name === 'Door') {
+                var sprite = makeTextSprite( funcAreaJson[i].Name, 
+                    { fontsize: 60, borderColor: {r:255, g:0, b:0, a:1.0},
+                    backgroundColor: {r:255, g:100, b:100, a:0.8} } );
+                // sprite.position.set(funcAreaJson[i].Center[0] - 200,
+                //     funcAreaJson[i].Center[1] - 200, 20);
+                sprite.oriX = funcAreaJson[i].Center[0];
+                sprite.oriY = funcAreaJson[i].Center[1];
+                // DCMMC: 保存实体的名称信息
+                sprite.name = funcAreaJson[i].Name;
+                _nameSprites.add(sprite);
+            // }
         }
+        console.log('_nameSprites: ' + _nameSprites.children.length)
         _sceneOrtho.add(_nameSprites);
     }
 
@@ -517,67 +536,141 @@ var IndoorMap3d = function(mapdiv){
 
     function makeTextSprite( message, parameters )
     {
+//         if ( parameters === undefined ) parameters = {};
+//         // console.log('parameters: ' + parameters["fontsize"])
+
+//         var fontface = parameters.hasOwnProperty("fontface") ?
+//             parameters["fontface"] : "Arial";
+
+//         var fontsize = parameters.hasOwnProperty("fontsize") ?
+//             parameters["fontsize"] : 26;
+
+//         var borderThickness = parameters.hasOwnProperty("borderThickness") ?
+//             parameters["borderThickness"] : 2;
+
+//         var borderColor = parameters.hasOwnProperty("borderColor") ?
+//             parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+
+//         var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
+//             parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
+
+//         var fontColor = parameters.hasOwnProperty("color")?
+//             parameters["color"] : "#000000";
+
+//         //var spriteAlignment = parameters.hasOwnProperty("alignment") ?
+//         //	parameters["alignment"] : THREE.SpriteAlignment.topLeft;
+
+//         var spriteAlignment = new THREE.Vector2( 0, 0 );
+
+
+//         var canvas = document.createElement('canvas');
+//         var context = canvas.getContext('2d');
+//         context.font = "Bold " + fontsize + "px " + fontface;
+//         // context.font = "60px Arial";
+
+//         // get size data (height depends only on font size)
+//         var metrics = context.measureText( message );
+// //
+// //        // background color
+// //        context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
+// //            + backgroundColor.b + "," + backgroundColor.a + ")";
+// //        // border color
+//         context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
+//             + borderColor.b + "," + borderColor.a + ")";
+// //
+// //        context.lineWidth = borderThickness;
+// //        context.strokeRect(borderThickness/2, borderThickness/2, metrics.width + borderThickness, fontsize * 1.4 + borderThickness);
+
+//         // text color
+//         context.fillStyle = fontColor;
+
+//         context.fillText( message, borderThickness, fontsize + borderThickness);
+
+//         // canvas contents will be used for a texture
+//         var texture = new THREE.Texture(canvas)
+//         texture.needsUpdate = true;
+
+
+//         var spriteMaterial = new THREE.SpriteMaterial(
+//             { map: texture, useScreenCoordinates: false } );
+//         var sprite = new THREE.Sprite( spriteMaterial );
+//         sprite.scale.set(100,50,1.0);
+//         sprite.width = metrics.width;
+//         sprite.height = fontsize * 1.4;
+//         // console.log('sprite: ' + sprite.width + 'x' + sprite.height)
+//         return sprite;
         if ( parameters === undefined ) parameters = {};
-
-        var fontface = parameters.hasOwnProperty("fontface") ?
+    
+        var fontface = parameters.hasOwnProperty("fontface") ? 
             parameters["fontface"] : "Arial";
-
-        var fontsize = parameters.hasOwnProperty("fontsize") ?
+        
+        var fontsize = parameters.hasOwnProperty("fontsize") ? 
             parameters["fontsize"] : 18;
-
-        var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-            parameters["borderThickness"] : 2;
-
+        
+        var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
+            parameters["borderThickness"] : 4;
+        
         var borderColor = parameters.hasOwnProperty("borderColor") ?
             parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
-
+        
         var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
             parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
 
-        var fontColor = parameters.hasOwnProperty("color")?
-            parameters["color"] : "#000000";
-
-        //var spriteAlignment = parameters.hasOwnProperty("alignment") ?
-        //	parameters["alignment"] : THREE.SpriteAlignment.topLeft;
-
-        var spriteAlignment = new THREE.Vector2( 0, 0 );
-
-
+        var spriteAlignment = new THREE.Vector2( 1, -1 );
+            
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
         context.font = "Bold " + fontsize + "px " + fontface;
-
+        
         // get size data (height depends only on font size)
         var metrics = context.measureText( message );
-//
-//        // background color
-//        context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
-//            + backgroundColor.b + "," + backgroundColor.a + ")";
-//        // border color
+        var textWidth = metrics.width;
+        
+        // background color
+        context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
+                                      + backgroundColor.b + "," + backgroundColor.a + ")";
+        // border color
         context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
-            + borderColor.b + "," + borderColor.a + ")";
-//
-//        context.lineWidth = borderThickness;
-//        context.strokeRect(borderThickness/2, borderThickness/2, metrics.width + borderThickness, fontsize * 1.4 + borderThickness);
+                                      + borderColor.b + "," + borderColor.a + ")";
 
+        context.lineWidth = borderThickness;
+        roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+        // 1.4 is extra height factor for text below baseline: g,j,p,q.
+        
         // text color
-        context.fillStyle = fontColor;
+        context.fillStyle = "rgba(0, 0, 0, 1.0)";
 
         context.fillText( message, borderThickness, fontsize + borderThickness);
-
+        
         // canvas contents will be used for a texture
-        var texture = new THREE.Texture(canvas)
+        var texture = new THREE.Texture(canvas) 
         texture.needsUpdate = true;
 
-
-        var spriteMaterial = new THREE.SpriteMaterial(
-            { map: texture, useScreenCoordinates: false } );
+        var spriteMaterial = new THREE.SpriteMaterial( 
+            { map: texture, useScreenCoordinates: false, alignment: spriteAlignment } );
         var sprite = new THREE.Sprite( spriteMaterial );
         sprite.scale.set(100,50,1.0);
-        sprite.width = metrics.width;
-        sprite.height = fontsize * 1.4;
         return sprite;
     }
+
+    // function for drawing rounded rectangles
+    function roundRect(ctx, x, y, w, h, r) 
+    {
+        ctx.beginPath();
+        ctx.moveTo(x+r, y);
+        ctx.lineTo(x+w-r, y);
+        ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+        ctx.lineTo(x+w, y+h-r);
+        ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+        ctx.lineTo(x+r, y+h);
+        ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+        ctx.lineTo(x, y+r);
+        ctx.quadraticCurveTo(x, y, x+r, y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();   
+    }
+
 
     //resize the map
     this.resize = function (width, height){
