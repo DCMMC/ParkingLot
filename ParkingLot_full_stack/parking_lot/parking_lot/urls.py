@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import add, search, login_handler, logout_handler, log_state
+from .views import login_handler, logout_handler, log_state
+from .views import admin_logout
+from .views import admin_login
+from .views import admin_info
 from .views import debug_url
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
@@ -31,7 +34,6 @@ handler404 = 'parking_lot.views.page_not_found' # noqa
 
 urlpatterns = [
     path('admin_django/', admin.site.urls),
-    path('addData', add),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
     url(r'^index.html$', TemplateView.as_view(template_name="index.html")),
     path('admin.html', TemplateView.as_view(
@@ -40,7 +42,6 @@ urlpatterns = [
         template_name="client-indoor.html"))),
     path('client-outdoor.html', login_required(TemplateView.as_view(
         template_name="client-outdoor.html"))),
-    path('query', login_required(search)),
     url(r'^media/(?P<path>.*)$', login_required(serve), {
             'document_root': MEDIA_ROOT,
         }),
@@ -57,4 +58,7 @@ urlpatterns = [
     path('logout_handler', logout_handler),
     path('log_state', log_state),
     path('debug', debug_url),
+    path('user/login', admin_login),
+    path('user/logout', admin_logout),
+    path('user/info', admin_info)
 ]

@@ -2092,6 +2092,34 @@
                 "PubPoint": [
                 ],
                 "_id": 1
+            },
+            {
+                "Area": 1086,
+                "Brief": "",
+                "FuncAreas": [
+                ],
+                "High": 5,
+                "ImageLayer": [
+                ],
+                "Name": "2",
+                "Name_en": "2",
+                "Outline": [
+                    [
+                        [
+                            -272,
+                            43,
+                            197,
+                            166,
+                            282,
+                            -30,
+                            -238,
+                            -169
+                        ]
+                    ]
+                ],
+                "PubPoint": [
+                ],
+                "_id": 2
             }
         ],
         "building": {
@@ -2099,9 +2127,9 @@
             "Address": "",
             "Area": 1557,
             "Brief": "停车场",
-            "FloorsId": "1",
+            "FloorsId": "1,2",
             "FrontAngle": 0.005996929608693743,
-            "GroundFloors": 2,
+            "GroundFloors": 3,
             "High": 0,
             "Mall": 2,
             "Name": "停车场",
