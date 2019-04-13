@@ -5,6 +5,9 @@ services:
     image: mongo:latest
     environment:
       - MONGO_DATA_DIR=/data/db
+      - MONGO_INITDB_ROOT_USERNAME="mongoadmin"
+      # !!! This is only a test password !!!
+      - MONGO_INITDB_ROOT_PASSWORD="xwt97294597"
       # - MONGODB_USER="user"
       # - MONGODB_PASS="pass"
     volumes:
@@ -15,24 +18,72 @@ services:
     restart: on-failure
     # macOS compatiable
     # network_mode: host
+  
+  # DCMMC:
+  # 到时候 redis 可以单独拿出来放到一个单独的主机去
+  # 用作核心存储后端(消息通道层), 记得把 django settings 里面的
+  # redis 主机名改为 ip 地址
+  redis:
+    image: 'redis:5.0-rc-alpine'
+    # !!! This is only a test password !!!
+    command: redis-server --requirepass xwt97294597
+    ports:
+      - 6379:6379
+    restart: on-failure
 
-  demo:
+  # 如果是运行在核心服务器上, celery 和 Celery-beat 都可以不用运行
+  celery:
+    restart: on-failure
+    build: ./parking_lot
+    image: parking_lot:latest
+    command: bash -c "cd /project/parking_lot && celery -A parking_lot worker -l info"
+    volumes:
+      - ./parking_lot:/project/parking_lot
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    restart: on-failure
+    build: ./parking_lot
+    image: parking_lot:latest
+    command: bash -c "cd /project/parking_lot && celery -A parking_lot beat -l info"
+    volumes:
+      - ./parking_lot:/project/parking_lot
+    depends_on:
+      - db
+      - redis
+
+  parking_lot:
     # restart: on-failure
     build: ./parking_lot
     image: parking_lot:latest
     environment:
-      DJANGO_MANAGEPY_MIGRATE: "off"
+      DJANGO_MANAGEPY_MIGRATE: "on"
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@127.0.0.1:5432/BooomSlim_db
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
       DJANGO_MANAGEPY_COLLECTSTATIC: "on"
+      # 详情请看 parking_lot/parking_lot/settings.py
+      # !!! 必须指定 !!!
+      HOST_ROLE: 'core'
+      HOST_NUM: '1'
+      # mongodb 和 redis 的主机名
+      # 默认是 db 和 redis 
+      # 如果容器 parking_lot 用于出入口车牌识别终端
+      # 而主机名应该是核心服务器的 ip 地址
+      DB_HOST: 'db'
+      REDIS_HOST: 'redis'
     # 测试 HyperLPR
     # command: bash -c "python ./parking_lot/HyperLPR/lpr_provider.py"
-    command: bash -c "cd /project && ls -alh . && python3 ./parking_lot/manage.py runserver 0.0.0.0:8080 --insecure"
+    command: bash -c "python3 ./parking_lot/manage.py runserver 0.0.0.0:8080 --insecure"
     # network_mode: host
     volumes:
       - ./parking_lot:/project/parking_lot
+    # 如果作为车牌识别结点, 那么 django 就不需要暴露出端口了,
+    # 运行 django 的目的只不多是为了运行 Celery 的定时任务...
     ports:
       - 8080:8080
     depends_on:
     # links:
       - db
+      - redis

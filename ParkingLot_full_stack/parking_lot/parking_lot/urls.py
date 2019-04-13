@@ -20,6 +20,7 @@ from .views import admin_logout
 from .views import admin_login
 from .views import admin_info
 from .views import debug_url
+from .views import parking_lot_status_update
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
 from django.views.static import serve
@@ -60,5 +61,6 @@ urlpatterns = [
     path('debug', debug_url),
     path('user/login', admin_login),
     path('user/logout', admin_logout),
-    path('user/info', admin_info)
+    path('user/info', admin_info),
+    path('parking_lot_status_update', parking_lot_status_update)
 ]

@@ -51,6 +51,15 @@ def recognize_single_image(file_full_path, threshold=0.7):
     return evl
 
 
+def recognize_multi_image(files_full_paths):
+    """
+    TODO:
+    同时识别多张照片已提高精度
+    """
+    pass
+
+
 if __name__ == '__main__':
+    # Test
     print(recognize_single_image(os.path.join(BASE_PATH, "images_rec/1.jpg")))
     print(recognize_single_image(BASE_PATH))

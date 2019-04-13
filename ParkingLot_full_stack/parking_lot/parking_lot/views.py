@@ -146,3 +146,22 @@ def admin_info(req):
 def page_not_found(request, exception):
     # 必须像在 setting 中设置 debug 为 False
     return HttpResponseRedirect('/404/404.html')
+
+
+@csrf_exempt
+def parking_lot_status_update(request):
+    """
+    停车场车位信息更新的 handler, 这是跟车位识别那边交互的接口
+    只接受 POST 过来的 json
+    """
+    # DCMMC: 要不要考虑下安全问题?
+    if request.method == 'POST' and request.content_type == 'application/json':
+        # TODO
+        post = json.loads(request.body)
+        # debug
+        print('从车位识别得到的结果: {}'.format(json.dumps(post)))
+        # TODO
+        # 更新数据库之后, 向 parking_lot_realtime/consumers/ParkingLotStatusConsumer
+        # 发送 group_send 事件
+    else:
+        return HttpResponseForbidden()

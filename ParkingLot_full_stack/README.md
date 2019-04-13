@@ -39,8 +39,11 @@ $ docker-compose up
 
 * Django
 * MongoDB
-* HyperLPR
+* mongoengine
 * pipenv-to-requirements
+* Django Channels
+* Celery
+* Redis
 
 # 2. 前端
 

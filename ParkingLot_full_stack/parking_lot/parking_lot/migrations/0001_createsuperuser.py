@@ -6,6 +6,10 @@ from django.contrib.auth.admin import User
 
 
 def create_superuser(apps, schema_editor):
+    """
+    在 django migrations 的时候, 自动创建两个用户
+    DCMMC: 仅用于测试
+    """
     if not User.objects.filter(username='admin').exists():
         superuser = User()
         superuser.is_active = True
