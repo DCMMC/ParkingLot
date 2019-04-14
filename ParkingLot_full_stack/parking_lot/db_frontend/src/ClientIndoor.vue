@@ -52,7 +52,10 @@
                   hover
                   ripple
                 >
-                  <v-card-text class="display-1">TODO: 欢迎您! 沪A 12345</v-card-text>
+                  <v-card-text class="display-1">
+                    欢迎您! <br>
+                    {{ license_plate }}
+                  </v-card-text>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -86,18 +89,62 @@ export default {
     settings: {
       maxScrollbarLength: 60
     },
-    scrollTop: 250
+    scrollTop: 250,
+    license_plate: 'Unknown',
+    indoorNum: 1,
+    websock: null
   }),
+  created() {
+    this.initWebSocket()
+  },
+  destroyed() {
+    this.websock.close() // 离开路由之后断开websocket连接
+  },
   mounted() {
     // 全部展开
     this.panel = [...Array(this.items).keys()].map(_ => true)
     // TODO: 使用 scrollTop 自动滚动
     var node = document.getElementById('emptyLot')
-    setTimeout(() => { node.scrollTop = 200; console.log('set scrollTopr') }, 5000)
+    setTimeout(() => { node.scrollTop = 200; console.log('set scrollTop') }, 5000)
   },
   methods: {
     scrollHanle(evt) {
       console.log(evt)
+    },
+    initWebSocket() {
+      // 初始化weosocket
+      var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
+      var ws_path = ws_scheme + '://' + window.location.host +
+        '/ws/indoor/' + this.indoorNum + '/'
+      this.websock = new WebSocket(ws_path)
+      this.websock.onmessage = this.websocketonmessage
+      this.websock.onopen = this.websocketonopen
+      this.websock.onerror = this.websocketonerror
+      this.websock.onclose = this.websocketclose
+    },
+    websocketonopen() {
+      // 连接建立之后执行send方法发送数据
+      // const actions = { test: '12345' }
+      // this.websocketsend(JSON.stringify(actions))
+    },
+    websocketonerror() {
+      // 连接建立失败重连
+      // console.error('意外断开连接, 尝试重新连接...')
+      // this.initWebSocket()
+    },
+    websocketonmessage(e) {
+      // 数据接收
+      const redata = JSON.parse(e.data)
+      this.license_plate = redata.message.pstr
+      console.log(redata)
+    },
+    websocketsend(Data) {
+      // 数据发送
+      this.websock.send(Data)
+    },
+    websocketclose(e) {
+      // 关闭
+      console.log('断开连接', e)
     }
   }
 }

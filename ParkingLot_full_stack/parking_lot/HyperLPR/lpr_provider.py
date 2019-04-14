@@ -9,9 +9,14 @@ import cv2
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
-model = pr.LPR(os.path.join(BASE_PATH, "model/cascade.xml"),
-               os.path.join(BASE_PATH, "model/model12.h5"),
-               os.path.join(BASE_PATH, "model/ocr_plate_all_gru.h5"))
+model = None
+
+
+def init():
+    global model
+    model = pr.LPR(os.path.join(BASE_PATH, "model/cascade.xml"),
+                   os.path.join(BASE_PATH, "model/model12.h5"),
+                   os.path.join(BASE_PATH, "model/ocr_plate_all_gru.h5"))
 
 
 def recognize_single_image(file_full_path, threshold=0.7):

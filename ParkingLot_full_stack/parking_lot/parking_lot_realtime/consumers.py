@@ -3,6 +3,8 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 
 class IndoorConsumer(AsyncJsonWebsocketConsumer):
+    group_name = None
+
     """
     入口处信息的 ws server
     主要是车牌信息
@@ -23,11 +25,12 @@ class IndoorConsumer(AsyncJsonWebsocketConsumer):
             )
             await self.accept()
 
-    async def disconnect(self):
-        await self.channel_layer.group_discard(
-            self.group_name,
-            self.channel_name
-        )
+    async def disconnect(self, close_code):
+        if self.group_name is not None:
+            await self.channel_layer.group_discard(
+                self.group_name,
+                self.channel_name
+            )
 
     async def receive_json(self, content):
         print('IndoorConsumer 不需要接受信息, 丢弃: {}'.format(json.dumps(
@@ -46,6 +49,8 @@ class IndoorConsumer(AsyncJsonWebsocketConsumer):
 
 
 class OutdoorConsumer(AsyncJsonWebsocketConsumer):
+    group_name = None
+
     """
     主要是车牌信息和收费信息
     """
@@ -63,11 +68,12 @@ class OutdoorConsumer(AsyncJsonWebsocketConsumer):
             )
             await self.accept()
 
-    async def disconnect(self):
-        await self.channel_layer.group_discard(
-            self.group_name,
-            self.channel_name
-        )
+    async def disconnect(self, close_code):
+        if self.group_name is not None:
+            await self.channel_layer.group_discard(
+                self.group_name,
+                self.channel_name
+            )
 
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
@@ -76,6 +82,8 @@ class OutdoorConsumer(AsyncJsonWebsocketConsumer):
 
 
 class OutdoorAdminConsumer(AsyncJsonWebsocketConsumer):
+    group_name = None
+
     """
     主要是收费信息
     """
@@ -93,11 +101,12 @@ class OutdoorAdminConsumer(AsyncJsonWebsocketConsumer):
             )
             await self.accept()
 
-    async def disconnect(self):
-        await self.channel_layer.group_discard(
-            self.group_name,
-            self.channel_name
-        )
+    async def disconnect(self, close_code):
+        if self.group_name is not None:
+            await self.channel_layer.group_discard(
+                self.group_name,
+                self.channel_name
+            )
 
     async def receive_json(self, content):
         print('OutdoorAdminConsumer 不需要接受信息, 丢弃: {}'.format(json.dumps(
@@ -105,6 +114,8 @@ class OutdoorAdminConsumer(AsyncJsonWebsocketConsumer):
 
 
 class ParkingLotStatusConsumer(AsyncJsonWebsocketConsumer):
+    group_name = None
+
     """
     停车场内停车位的占用信息更新
     """
@@ -122,11 +133,12 @@ class ParkingLotStatusConsumer(AsyncJsonWebsocketConsumer):
             )
             await self.accept()
 
-    async def disconnect(self):
-        await self.channel_layer.group_discard(
-            self.group_name,
-            self.channel_name
-        )
+    async def disconnect(self, close_code):
+        if self.group_name is not None:
+            await self.channel_layer.group_discard(
+                self.group_name,
+                self.channel_name
+            )
 
     async def receive_json(self, content):
         print('ParkingLotStatusConsumer 不需要接受信息, 丢弃: {}'.format(json.dumps(

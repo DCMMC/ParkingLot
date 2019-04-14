@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import subprocess
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,12 +31,21 @@ ALLOWED_HOSTS = ["*"]
 
 # docker-compose 指定环境变量:
 # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
-host_role = os.getenv('HOST_ROLE')
+host_role = os.getenv('HOST_ROLE') or 'core'
 # 从 '1' 开始, e.g. 如果是二号入口就是 '2'
-host_num = os.getenv('HOST_NUM')
+host_num = os.getenv('HOST_NUM') or '1'
 # mongodb 和 redis 的主机名(docker-compose 的)/ip地址
-db_host = os.getenv('DB_HOST')
-redis_host = os.getenv('REDIS_HOST')
+db_host = os.getenv('DB_HOST') or 'db'
+redis_host = os.getenv('REDIS_HOST') or 'redis'
+# 如果是 localhost, 因为是跑在 docker 的容器使用的
+# 虚拟网卡, 所以不能用 localhost
+# 只在 Linux 环境测试过
+if db_host == 'localhost':
+    db_host = os.popen(
+        "echo $(ip route show | awk '/default/ {print $3}')").read()
+if redis_host == 'localhost':
+    redis_host = os.popen(
+        "echo $(ip route show | awk '/default/ {print $3}')").read()
 
 
 # Application definition
@@ -56,7 +66,7 @@ INSTALLED_APPS = [
     'HyperLPR',
     # 把数据库作为一个单独的 instance app, 这样方便到时候
     # 部署到树莓派上(因为树莓派不需要运行 http server)
-    'db_poll',
+    'db_pool',
 ]
 
 # 该 routing 只用于核心服务器
@@ -214,7 +224,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 # CELERY STUFF
 # 到时候要改成核心服务器的 ip
-BROKER_URL = 'redis://:xwt97294597@' + redis_host + ':6379/0'
+CELERY_BROKER_URL = 'redis://:xwt97294597@' + redis_host + ':6379/0'
 CELERY_RESULT_BACKEND = 'redis://:xwt97294597@' + redis_host + ':6379/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'

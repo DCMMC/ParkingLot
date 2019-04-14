@@ -26,7 +26,8 @@ export default {
   data: () => ({
     params: null,
     map: null,
-    websock: null
+    websock: null,
+    layerNum: 1
   }),
   created() {
     this.initWebSocket()
@@ -75,8 +76,12 @@ export default {
   methods: {
     initWebSocket() {
       // 初始化weosocket
-      const wsuri = 'ws://127.0.0.1:8080'
-      this.websock = new WebSocket(wsuri)
+      // 原来写死的 127.0.0.1 跟 cookie 的 0.0.0.0 不一致
+      // channels 死活得不到正确的 scope['user'] debug 了半天...
+      var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
+      var ws_path = ws_scheme + '://' + window.location.host +
+        '/ws/parkingLotStatus/' + this.layerNum + '/'
+      this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
       this.websock.onopen = this.websocketonopen
       this.websock.onerror = this.websocketonerror
@@ -84,13 +89,13 @@ export default {
     },
     websocketonopen() {
       // 连接建立之后执行send方法发送数据
-      const actions = { test: '12345' }
-      this.websocketsend(JSON.stringify(actions))
+      // const actions = { test: '12345' }
+      // this.websocketsend(JSON.stringify(actions))
     },
     websocketonerror() {
       // 连接建立失败重连
-      console.error('意外断开连接, 尝试重新连接...')
-      this.initWebSocket()
+      // console.error('意外断开连接, 尝试重新连接...')
+      // this.initWebSocket()
     },
     websocketonmessage(e) {
       // 数据接收

@@ -1,7 +1,12 @@
 import random
 import os
+# celery 的 work 是多线程的, 所以 provider 必须
+# 跨线程共享数据
+from multiprocessing.sharedctypes import Value
 
-time_left = 0
+
+# int
+time_left = Value('i', 0)
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
@@ -18,12 +23,14 @@ def camera_provider():
     """
     # 模拟
     global time_left
-    if time_left > 0:
-        time_left -= 1
+    print('剩余时间: ', time_left.value)
+    if time_left.value > 0:
+        time_left.value -= 1
         return os.path.join(BASE_PATH, 'images_rec',
                             str(random.randint(1, 2)) + '.jpg')
     elif random.random() > 0.98:
+        print('车辆进入!')
         # 1/50 的概率, i.e., 50s 中有 1s 车来了, 并且将持续
         # 15 ~ 30s
-        time_left = random.randint(15, 30)
+        time_left.value = random.randint(15, 30)
     return None

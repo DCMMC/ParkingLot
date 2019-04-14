@@ -401,7 +401,7 @@ var IndoorMap3d = function(mapdiv){
 
     //update sprites
     function updateSprites(spritelist, projectMatrix){
-        console.log('begin updateSprites ' + spritelist.children.length)
+        // console.log('begin updateSprites ' + spritelist.children.length)
         for(var i = 0 ; i < spritelist.children.length; i++){
             var sprite = spritelist.children[i];
             var vec = new THREE.Vector3(sprite.oriX * 0.1, 0, -sprite.oriY * 0.1);
@@ -409,7 +409,7 @@ var IndoorMap3d = function(mapdiv){
 
             var x = Math.round(vec.x * _canvasWidthHalf);
             var y = Math.round(vec.y * _canvasHeightHalf);
-            console.log('set pos: ' + x + ", " + y)
+            // console.log('set pos: ' + x + ", " + y)
             // sprite.position.set(x, y, 1);
             // DCMMC: TODO: 现在的名称的位置有问题
             sprite.position.set(sprite.oriX, sprite.oriY, 1);

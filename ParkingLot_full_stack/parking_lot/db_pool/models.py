@@ -1,6 +1,9 @@
 # models use MongoDB
 # from mongoengine import *
 from mongoengine import Document
+from mongoengine import StringField
+from mongoengine import DateTimeField
+import datetime
 
 
 class Vehicle(Document):
@@ -8,7 +11,9 @@ class Vehicle(Document):
     TODO
     车辆信息
     """
-    pass
+    license_plate = StringField(max_length=20, primary_key=True,
+                                unique=True, required=True)
+    addition_info = StringField(max_length=10000, default='')
 
 
 class Parking(Document):
@@ -16,14 +21,18 @@ class Parking(Document):
     TODO:
     车位信息
     """
-    pass
+    parking_id = StringField(max_length=20, primary_key=True,
+                             unique=True, required=True)
+    addition_info = StringField(max_length=10000, default='')
 
 
 class ParkingLot(Document):
     """
     停车场信息
     """
-    pass
+    parking_lot_name = StringField(max_length=50, primary_key=True,
+                                   unique=True, required=True)
+    addition_info = StringField(max_length=10000, default='')
 
 
 class Bill(Document):
@@ -31,6 +40,7 @@ class Bill(Document):
     账单信息
     Time series
     """
+    date_created = DateTimeField(default=datetime.datetime.utcnow)
     pass
 
 

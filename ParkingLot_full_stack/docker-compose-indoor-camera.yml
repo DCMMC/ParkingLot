@@ -1,0 +1,89 @@
+version: '3'
+
+services:
+  # 如果是运行在核心服务器上, celery 和 Celery-beat 都可以不用运行
+  celery:
+    # restart: on-failure
+    build: ./parking_lot
+    image: parking_lot:latest
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "off"
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@localhost:5432/BooomSlim_db
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
+      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      # !!! 必须指定 !!!
+      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
+      HOST_ROLE: 'indoor_camera'
+      HOST_NUM: '1'
+      # mongodb 和 redis 的主机名
+      # 默认是 db 和 redis 
+      # 如果容器 parking_lot 用于出入口车牌识别终端
+      # 而主机名应该是核心服务器的 ip 地址
+      DB_HOST: 'localhost'
+      REDIS_HOST: 'localhost'
+    # 必须要等待 parking_lot_indoor_camera 创建好 Celery 才行
+    # 暂时的 workaround: 先休眠几秒
+    command: bash -c "sleep 10s; cd /project/parking_lot && celery -A parking_lot worker -l info"
+    volumes:
+      - ./parking_lot:/project/parking_lot
+    # depends_on:
+    #   - redis
+
+  celery-beat:
+    # restart: on-failure
+    build: ./parking_lot
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "off"
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@localhost:5432/BooomSlim_db
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
+      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      # !!! 必须指定 !!!
+      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
+      HOST_ROLE: 'indoor_camera'
+      HOST_NUM: '1'
+      # mongodb 和 redis 的主机名
+      # 默认是 db 和 redis 
+      # 如果容器 parking_lot 用于出入口车牌识别终端
+      # 而主机名应该是核心服务器的 ip 地址
+      DB_HOST: 'localhost'
+      REDIS_HOST: 'localhost'
+    image: parking_lot:latest
+    command: bash -c "sleep 10s; rm -vf /tmp/celeryd.pid; cd /project/parking_lot && celery -A parking_lot beat -l info --pidfile=/tmp/celeryd.pid"
+    volumes:
+      - ./parking_lot:/project/parking_lot
+    # depends_on:
+    #   - redis
+
+  parking_lot_indoor_camera:
+    # restart: on-failure
+    build: ./parking_lot
+    image: parking_lot:latest
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "off"
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@localhost:5432/BooomSlim_db
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
+      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      # !!! 必须指定 !!!
+      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
+      HOST_ROLE: 'indoor_camera'
+      HOST_NUM: '1'
+      # mongodb 和 redis 的主机名
+      # 默认是 db 和 redis 
+      # 如果容器 parking_lot 用于出入口车牌识别终端
+      # 而主机名应该是核心服务器的 ip 地址
+      DB_HOST: 'localhost'
+      REDIS_HOST: 'localhost'
+    # 测试 HyperLPR
+    # command: bash -c "python ./parking_lot/HyperLPR/lpr_provider.py"
+    command: bash -c "python3 ./parking_lot/manage.py runserver"
+    # network_mode: host
+    volumes:
+      - ./parking_lot:/project/parking_lot
+    # 如果作为车牌识别结点, 那么 django 就不需要暴露出端口了,
+    # 运行 django 的目的只不多是为了运行 Celery 的定时任务...
+    # ports:
+    #   - 8080:8080
+    # depends_on:
+    # # links:
+    #   - db
+    #   - redis

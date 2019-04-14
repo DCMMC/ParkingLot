@@ -15,7 +15,7 @@ services:
     ports:
       - 27017:27017
     command: mongod
-    restart: on-failure
+    # restart: on-failure
     # macOS compatiable
     # network_mode: host
   
@@ -29,41 +29,39 @@ services:
     command: redis-server --requirepass xwt97294597
     ports:
       - 6379:6379
-    restart: on-failure
+    # restart: on-failure
 
   # 如果是运行在核心服务器上, celery 和 Celery-beat 都可以不用运行
-  celery:
-    restart: on-failure
-    build: ./parking_lot
-    image: parking_lot:latest
-    command: bash -c "cd /project/parking_lot && celery -A parking_lot worker -l info"
-    volumes:
-      - ./parking_lot:/project/parking_lot
-    depends_on:
-      - db
-      - redis
-
-  celery-beat:
-    restart: on-failure
-    build: ./parking_lot
-    image: parking_lot:latest
-    command: bash -c "cd /project/parking_lot && celery -A parking_lot beat -l info"
-    volumes:
-      - ./parking_lot:/project/parking_lot
-    depends_on:
-      - db
-      - redis
-
+  # celery:
+  #   # restart: on-failure
+  #   build: ./parking_lot
+  #   image: parking_lot:latest
+  #   command: bash -c "cd /project/parking_lot && celery -A parking_lot worker -l info"
+  #   volumes:
+  #     - ./parking_lot:/project/parking_lot
+  #   depends_on:
+  #     - redis
+  #
+  # celery-beat:
+  #   # restart: on-failure
+  #   build: ./parking_lot
+  #   image: parking_lot:latest
+  #   command: bash -c "cd /project/parking_lot && celery -A parking_lot beat -l info"
+  #   volumes:
+  #     - ./parking_lot:/project/parking_lot
+  #   depends_on:
+  #     - redis
+  #
   parking_lot:
     # restart: on-failure
     build: ./parking_lot
     image: parking_lot:latest
     environment:
-      DJANGO_MANAGEPY_MIGRATE: "on"
+      DJANGO_MANAGEPY_MIGRATE: "off"
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@127.0.0.1:5432/BooomSlim_db
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
-      DJANGO_MANAGEPY_COLLECTSTATIC: "on"
-      # 详情请看 parking_lot/parking_lot/settings.py
+      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
       # !!! 必须指定 !!!
       HOST_ROLE: 'core'
       HOST_NUM: '1'
