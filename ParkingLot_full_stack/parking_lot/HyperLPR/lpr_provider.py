@@ -14,9 +14,10 @@ model = None
 
 def init():
     global model
-    model = pr.LPR(os.path.join(BASE_PATH, "model/cascade.xml"),
-                   os.path.join(BASE_PATH, "model/model12.h5"),
-                   os.path.join(BASE_PATH, "model/ocr_plate_all_gru.h5"))
+    print('目录:', BASE_PATH)
+    model = pr.LPR(os.path.join(BASE_PATH, "model", "cascade.xml"),
+                   os.path.join(BASE_PATH, "model", "model12.h5"),
+                   os.path.join(BASE_PATH, "model", "ocr_plate_all_gru.h5"))
 
 
 def recognize_single_image(file_full_path, threshold=0.7):
