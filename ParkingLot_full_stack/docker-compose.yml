@@ -5,9 +5,10 @@ services:
     image: mongo:latest
     environment:
       - MONGO_DATA_DIR=/data/db
-      - MONGO_INITDB_ROOT_USERNAME="mongoadmin"
+      # 被 " 害死了...
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       # !!! This is only a test password !!!
-      - MONGO_INITDB_ROOT_PASSWORD="xwt97294597"
+      - MONGO_INITDB_ROOT_PASSWORD=xwt97294597
       # - MONGODB_USER="user"
       # - MONGODB_PASS="pass"
     volumes:

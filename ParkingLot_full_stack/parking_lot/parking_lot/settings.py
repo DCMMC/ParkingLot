@@ -111,9 +111,9 @@ from mongoengine import connect # noqa
 # 如果 docker-compose network 不是 host 模式的话
 # 到时候 host 可能要改成核心服务器的 ip
 # !!! This is only a test password !!!
-connect('db', host=db_host, port=27017,
-        username='mongoadmin', password='xwt97294597',
-        authentication_source='admin')
+# db 的名称原来叫 admin...
+connect('admin', host=db_host, port=27017,
+        username='mongoadmin', password='xwt97294597')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
