@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import os
 from django.db import migrations
 from django.contrib.auth.admin import User
 
@@ -38,3 +38,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(create_superuser)
     ]
+

@@ -1,8 +1,10 @@
+
 # models use MongoDB
 # from mongoengine import *
 from mongoengine import Document
 from mongoengine import StringField
 from mongoengine import DateTimeField
+from mongoengine import FloatField
 from mongoengine import ReferenceField
 from mongoengine import ListField
 from mongoengine import DecimalField
@@ -18,13 +20,14 @@ class Vehicle(Document):
     车辆信息
     """
     # 车牌为主键
+    # pk 不能同时设置为 unique
     license_plate = StringField(max_length=20, primary_key=True,
-                                unique=True, required=True)
+                                required=True)
     # 备注
     addition_info = StringField(max_length=10000, default='')
-    phone_number = StringField(max_length=14, required=True)
+    phone_number = StringField(max_length=14)
     # 车主信息
-    owner_name = StringField(max_length=20, required=True)
+    owner_name = StringField(max_length=20)
     # 会员卡, 双向绑定, 并且是可选的, 也就是说, 会员卡可以在不登记在
     # 车辆信息的情况下, 直接使用
     # 如果要新增或删除会员卡, 一定要记得在 MemberCard 里面同时新增或
@@ -32,6 +35,9 @@ class Vehicle(Document):
     # 记住: 对在 Document 里面对引用的更改在该 Document save 的时候不会对其
     # 引用的 Document 进行保存, 除非使用 Cascading Saves
     member_card = ListField(ReferenceField('MemberCard'))
+    # TODO: 暂停
+    date_in = DateTimeField()
+    indoor_id = StringField(max_length=20)
 
 
 class MemberCard(Document):
@@ -39,8 +45,12 @@ class MemberCard(Document):
     会员卡
     """
     date_created = DateTimeField(default=datetime.datetime.utcnow)
+    # 持卡人信息
+    phone_number = StringField(max_length=20, require=True)
     # 'count'(记数卡), 'top-up'(充值卡)
     card_type = StringField(max_length=20, required=True)
+    # 记次/储值
+    value = DecimalField(min_value=0., require=True)
     addition_info = StringField(max_length=10000)
     # 会员卡与车辆双向绑定, 这个是可选的
     bind_vehicles = MapField(ReferenceField(Vehicle))
@@ -67,8 +77,8 @@ class Parking(Document):
     车位信息
     """
     # 车位 id 推荐用停车场 pk + 车位号(在 models.json 里面的) 的结合
-    parking_id = StringField(max_length=20, primary_key=True,
-                             unique=True, required=True)
+    parking_id = StringField(max_length=100, primary_key=True,
+                             required=True)
     addition_info = StringField(max_length=10000, default='')
     floor = ReferenceField('Floor', require=True)
     region = ReferenceField('Region', require=True)
@@ -107,7 +117,7 @@ class Region(Document):
                             unique=True)
     floor = ReferenceField('Floor', require=True)
     # 车位
-    # {id_in_map: LazyRefField} 的字典
+    # {parkingNo: LazyRefField} 的字典
     parkings = MapField(field=LazyReferenceField('Parking'))
     addition_info = StringField(max_length=10000, default='')
 
@@ -144,6 +154,9 @@ class ParkingLot(Document):
     indoors = MapField(ReferenceField('Door'))
     outdoors = MapField(ReferenceField('Door'))
     floors = MapField(ReferenceField(Floor))
+    # 每小时费用
+    # TODO: 暂定 10
+    fee_per_hr = FloatField(default=10)
 
 
 class ParkingLotLog(Document):
@@ -175,9 +188,9 @@ class BillLog(Document):
     # 懒加载, 到时候我们要根据 pk 搜索日志, 所以必须要用这个为了效率
     vehicle = LazyReferenceField(Vehicle, required=True)
     # 非会员用户或者储值卡(top-up)用户
-    fee = DecimalField(min_value=0., precision=3, require=True)
+    fee = DecimalField(min_value=0., precision=3)
     # 如果使用了(储值卡/记次卡)才需要用到 member_card
-    member_card = LazyReferenceField(MemberCard)
+    member_card = ReferenceField(MemberCard)
     indoor = LazyReferenceField(Door, require=True)
     outdoor = LazyReferenceField(Door, require=True)
     admin_info = StringField(max_length=50, required=True)

@@ -39,6 +39,7 @@ RUN apt update -y && apt install -y \
 # 	sshpass \
 # 	openssh-client \
 	&& curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+	&& apt update -y \
 	&& apt-get install -y nodejs \
 	&& npm install --global yarn \
 	&& pip install --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple pip \

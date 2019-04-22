@@ -123,7 +123,7 @@ export const asyncRoutes = [
     meta: {
       title: 'permission',
       icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin'] // you can set roles in root nav
     },
     children: [
       {
@@ -215,7 +215,11 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/tab/index'),
         name: 'Tab',
-        meta: { title: 'tab', icon: 'tab' }
+        meta: {
+          title: 'tab',
+          icon: 'tab',
+          roles: ['admin']
+        }
       }
     ]
   },
@@ -227,7 +231,8 @@ export const asyncRoutes = [
     name: 'ErrorPages',
     meta: {
       title: 'errorPages',
-      icon: '404'
+      icon: '404',
+      roles: ['admin']
     },
     children: [
       {

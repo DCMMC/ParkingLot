@@ -2,7 +2,7 @@ version: '3'
 
 services:
   # 如果是运行在核心服务器上, celery 和 Celery-beat 都可以不用运行
-  celery:
+  celery_indoor:
     # restart: on-failure
     build: ./parking_lot
     image: parking_lot:latest
@@ -23,15 +23,16 @@ services:
       REDIS_HOST: 'localhost'
     # 必须要等待 parking_lot_indoor_camera 创建好 Celery 才行
     # 暂时的 workaround: 先休眠几秒
-    command: bash -c "sleep 10s; cd /project/parking_lot && celery -A parking_lot worker -l info"
+    command: bash -c "sleep 10s; cd /project/parking_lot && celery -A parking_lot worker --concurrency=4 -l info"
     volumes:
       - ./parking_lot:/project/parking_lot
     # depends_on:
     #   - redis
 
-  celery-beat:
+  celery_beat_indoor:
     # restart: on-failure
     build: ./parking_lot
+    image: parking_lot:latest
     environment:
       DJANGO_MANAGEPY_MIGRATE: "off"
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@localhost:5432/BooomSlim_db

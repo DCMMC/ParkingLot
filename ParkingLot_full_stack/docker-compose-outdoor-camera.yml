@@ -2,21 +2,54 @@ version: '3'
 
 services:
   # 如果是运行在核心服务器上, celery 和 Celery-beat 都可以不用运行
-  celery:
+  celery_outdoor:
     # restart: on-failure
     build: ./parking_lot
     image: parking_lot:latest
-    command: bash -c "sleep 10s; cd /project/parking_lot && celery -A parking_lot worker -l info"
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "off"
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@localhost:5432/BooomSlim_db
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
+      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      # !!! 必须指定 !!!
+      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'outdoor_camera'(车牌识别服务器)
+      HOST_ROLE: 'outdoor_camera'
+      HOST_NUM: '1'
+      # mongodb 和 redis 的主机名
+      # 默认是 db 和 redis 
+      # 如果容器 parking_lot 用于出入口车牌识别终端
+      # 而主机名应该是核心服务器的 ip 地址
+      DB_HOST: 'localhost'
+      REDIS_HOST: 'localhost'
+    # 必须要等待 parking_lot_outdoor_camera 创建好 Celery 才行
+    # 暂时的 workaround: 先休眠几秒
+    command: bash -c "sleep 10s; cd /project/parking_lot && celery -A parking_lot worker --concurrency=4 -l info"
     volumes:
       - ./parking_lot:/project/parking_lot
     # depends_on:
     #   - redis
 
-  celery-beat:
+  celery_beat_outdoor:
     # restart: on-failure
     build: ./parking_lot
     image: parking_lot:latest
-    command: bash -c "sleep 10s; cd /project/parking_lot && celery -A parking_lot beat -l info"
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "off"
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@localhost:5432/BooomSlim_db
+      # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
+      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      # !!! 必须指定 !!!
+      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'outdoor_camera'(车牌识别服务器)
+      HOST_ROLE: 'outdoor_camera'
+      HOST_NUM: '1'
+      # mongodb 和 redis 的主机名
+      # 默认是 db 和 redis 
+      # 如果容器 parking_lot 用于出入口车牌识别终端
+      # 而主机名应该是核心服务器的 ip 地址
+      DB_HOST: 'localhost'
+      REDIS_HOST: 'localhost'
+    image: parking_lot:latest
+    command: bash -c "sleep 10s; rm -vf /tmp/celeryd.pid; cd /project/parking_lot && celery -A parking_lot beat -l info --pidfile=/tmp/celeryd.pid"
     volumes:
       - ./parking_lot:/project/parking_lot
     # depends_on:
@@ -32,7 +65,7 @@ services:
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
       DJANGO_MANAGEPY_COLLECTSTATIC: "off"
       # !!! 必须指定 !!!
-      # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
+      # HOST_ROLE 分 'core'(核心服务器), 'indoor_camera' 和 'outdoor_camera'(车牌识别服务器)
       HOST_ROLE: 'outdoor_camera'
       HOST_NUM: '1'
       # mongodb 和 redis 的主机名

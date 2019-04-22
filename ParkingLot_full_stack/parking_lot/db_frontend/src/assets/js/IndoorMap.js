@@ -501,7 +501,16 @@ var default3dTheme = {
 
     //selected room's style
     // selected: "#ffff55",
-    selected: "#ff0000",
+    selected: {
+        color: "#ff0000",
+        opacity: 0.4,
+        transparent: true
+    },
+    unselected: {
+        color: "#00c853",
+        opacity: 0.7,
+        transparent: true
+    },
 
     //rooms' style
     room: function (type, sortType, areaStatus) {
@@ -560,7 +569,7 @@ var default3dTheme = {
                     default:
                         roomStyle = {
                             color: "#ff0000",
-                            opacity: 0.4,
+                            opacity: 0.7,
                             transparent: true
                         }
                         break
@@ -771,6 +780,7 @@ function ParseModel(json, is3d, theme){
                     mesh = new THREE.Mesh(geometry, material);
                     mesh.type = "solidroom";
                     mesh.id = funcArea._id;
+                    // console.log('funcArea.ParkingNo='+funcArea.ParkingNo)
                     mesh.parkingNo = funcArea.ParkingNo;
 
                     floorObj.add(mesh);

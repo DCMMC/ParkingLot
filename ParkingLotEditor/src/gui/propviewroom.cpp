@@ -105,9 +105,9 @@ void PropViewRoom::updateSortType(const QString &sortType){
 
 void PropViewRoom::updateAreaStatus(const int state){
     if(state == Qt::Checked)
-        m_room->setAreaStatus(Room::USED);
-    else if(state == Qt::Unchecked)
         m_room->setAreaStatus(Room::UNUSED);
+    else if(state == Qt::Unchecked)
+        m_room->setAreaStatus(Room::USED);
 }
 
 //void PropViewRoom::queryFinished(){

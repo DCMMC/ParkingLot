@@ -256,8 +256,13 @@ var IndoorMap3d = function(mapdiv){
         for(var i = 0; i < floor.children.length; i++){
             if(floor.children[i].parkingNo &&
                     floor.children[i].parkingNo == parkingNo) {
-                floor.children[i].material.color = 
-                    new THREE.Color(_theme.selected);
+                if (status) {
+                    floor.children[i].material.color = 
+                        new THREE.Color(_theme.selected.color);
+                } else {
+                    floor.children[i].material.color = 
+                        new THREE.Color(_theme.unselected.color);
+                }
             }
         }
         redraw();

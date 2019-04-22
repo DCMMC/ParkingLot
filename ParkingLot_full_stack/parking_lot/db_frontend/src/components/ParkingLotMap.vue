@@ -52,14 +52,15 @@ export default {
       // document.body.appendChild(ul);
       this.ready = true
     })
-    if (!this.ready) {
-      setTimeout(() => {
-        // console.log(this.ready)
-        // 必须要在 callback 完成之后
-        this.map.updateParkingLotStatus('1', true)
-        this.map.updateParkingLotStatus('车库3', true)
-      }, 1000)
-    }
+    // if (!this.ready) {
+    //   setTimeout(() => {
+    //     // console.log(this.ready)
+    //     // 必须要在 callback 完成之后
+    //     // true 表示正在被使用中
+    //     // this.map.updateParkingLotStatus('1', true)
+    //     // this.map.updateParkingLotStatus('车库3', true)
+    //   }, 1000)
+    // }
 
     // debug fps 信息
     // var stats = new Stats();
@@ -79,7 +80,10 @@ export default {
       // 原来写死的 127.0.0.1 跟 cookie 的 0.0.0.0 不一致
       // channels 死活得不到正确的 scope['user'] debug 了半天...
       var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
-      var ws_path = ws_scheme + '://' + window.location.host +
+
+      // var ws_path = ws_scheme + '://' + window.location.host +
+      //   '/ws/parkingLotStatus/' + this.layerNum + '/'
+      var ws_path = ws_scheme + '://' + 'localhost:8080' +
         '/ws/parkingLotStatus/' + this.layerNum + '/'
       this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
@@ -94,13 +98,27 @@ export default {
     },
     websocketonerror() {
       // 连接建立失败重连
-      // console.error('意外断开连接, 尝试重新连接...')
+      console.error('意外断开连接, 尝试重新连接...')
       // this.initWebSocket()
     },
     websocketonmessage(e) {
       // 数据接收
       const redata = JSON.parse(e.data)
-      console.log(redata)
+      if (redata.code === 'updateParking') {
+        var t_out = 0
+        if (!this.ready) {
+          t_out = 1000
+        }
+        setTimeout(() => {
+          for (var i in redata.data[this.layerNum]) {
+            for (var j in redata.data[this.layerNum]['' + i]) {
+              this.map.updateParkingLotStatus(i,
+                redata.data[this.layerNum]['' + i]['' + j] === 'used')
+            }
+          }
+        }, t_out)
+      }
+      // console.log(redata)
     },
     websocketsend(Data) {
       // 数据发送

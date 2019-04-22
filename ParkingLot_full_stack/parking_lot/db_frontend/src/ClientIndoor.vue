@@ -11,13 +11,13 @@
                 TODO: 使用 expansion panels
               </v-card-text> -->
               <v-card-actions>
-                <v-expansion-panel v-model="panel" expand light>
+                <v-expansion-panel :value="panel" expand light>
                   <v-expansion-panel-content
-                    v-for="(item,i) in 2"
-                    :key="i"
+                    v-for="(floor_region, floor_region_name) in parkings_status"
+                    :key="floor_region_name"
                   >
                     <template v-slot:header>
-                      <div class="headline">一楼一区</div>
+                      <div class="headline">{{ floor_region_name }}</div>
                     </template>
                     <vue-custom-scrollbar
                       id="emptyLot"
@@ -26,12 +26,12 @@
                     >
                       <ul>
                         <li
-                          v-for="(item,i) in 20"
-                          :key="i"
+                          v-for="(status, id) in floor_region"
+                          :key="id"
                           class="headline"
                           style="display: flex; justify-content: center;"
                         >
-                          {{ i }}
+                          {{ id }}号位
                         </li>
                       </ul>
                     </vue-custom-scrollbar>
@@ -54,7 +54,9 @@
                 >
                   <v-card-text class="display-1">
                     欢迎您! <br>
-                    {{ license_plate }}
+                    {{ license_plate }} <br>
+                    推荐车位:
+                    {{ recommand_parkings }}
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -85,15 +87,28 @@ export default {
   },
   data: () => ({
     panel: [],
-    items: 2,
     settings: {
       maxScrollbarLength: 60
     },
+    parkings_status: {},
+    recommand_parkings: '',
     scrollTop: 250,
-    license_plate: 'Unknown',
-    indoorNum: 1,
+    license_plate: '',
+    indoorNum: 1, // TODO
     websock: null
   }),
+  computed: {
+    parkings_status_unused() {
+      var p = {}
+      for (var i in this.parkings_status) {
+        p[i] = {}
+        for (var j in this.parkings_status) {
+          p[i][j] = this.parkings_status[i][j].filter(p => p === 'unused')
+        }
+      }
+      return p
+    }
+  },
   created() {
     this.initWebSocket()
   },
@@ -101,20 +116,19 @@ export default {
     this.websock.close() // 离开路由之后断开websocket连接
   },
   mounted() {
-    // 全部展开
-    this.panel = [...Array(this.items).keys()].map(_ => true)
     // TODO: 使用 scrollTop 自动滚动
-    var node = document.getElementById('emptyLot')
-    setTimeout(() => { node.scrollTop = 200; console.log('set scrollTop') }, 5000)
+    setTimeout(() => {
+      var node = document.getElementById('emptyLot')
+      node.scrollTop = 200; console.log('set scrollTop')
+    }, 5000)
   },
   methods: {
-    scrollHanle(evt) {
-      console.log(evt)
-    },
     initWebSocket() {
       // 初始化weosocket
       var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
-      var ws_path = ws_scheme + '://' + window.location.host +
+      // var ws_path = ws_scheme + '://' + window.location.host +
+      //   '/ws/indoor/' + this.indoorNum + '/'
+      var ws_path = ws_scheme + '://' + 'localhost:8080' +
         '/ws/indoor/' + this.indoorNum + '/'
       this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
@@ -129,14 +143,40 @@ export default {
     },
     websocketonerror() {
       // 连接建立失败重连
-      // console.error('意外断开连接, 尝试重新连接...')
-      // this.initWebSocket()
+      console.error('意外断开连接, 尝试重新连接...')
+      this.initWebSocket()
     },
     websocketonmessage(e) {
       // 数据接收
       const redata = JSON.parse(e.data)
-      this.license_plate = redata.message.pstr
-      console.log(redata)
+      if (redata.code === 'discover_license') {
+        this.license_plate = redata.data.pstr
+      } else if (redata.code === 'recommand_parkings') {
+        var recomm = ''
+        for (var i in redata.data) {
+          recomm += (redata.data[i] + ' ')
+        }
+        this.recommand_parkings = recomm
+      } else if (redata.code === 'all_parkings_status') {
+        for (var k_f in redata.data) {
+          for (var k_r in redata.data['' + k_f]) {
+            var f_r_name = '' + k_f + '楼' + k_r + '区'
+            var parkings = {}
+            for (var p in redata.data['' + k_f]['' + k_r]) {
+              parkings['' + p] =
+                redata.data['' + k_f]['' + k_r]['' + p]
+            }
+            // console.log(this.parkings_status, f_r_name, parkings)
+            // Vue 不能直接设置 data 里面的变量, 因为这样的改变
+            // 不会将事件传递到 Vue 去, 必须要用 $set 或 Vue.set 方法来修改对象
+            this.$set(this.parkings_status, f_r_name, parkings)
+          }
+        }
+        // 全部展开
+        // 对于 data 中的赋值, 必须要用 Object.assign 才能发出事件被 vue 捕获.
+        Object.assign(this.panel, [...Array(Object.keys(this.parkings_status).length).keys()].map(_ => true))
+      }
+      // console.log(redata)
     },
     websocketsend(Data) {
       // 数据发送
@@ -145,6 +185,10 @@ export default {
     websocketclose(e) {
       // 关闭
       console.log('断开连接', e)
+      // 2s 重连, 业务必须保持一直连接状态
+      // setTimeout(() => {
+      //   this.initWebSocket()
+      // }, 2000)
     }
   }
 }
@@ -152,7 +196,7 @@ export default {
 
 <style>
 .scroll-area {
-   height: 200px;
+   height: 400px;
 }
 ul,li {
   list-style: none;

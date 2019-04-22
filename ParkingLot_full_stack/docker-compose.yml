@@ -58,10 +58,10 @@ services:
     build: ./parking_lot
     image: parking_lot:latest
     environment:
-      DJANGO_MANAGEPY_MIGRATE: "off"
+      DJANGO_MANAGEPY_MIGRATE: "on"
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@127.0.0.1:5432/BooomSlim_db
       # DATABASE_URL: postgres://BooomSlim:xwt97294597@db:5432/BooomSlim_db
-      DJANGO_MANAGEPY_COLLECTSTATIC: "off"
+      DJANGO_MANAGEPY_COLLECTSTATIC: "on"
       # HOST_ROLE 分 'core'(核心服务器), 'outdoor_camera' 和 'indoor_camera'(车牌识别服务器)
       # !!! 必须指定 !!!
       HOST_ROLE: 'core'
@@ -78,6 +78,7 @@ services:
     # network_mode: host
     volumes:
       - ./parking_lot:/project/parking_lot
+      - ./parking_lot/docker-entrypoint-initenv.sh:/project/docker-entrypoint-initenv.sh
     # 如果作为车牌识别结点, 那么 django 就不需要暴露出端口了,
     # 运行 django 的目的只不多是为了运行 Celery 的定时任务...
     ports:

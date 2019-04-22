@@ -2,6 +2,8 @@ from django.http import JsonResponse
 # from .models import Coach, Student
 import json
 # from mongoengine.queryset.visitor import Q
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 from django.views.decorators.csrf import csrf_exempt
 import logging
 # import os
@@ -12,6 +14,7 @@ from django.contrib.auth import authenticate, login, logout
 from parking_lot.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
 # from parking_lot.settings import BASE_DIR
 from django.shortcuts import redirect
+import db_pool.operations as operations
 
 logger = logging.getLogger(__name__)
 
@@ -109,7 +112,16 @@ def admin_login(req):
         # TODO: 暂时只接受 admin 用户的登录
         if user is not None and username == 'admin':
             login(req, user)
-            return JsonResponse({'code': 20000, 'data': 'admin-token'})
+            return JsonResponse({'code': 20000, 'data': {
+                'token': 'super_admin'
+            }})
+        elif user is not None:
+            # TODO: 更好地利用 Django 的权限管理
+            # TODO: 修改前后端的 token
+            login(req, user)
+            return JsonResponse({'code': 20000, 'data': {
+                'token': 'outdoor_admin'
+            }})
         else:
             # invalid login
             return JsonResponse({'code': 60204,
@@ -123,16 +135,24 @@ def admin_login(req):
 def admin_info(req):
     if req.method == 'GET':
         print(req.COOKIES)
-        token = req.COOKIES.get("Admin-Token", None)
-        # TODO: 暂时只支持 admin
-        if token:
+        token_admin = req.COOKIES.get("Admin-Token", None)
+        if token_admin:
             # TODO: 更多数据库有关信息
-            return JsonResponse({'code': 20000, 'data': {
-                'roles': ['admin'],
-                'introduction': '停车场管理系统超级管理员',
-                # 'avatar': 'https://example.com/res.jpg',
-                'name': '超级管理员'}
-                                 })
+            if token_admin == 'super_admin':
+                return JsonResponse({'code': 20000, 'data': {
+                    'roles': ['admin', ],
+                    'name': '超级管理员',
+                    'avatar': '',
+                    'introduction': '停车场管理系统超级管理员',
+                    # 'avatar': 'https://example.com/res.jpg
+                }})
+            elif token_admin == 'outdoor_admin':
+                return JsonResponse({'code': 20000, 'data': {
+                    'roles': ['editor', ],
+                    'name': '出口管理员',
+                    'avatar': '',
+                    'introduction': '停车场出口管理员',
+                }})
         else:
             return JsonResponse({
                 'code': 50008,
@@ -157,11 +177,43 @@ def parking_lot_status_update(request):
     # DCMMC: 要不要考虑下安全问题?
     if request.method == 'POST' and request.content_type == 'application/json':
         # TODO
+        # 规范:
+        # {'code': 'updateParking', 'data': [{'parking_id_1': 'used'}, ...]}
         post = json.loads(request.body)
         # debug
         print('从车位识别得到的结果: {}'.format(json.dumps(post)))
         # TODO
         # 更新数据库之后, 向 parking_lot_realtime/consumers/ParkingLotStatusConsumer
         # 发送 group_send 事件
+        for p in post['data']:
+            operations.updateParking(p.items[0], p.items[1])
+        res = operations.arrange_parkings_by_floor(post)
+        channel_layer = get_channel_layer()
+        for f_id, f_data in res.items:
+            async_to_sync(channel_layer.group_send)(
+                'status_{}'.format(f_id),
+                {
+                    # 这个 type 是 Consumer 中的一个 Listen method
+                    # 这个 group_send 就是向该 group 下所有 Consumers
+                    # 发送一个以这个字典作为数据的 event 给 consumers
+                    # 中 type 指定的 method, 注意: type 中的 `.` 会被
+                    # 替换为 `_`
+                    'type': 'update_parking',
+                    # 后面的这些字段将会被 wrap 到 event
+                    'message': json.dumps({
+                        'code': 'updateParking',
+                        'data': f_data
+                    })
+                }
+            )
+        indoors = operations.getAllDoorIds(door_type='indoor')
+        for i in indoors.get('data', []):
+            async_to_sync(channel_layer.group_send)(
+                'indoor_'.format(i),
+                {
+                    'type': 'send_recommand',
+                    'message': {}
+                }
+            )
     else:
         return HttpResponseForbidden()
