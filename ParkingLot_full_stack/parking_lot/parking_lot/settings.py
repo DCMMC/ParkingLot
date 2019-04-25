@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'yz-e%31oh49iux(ye9(d=739rtw#(m3$+h68i$96pzv)c5&s*!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # TODO: 要不要因为安全改成局域网特定几个 ip
 ALLOWED_HOSTS = ["*"]
@@ -118,7 +118,6 @@ connect('admin', host=db_host, port=27017,
         username='mongoadmin', password='xwt97294597')
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -234,10 +233,11 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Shanghai'
 
+# !!! DCMMC: 只是为了调试方便
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+from corsheaders.defaults import default_headers # noqa
 
-# CORS_ORIGIN_ALLOW_ALL = False
-#
-# CORS_ORIGIN_WHITELIST = (
-#     'http//:localhost:8000',
-# )
+CORS_ALLOW_HEADERS = default_headers + (
+    'x-token',
+)

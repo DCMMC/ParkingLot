@@ -58,13 +58,13 @@
           label="持有人姓名"
           prop="owner_name"
         />
-        <el-table-column label="操作" width="160">
+        <el-table-column label="操作" width="260">
           <template slot-scope="scope">
             <el-button
               size="small"
               @click="handleEdit(scope.row)"
             >编辑</el-button>
-            <el-button class="filter-item" type="danger" icon="el-icon-search" @click="handleRemove(scope.row)">
+            <el-button class="filter-item" type="danger" size="small" icon="el-icon-search" @click="handleRemove(scope.row)">
               删除车辆
             </el-button>
           </template>
@@ -172,15 +172,15 @@ export default {
   created() {
   },
   methods: {
-    async handleFilter() {
-      try {
-        const vehicles = await getVehiclesApi({
-          offset: this.offset,
-          limit: this.limit,
-          license_plate: this.listQuery.license_plate,
-          phone_number: this.listQuery.phone_number
-        })
-        // const parkings = {"code": "success", "data": {"parkings": [{"addition_info": "1", "parking_id": "1", "floor_id": "1", "region_id": "1", "status": "normal", "used": false}], "count": 1}}
+    handleFilter() {
+      console.log('111')
+      getVehiclesApi({
+        offset: this.offset,
+        limit: this.limit,
+        license_plate: this.listQuery.license_plate,
+        phone_number: this.listQuery.phone_number
+      }).then(vehicles => {
+        console.log(vehicles)
         if (vehicles['code'] === 'success') {
           this.count = vehicles.data.count
           this.tableData = vehicles.data.vehicles
@@ -194,17 +194,16 @@ export default {
             message: '获取数据失败: ' + vehicles['info']
           })
         }
-      } catch (e) {
-        console.log('Error', e.stack)
-        console.log('Error', e.name)
-        console.log('Error', e.message)
-      }
+      }).catch(err => {
+        console.log(err)
+      })
+      // const vehicles = {"code": "success", "data": {"count": 5, "vehicles": [{"owner_name": null, "phone_number": null, "license_plate": "\u7696A92141", "addition_info": "", "cards": []}, {"owner_name": null, "phone_number": null, "license_plate": "EL0662", "addition_info": "", "cards": []}, {"owner_name": null, "phone_number": null, "license_plate": "\u664bCV8999", "addition_info": "", "cards": []}, {"owner_name": null, "phone_number": null, "license_plate": "\u4eacNQ4163", "addition_info": "", "cards": []}, {"owner_name": null, "phone_number": null, "license_plate": "\u4eacK98410", "addition_info": "", "cards": []}]}}
     },
     handleAdd() {
       this.dialogAddVisible = true
     },
     async addVehicle() {
-      this.dialogAddisible = false
+      this.dialogAddVisible = false
       try {
         const res = await addVehicleApi(this.newTable)
         if (res.code === 'success') {
@@ -304,7 +303,6 @@ export default {
             type: 'success',
             message: '更新车辆信息成功'
           })
-          this.getFoods()
         } else {
           this.$message({
             type: 'error',

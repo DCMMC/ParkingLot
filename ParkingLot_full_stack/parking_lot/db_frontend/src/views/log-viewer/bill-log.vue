@@ -97,8 +97,7 @@
 <script>
 import { getBillLog } from '@/api/getData'
 export default {
-    	components: {
-    	},
+  components: {},
   data() {
     return {
       // 查询
@@ -122,7 +121,7 @@ export default {
   methods: {
     async handleFilter() {
       try {
-        const parkings = await getParkings({
+        const parkings = await getBillLog({
           offset: this.offset,
           limit: this.limit,
           license_plate: this.listQuery.license_plate,
@@ -133,6 +132,10 @@ export default {
         if (parkings['code'] === 'success') {
           this.count = parkings.data.count
           this.tableData = parkings.data.logs
+          this.$message({
+            type: 'success',
+            message: '获取数据成功: ' + this.count
+          })
         } else {
           this.$message({
             type: 'error',
@@ -161,11 +164,7 @@ export default {
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
+        return v[j]
       }))
     },
     handleSizeChange(val) {

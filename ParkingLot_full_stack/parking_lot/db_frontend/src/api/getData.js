@@ -1,13 +1,15 @@
 import request from '@/utils/request'
 
-export const getParkings = data => request({
-  url: '/getParkingsFilter',
-  method: 'post',
-  data
-})
+export function getParkings(data) {
+  return request({
+    url: '/getParkingsFilter',
+    method: 'post',
+    data
+  })
+}
 
 export function updateParkingApi(data) {
-  request({
+  return request({
     url: '/updateParking',
     method: 'post',
     data
@@ -15,15 +17,17 @@ export function updateParkingApi(data) {
 }
 
 export function getVehiclesApi(data) {
-  request({
+  var r = request({
     url: '/getVehicleFilter',
     method: 'post',
     data
   })
+  r.then(res => console.log(res)).catch(res => console.log(res))
+  return r
 }
 
 export function updateVehicleApi(data) {
-  request({
+  return request({
     url: '/updateVehicle',
     method: 'post',
     data
@@ -31,7 +35,7 @@ export function updateVehicleApi(data) {
 }
 
 export function rmVehicleApi(data) {
-  request({
+  return request({
     url: '/rmVehicle',
     method: 'post',
     data
@@ -39,7 +43,7 @@ export function rmVehicleApi(data) {
 }
 
 export function addVehicleApi(data) {
-  request({
+  return request({
     url: '/addVehicle',
     method: 'post',
     data
@@ -47,7 +51,7 @@ export function addVehicleApi(data) {
 }
 
 export function getBillLog(data) {
-  request({
+  return request({
     url: '/getBillLogFilter',
     method: 'post',
     data

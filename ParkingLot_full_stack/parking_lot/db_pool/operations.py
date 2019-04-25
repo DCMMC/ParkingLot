@@ -229,7 +229,7 @@ def getVehiclesFilter(**kwargs):
         return {'code': 'error', 'info': str(e)}
 
 
-def rmVehicle(license):
+def rmVehicle(license, **kwargs):
     try:
         db.Vehicle.objects(license_plate=license).first().delete()
         return {'code': 'success'}

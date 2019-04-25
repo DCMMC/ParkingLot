@@ -100,7 +100,7 @@
           <el-form-item label="车位可用状态('normal'(正常使用), 'unavailable'(不可用, e.g., 正在维修))" label-width="400px">
             <el-input v-model="selectTable.status" auto-complete="off" />
           </el-form-item>
-          <el-form-item label="车位使用情况('used'正在使用, 'ununsed'未被使用)" label-width="400px">
+          <el-form-item label="车位使用情况('true'正在使用, 'false'未被使用)" label-width="400px">
             <el-input v-model="selectTable.used" />
           </el-form-item>
           <el-form-item label="备注信息" label-width="400px">
@@ -119,8 +119,7 @@
 <script>
 import { getParkings, updateParkingApi } from '@/api/getData'
 export default {
-    	components: {
-    	},
+  components: {},
   data() {
     return {
       // 查询
@@ -171,11 +170,12 @@ export default {
             }
             parkings.data.parkings[i]['status_zh'] = status_zh
             var used_zh = ''
-            if (v.status) {
-              used_zh = '空车位'
-            } else {
+            if (v.used) {
               used_zh = '正在使用中'
+            } else {
+              used_zh = '空车位'
             }
+            parkings.data.parkings[i]['used'] = String(v.used)
             parkings.data.parkings[i]['used_zh'] = used_zh
           })
           this.tableData = parkings.data.parkings
@@ -186,9 +186,7 @@ export default {
           })
         }
       } catch (e) {
-        console.log('Error', e.stack)
-        console.log('Error', e.name)
-        console.log('Error', e.message)
+        console.log(e)
       }
     },
     handleDownload() {
@@ -209,11 +207,7 @@ export default {
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
+        return v[j]
       }))
     },
     handleSizeChange(val) {
@@ -225,18 +219,18 @@ export default {
       this.handleFilter()
     },
     expand(row, expandedRows) {
-            	row.used = String(row.used)
+      row.used = String(row.used)
       this.selectTable = row
     },
     handleEdit(row) {
       this.dialogFormVisible = true
     },
-    updateParking() {
+    async updateParking() {
       this.dialogFormVisible = false
       try {
         var postData = this.selectTable
         postData.used = (postData.used !== 'false')
-        const res = updateParkingApi(postData)
+        const res = await updateParkingApi(postData)
         if (res.code === 'success') {
           this.$message({
             type: 'success',
