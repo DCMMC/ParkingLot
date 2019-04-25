@@ -48,8 +48,8 @@ export default {
       this.map.showAreaNames(true).setSelectable(false)
       this.map.showFloor(1)
       // DCMMC: 暂时去掉这个, 这个要放在组件里面
-      // var ul = IndoorMap.getUI(this.map);
-      // document.body.appendChild(ul);
+      var ul = IndoorMap.getUI(this.map)
+      document.body.appendChild(ul)
       this.ready = true
     })
     // if (!this.ready) {

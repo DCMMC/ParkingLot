@@ -116,45 +116,161 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/permission',
+    path: '/parkingLotEditor',
     component: Layout,
-    redirect: '/permission/index',
-    alwaysShow: true, // will always show the root menu
+    alwaysShow: true,
     meta: {
-      title: 'permission',
+      title: '停车场系统维护',
       icon: 'lock',
-      roles: ['admin'] // you can set roles in root nav
+      roles: ['admin']
     },
     children: [
       {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
+        path: 'parkingLot',
+        component: () => import('@/views/parking-lot-editor/parking-lot'),
+        name: 'parkingLot',
         meta: {
-          title: 'pagePermission',
-          roles: ['admin'] // or you can only set roles in sub nav
+          title: '停车场信息',
+          roles: ['admin']
         }
       },
       {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
+        path: 'parkingFloor',
+        component: () => import('@/views/parking-lot-editor/parking-floor'),
+        name: 'parkingFloor',
         meta: {
-          title: 'directivePermission'
-          // if do not set roles, means: this page does not require permission
+          title: '停车场楼层信息',
+          roles: ['admin']
         }
       },
       {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
+        path: 'parkingRegion',
+        component: () => import('@/views/parking-lot-editor/parking-region'),
+        name: 'parkingRegion',
         meta: {
-          title: 'rolePermission',
+          title: '停车场区域信息',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'parkings',
+        component: () => import('@/views/parking-lot-editor/parkings'),
+        name: 'parkings',
+        meta: {
+          title: '停车场停车位信息',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'vehicles',
+        component: () => import('@/views/parking-lot-editor/vehicles'),
+        name: 'vehicles',
+        meta: {
+          title: '车辆信息',
           roles: ['admin']
         }
       }
     ]
   },
+  {
+    path: '/parkingLog',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      title: '停车场日志',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: 'billLog',
+        component: () => import('@/views/log-viewer/bill-log'),
+        name: 'billLog',
+        meta: { title: '流水日志', icon: 'bug' }
+      },
+      {
+        path: 'memberCardLog',
+        component: () => import('@/views/log-viewer/member-card-log'),
+        name: 'memberCardLog',
+        meta: { title: '会员卡日志', icon: 'bug' }
+      },
+      {
+        path: 'parkingLotLog',
+        component: () => import('@/views/log-viewer/parking-lot-log'),
+        name: 'parkingLotLog',
+        meta: {
+          title: '停车场信息日志',
+          icon: 'bug'
+        }
+      }
+    ]
+  },
+  {
+    path: '/memberCard',
+    component: Layout,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'memberCard',
+        component: () => import('@/views/member-card/member-cards'),
+        name: 'memberCard',
+        meta: { title: '会员卡维护', icon: 'bug', roles: ['admin'] }
+      }
+    ]
+  },
+  {
+    path: '/financialReport',
+    component: Layout,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'financialReport',
+        component: () => import('@/views/financial-report/index'),
+        name: 'financialReport',
+        meta: { title: '流水报表', icon: 'bug', roles: ['admin'] }
+      }
+    ]
+  },
+  // {
+  //   path: '/permission',
+  //   component: Layout,
+  //   redirect: '/permission/index',
+  //   alwaysShow: true, // will always show the root menu
+  //   meta: {
+  //     title: 'permission',
+  //     icon: 'lock',
+  //     roles: ['admin'] // you can set roles in root nav
+  //   },
+  //   children: [
+  //     {
+  //       path: 'page',
+  //       component: () => import('@/views/permission/page'),
+  //       name: 'PagePermission',
+  //       meta: {
+  //         title: 'pagePermission',
+  //         roles: ['admin'] // or you can only set roles in sub nav
+  //       }
+  //     },
+  //     {
+  //       path: 'directive',
+  //       component: () => import('@/views/permission/directive'),
+  //       name: 'DirectivePermission',
+  //       meta: {
+  //         title: 'directivePermission'
+  //         // if do not set roles, means: this page does not require permission
+  //       }
+  //     },
+  //     {
+  //       path: 'role',
+  //       component: () => import('@/views/permission/role'),
+  //       name: 'RolePermission',
+  //       meta: {
+  //         title: 'rolePermission',
+  //         roles: ['admin']
+  //       }
+  //     }
+  //   ]
+  // },
 
   // {
   //   path: '/icon',
@@ -170,10 +286,10 @@ export const asyncRoutes = [
   // },
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
+  // componentsRouter,
+  // chartsRouter,
   // nestedRouter,
-  tableRouter,
+  // tableRouter,
 
   // {
   //   path: '/example',
@@ -207,48 +323,48 @@ export const asyncRoutes = [
   //   ]
   // },
 
-  {
-    path: '/tab',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/tab/index'),
-        name: 'Tab',
-        meta: {
-          title: 'tab',
-          icon: 'tab',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/tab',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/tab/index'),
+  //       name: 'Tab',
+  //       meta: {
+  //         title: 'tab',
+  //         icon: 'tab',
+  //         roles: ['admin']
+  //       }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404',
-      roles: ['admin']
-    },
-    children: [
-      {
-        path: '401',
-        component: () => import('@/views/errorPage/401'),
-        name: 'Page401',
-        meta: { title: 'page401', noCache: true }
-      },
-      {
-        path: '404',
-        component: () => import('@/views/errorPage/404'),
-        name: 'Page404',
-        meta: { title: 'page404', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/error',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'ErrorPages',
+  //   meta: {
+  //     title: 'errorPages',
+  //     icon: '404',
+  //     roles: ['admin']
+  //   },
+  //   children: [
+  //     {
+  //       path: '401',
+  //       component: () => import('@/views/errorPage/401'),
+  //       name: 'Page401',
+  //       meta: { title: 'page401', noCache: true }
+  //     },
+  //     {
+  //       path: '404',
+  //       component: () => import('@/views/errorPage/404'),
+  //       name: 'Page404',
+  //       meta: { title: 'page404', noCache: true }
+  //     }
+  //   ]
+  // },
 
   // {
   //   path: '/error-log',

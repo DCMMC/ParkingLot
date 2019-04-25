@@ -72,8 +72,10 @@ def indoorCameraRecognize(indoorNum='1'):
                 count_down.value = 5
                 if str(last_pstr.value, encoding="utf-8") != pstr:
                     last_pstr.value = bytes(pstr, encoding="utf8")
-                    operations.vehicle_enter(pstr, datetime.datetime.utcnow,
-                                             indoorNum)
+                    res = operations.vehicle_enter(pstr,
+                                                   datetime.datetime.utcnow,
+                                                   indoorNum)
+                    print('debug结果:', res)
                 else:
                     # 同一辆车
                     pass
@@ -107,32 +109,43 @@ def indoorCameraRecognize(indoorNum='1'):
         # 置零, 防止倒计时还没技术就没有车辆在出入口了
         count_down.value = 0
         if not str(last_pstr.value, encoding='utf8').isspace():
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)(
-                'indoor_{}'.format(indoorNum),
-                {
-                    # 这个 type 是 Consumer 中的一个 Listen method
-                    # 这个 group_send 就是向该 group 下所有 Consumers
-                    # 发送一个以这个字典作为数据的 event 给 consumers
-                    # 中 type 指定的 method, 注意: type 中的 `.` 会被
-                    # 替换为 `_`
-                    'type': 'indoor_discover_license_plate',
-                    # 后面的这些字段将会被 wrap 到 event
-                    'message': json.dumps({
-                        'pstr': '',
-                        # 其他从数据库中获取的数据
-                    })
-                }
-            )
-            # TODO: DCMMC: 下面这一句只是为了 Test!
-            parkings = operations.getAvailableParkings()
-            if parkings['code'] == 'success' and len(parkings[
-                    'data']) > 0:
-                requests.post(redis_host, json={
-                    'code': 'updateParking',
-                    'data': [
-                        {random.sample(parkings['data'], 1)[0]: 'used'}
-                    ]})
+            try:
+                channel_layer = get_channel_layer()
+                async_to_sync(channel_layer.group_send)(
+                    'indoor_{}'.format(indoorNum),
+                    {
+                        # 这个 type 是 Consumer 中的一个 Listen method
+                        # 这个 group_send 就是向该 group 下所有 Consumers
+                        # 发送一个以这个字典作为数据的 event 给 consumers
+                        # 中 type 指定的 method, 注意: type 中的 `.` 会被
+                        # 替换为 `_`
+                        'type': 'indoor_discover_license_plate',
+                        # 后面的这些字段将会被 wrap 到 event
+                        'message': json.dumps({
+                            'pstr': '',
+                            # 其他从数据库中获取的数据
+                        })
+                    }
+                )
+                # TODO: DCMMC: 下面这一句只是为了 Test!
+                parkings = operations.getAvailableParkings()
+                if parkings['code'] == 'success' and len(parkings[
+                        'data']) > 0:
+                    print('模拟进入停车场')
+                    # TODO: 暂定 8080 端口
+                    p_id = random.sample(parkings['data'], 1)[0]
+                    re = requests.post('http://' + redis_host +
+                                       ':8080/parking_lot_status_update',
+                                       json={
+                                           'code': 'updateParking',
+                                           'data': [{
+                                            'parking_id': p_id,
+                                            'used': True,
+                                            'addition_info': '模拟进入'
+                                           }]})
+                    print('######## post:', re, re.text)
+            except Exception as e:
+                print(e)
             last_pstr.value = bytes(' ', encoding='utf8')
 
 
@@ -196,30 +209,41 @@ def outdoorCameraRecognize(outdoorNum='1'):
         # 置零, 防止倒计时还没技术就没有车辆在出入口了
         count_down.value = 0
         if not str(last_pstr.value, encoding='utf8').isspace():
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)(
-                'outdoor_{}'.format(outdoorNum),
-                {
-                    # 这个 type 是 Consumer 中的一个 Listen method
-                    # 这个 group_send 就是向该 group 下所有 Consumers
-                    # 发送一个以这个字典作为数据的 event 给 consumers
-                    # 中 type 指定的 method, 注意: type 中的 `.` 会被
-                    # 替换为 `_`
-                    'type': 'outdoor_discover_license_plate',
-                    # 后面的这些字段将会被 wrap 到 event
-                    'message': json.dumps({
-                        'pstr': '',
-                        # 其他从数据库中获取的数据
-                    })
-                }
-            )
-            # TODO: DCMMC: 下面这一句只是为了 Test!
-            parkings = operations.getUsedParkings()
-            if parkings['code'] == 'success' and len(parkings[
-                    'data']) > 0:
-                requests.post(redis_host, json={
-                    'code': 'updateParking',
-                    'data': [
-                        {random.sample(parkings['data'], 1)[0]: 'unused'}
-                    ]})
+            try:
+                channel_layer = get_channel_layer()
+                async_to_sync(channel_layer.group_send)(
+                    'outdoor_{}'.format(outdoorNum),
+                    {
+                        # 这个 type 是 Consumer 中的一个 Listen method
+                        # 这个 group_send 就是向该 group 下所有 Consumers
+                        # 发送一个以这个字典作为数据的 event 给 consumers
+                        # 中 type 指定的 method, 注意: type 中的 `.` 会被
+                        # 替换为 `_`
+                        'type': 'outdoor_discover_license_plate',
+                        # 后面的这些字段将会被 wrap 到 event
+                        'message': json.dumps({
+                            'pstr': '',
+                            # 其他从数据库中获取的数据
+                        })
+                    }
+                )
+                # TODO: DCMMC: 下面这一句只是为了 Test!
+                parkings = operations.getUsedParkings()
+                if parkings['code'] == 'success' and len(parkings[
+                        'data']) > 0:
+                    print('模拟离开停车场')
+                    # TODO: 暂定 8080 端口
+                    p_id = random.sample(parkings['data'], 1)[0]
+                    re = requests.post('http://' + redis_host +
+                                       ':8080/parking_lot_status_update',
+                                       json={
+                                        'code': 'updateParking',
+                                        'data': [{
+                                         'parking_id': p_id,
+                                         'used': False,
+                                         'addition_info': '模拟离开'
+                                        }]})
+                    print('######## post:', re, re.text)
+            except Exception as e:
+                print(e)
             last_pstr.value = bytes(' ', encoding='utf8')

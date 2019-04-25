@@ -19,9 +19,16 @@ from .views import login_handler, logout_handler, log_state
 from .views import admin_logout
 from .views import admin_login
 from .views import admin_info
+from .views import update_vehicle
+from .views import get_vehicles_filter
 from .views import debug_url
 from .views import parking_lot_status_update
+from .views import get_parkings_filter
+from .views import update_parking
 from django.conf.urls import url
+from .views import add_vehicle
+from .views import rm_vehicle
+from .views import get_bill_log_filter
 from django.views.generic.base import TemplateView
 from django.views.static import serve
 from parking_lot.settings import MEDIA_ROOT, NOT_FOUND_ROOT, LOGIN_ROOT
@@ -62,5 +69,12 @@ urlpatterns = [
     path('user/login', admin_login),
     path('user/logout', admin_logout),
     path('user/info', admin_info),
-    path('parking_lot_status_update', parking_lot_status_update)
+    path('parking_lot_status_update', parking_lot_status_update),
+    path('getParkingsFilter', get_parkings_filter),
+    path('updateParking', update_parking),
+    path('addVehicle', add_vehicle),
+    path('rmVehicle', rm_vehicle),
+    path('updateVehicle', update_vehicle),
+    path('getVehicleFilter', get_vehicles_filter),
+    path('getBillLogFilter', get_bill_log_filter),
 ]

@@ -185,35 +185,130 @@ def parking_lot_status_update(request):
         # TODO
         # 更新数据库之后, 向 parking_lot_realtime/consumers/ParkingLotStatusConsumer
         # 发送 group_send 事件
-        for p in post['data']:
-            operations.updateParking(p.items[0], p.items[1])
-        res = operations.arrange_parkings_by_floor(post)
-        channel_layer = get_channel_layer()
-        for f_id, f_data in res.items:
-            async_to_sync(channel_layer.group_send)(
-                'status_{}'.format(f_id),
-                {
-                    # 这个 type 是 Consumer 中的一个 Listen method
-                    # 这个 group_send 就是向该 group 下所有 Consumers
-                    # 发送一个以这个字典作为数据的 event 给 consumers
-                    # 中 type 指定的 method, 注意: type 中的 `.` 会被
-                    # 替换为 `_`
-                    'type': 'update_parking',
-                    # 后面的这些字段将会被 wrap 到 event
-                    'message': json.dumps({
-                        'code': 'updateParking',
-                        'data': f_data
-                    })
-                }
-            )
-        indoors = operations.getAllDoorIds(door_type='indoor')
-        for i in indoors.get('data', []):
-            async_to_sync(channel_layer.group_send)(
-                'indoor_'.format(i),
-                {
-                    'type': 'send_recommand',
-                    'message': {}
-                }
-            )
+        try:
+            for p in post['data']:
+                operations.updateParking(parking_id=p.get('parking_id', None),
+                                         used=p.get('used', None),
+                                         addition_info=p.get(
+                                             'addition_info', ''))
+            res = operations.arrange_parkings_by_floor(post['data'])
+            channel_layer = get_channel_layer()
+            for f_id, f_data in res.items:
+                async_to_sync(channel_layer.group_send)(
+                    'status_{}'.format(f_id),
+                    {
+                        # 这个 type 是 Consumer 中的一个 Listen method
+                        # 这个 group_send 就是向该 group 下所有 Consumers
+                        # 发送一个以这个字典作为数据的 event 给 consumers
+                        # 中 type 指定的 method, 注意: type 中的 `.` 会被
+                        # 替换为 `_`
+                        'type': 'update_parking',
+                        # 后面的这些字段将会被 wrap 到 event
+                        'message': json.dumps({
+                            'code': 'updateParking',
+                            'data': f_data
+                        })
+                    }
+                )
+            indoors = operations.getAllDoorIds(door_type='indoor')
+            for i in indoors.get('data', []):
+                async_to_sync(channel_layer.group_send)(
+                    'indoor_'.format(i),
+                    {
+                        'type': 'send_recommand',
+                        'message': {}
+                    }
+                )
+            return {'code': 'success'}
+        except Exception as e:
+            return {'code': 'error', 'info': str(e)}
     else:
         return HttpResponseForbidden()
+
+
+@csrf_exempt
+def get_parkings_filter(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.getParkingsFilter(
+            offset=post.get('offset', 0),
+            parking_id=post.get('parking_id', ''),
+            floor_id=post.get('floor_id', ''),
+            region_id=post.get('region_id', ''),
+            limit=post.get('limit', 20)
+        )
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def update_parking(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        print('收到车位状态更新!')
+        post = json.loads(request.body)
+        res = operations.updateParking(
+            parking_id=post.get('parking_id', None),
+            addition_info=post.get('addition_info', ''),
+            used=post.get('used', None),
+            status=post.get('status', None))
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def add_vehicle(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        license = post['license_plate']
+        del post['license_plate']
+        res = operations.addVehicle(license, **post)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def rm_vehicle(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        license = post['license_plate']
+        res = operations.rmVehicle(license)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def update_vehicle(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        license = post['license_plate']
+        del post['license_plate']
+        res = operations.rmVehicle(license, **post)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def get_vehicles_filter(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.getVehiclesFilter(**post)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def get_bill_log_filter(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.getBillLogsFilter(**post)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+

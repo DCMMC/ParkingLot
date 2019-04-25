@@ -32,7 +32,7 @@ def camera_provider(local='indoor'):
         last = str(last_file.value, encoding='utf8')
         return os.path.join(BASE_PATH, 'images_rec',
                             last) if last != '' else None
-    elif random.random() > 0.98:
+    elif random.random() > 0.9:
         # 1/50 的概率, i.e., 50s 中有 1s 车来了, 并且将持续
         # 15 ~ 30s
         time_left.value = random.randint(20, 40)
@@ -42,16 +42,20 @@ def camera_provider(local='indoor'):
         f_name = ''
         if local == 'indoor':
             if len(obj['out']) > 0:
-                f_idx = str(random.randint(1, len(obj['out'])))
+                keys = list(obj['out'].keys())
+                f_idx = keys[random.randint(0, len(keys) - 1)]
                 f_name = obj['out'][f_idx]
                 obj['in'][f_idx] = f_name
+                print('####### 车辆 ' + f_name + ' 进入')
                 del obj['out'][f_idx]
         else:
             # local == outdoor
             if len(obj['in']) > 0:
-                f_idx = str(random.randint(1, len(obj['in'])))
+                keys = list(obj['in'].keys())
+                f_idx = keys[random.randint(0, len(keys) - 1)]
                 f_name = obj['in'][f_idx]
                 obj['out'][f_idx] = f_name
+                print('####### 车辆 ' + f_name + ' 出去')
                 del obj['in'][f_idx]
         with open(os.path.join(BASE_PATH, 'cars.json'), 'w+') as f:
             json.dump(obj, f)

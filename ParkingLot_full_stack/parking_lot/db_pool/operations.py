@@ -1,6 +1,7 @@
 # 一堆对 models 的数据库操作的封装
 import json
 import os
+import traceback
 import db_pool.models as db
 import math
 from mongoengine import Q
@@ -109,16 +110,32 @@ def updateRegion():
     pass
 
 
-def updateParking(parking_id, used):
+def updateParking(parking_id, used=None,
+                  status=None,
+                  addition_info=None):
+    """
+    @param used bool 类型
+    """
     # lot_id = db.ParkingLot.objects().first()
     try:
         p = db.Parking.objects(parking_id=parking_id).get()
     except DoesNotExist:
         return {'code': 'error', 'info': '车位 {} 未找到!'.format(
             str(parking_id))}
-    p.used = used
-    p.save()
-    return {'code': 'success'}
+    try:
+        to_update = {}
+        if used:
+            to_update['set__used'] = used
+        if status:
+            if status not in ['normal', 'unavailable', 'obligated']:
+                return {'code': 'error', 'info': 'status 值错误'}
+            to_update['set__status'] = status
+        if addition_info:
+            to_update['set__addition_info'] = addition_info
+        p.update(**to_update)
+        return {'code': 'success'}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
 
 
 def updateParkingLot():
@@ -167,6 +184,60 @@ def addVehicle(license, **kwargs):
         return {'code': 'error', 'info': '车牌 {} 已经存在'.format(license)}
 
 
+def updateVehicle(license, **kwargs):
+    try:
+        v = db.Vehicle.objects(license_plate=license).get()
+        up = {}
+        for k, value in kwargs.items():
+            up['set__' + k] = value
+        v.update(**up)
+        return {'code': 'success'}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
+
+
+def getVehiclesFilter(**kwargs):
+    try:
+        vs = db.Vehicle.objects().all()
+        if 'phone_number' in kwargs:
+            vs = vs.filter(phone_number=kwargs['phone_number'])
+        if 'license_plate' in kwargs:
+            vs = vs.filter(license_plate=kwargs['license_plate'])
+        cnt = vs.count()
+        if 'offset' in kwargs:
+            vs = vs.skip(kwargs['offset'])
+        if 'limit' in kwargs:
+            vs = vs.limit(kwargs['limit'])
+        vs = [{
+            'owner_name': v.owner_name,
+            'phone_number': v.phone_number,
+            'license_plate': v.license_plate,
+            'addition_info': v.addition_info,
+            'cards': [
+                {
+                    'id': c.id,
+                    'card_type': c.card_type,
+                    'value': str(c.value)
+                } for c in v.member_card
+            ]
+        } for v in vs]
+        return {'code': 'success', 'data': {
+            'count': cnt,
+            'vehicles': vs
+        }}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
+
+
+def rmVehicle(license):
+    try:
+        db.Vehicle.objects(license_plate=license).first().delete()
+        return {'code': 'success'}
+    except Exception as e:
+        traceback.print_exc(e)
+        return {'code': 'error', 'info': str(e)}
+
+
 def updateMemberCard(cardId, new_val, admin, info=''):
     try:
         c = db.MemberCard.objects(id=cardId).get()
@@ -198,16 +269,19 @@ def vehicle_enter(license, date_in, indoorId):
     @param date_in datetime.datetime, 入场时间
     @param indoorId 入口号, str, 这个是跟 id_in_map 对应的
     """
-    vehicle = db.Vehicle.objects(license_plate=license)
+    try:
+        vehicle = db.Vehicle.objects(license_plate=license)
+    except Exception:
+        vehicle = []
+    print('数据库, 车辆进入!')
     if len(vehicle) == 0:
         vehicle = addVehicle(license)
-    vehicle = db.Vehicle.objects(license_plate=license)
-    if vehicle:
+    vehicle = db.Vehicle.objects(license_plate=license).get()
+    if not vehicle:
         # TODO error
         return {'code': 'error'}
-    vehicle.date_in = datetime.datetime.utcnow
-    vehicle.indoor_id = indoorId
-    vehicle.save()
+    vehicle.update(set__date_in=datetime.datetime.utcnow,
+                   set__indoor_id=indoorId)
     # TODO: 入场 ws
     return {'code': 'success'}
 
@@ -321,6 +395,46 @@ def getBillsByDateRangeCheckin(start_date, end_date):
         logs_dict['event_info'] = l.addition_info
         logs_dict['admin_info'] = l.admin_info
     return logs_dict
+
+
+def getBillLogsFilter(**kwargs):
+    try:
+        logs = db.BillLog.objects()
+        if 'license_plate' in kwargs:
+            logs = logs.filter(license__id=kwargs['license_plate'])
+        if 'date_in_start' in kwargs:
+            s = datetime.datetime.strptime(kwargs['date_in_start'],
+                                           time_format)
+            logs = logs.filter(date_in__gte=s)
+        if 'date_in_end' in kwargs:
+            e = datetime.datetime.strptime(kwargs['date_in_end'],
+                                           time_format)
+            logs = logs.filter(date_in__lte=e)
+        cnt = logs.count()
+        if 'offset' in kwargs:
+            logs = logs.skip(kwargs['offset'])
+        if 'limit' in kwargs:
+            logs = logs.limit(kwargs['limit'])
+        logs = [
+            {
+                'license_plate': l.vehicle.id,
+                'date_in': l.date_in.strftime(time_format),
+                'date_out': l.date_out.strftime(time_format),
+                'fee': str(l.fee),
+                'indoor': l.indoor.fetch().id_in_map,
+                'outdoor': l.outdoor.fetch().id_in_map,
+                'addition_info': l.addition_info,
+                'card_id': l.member_card.id if l.member_card else None,
+                'card_type': l.member_card.card_type if l.member_card
+                else None,
+            } for l in logs
+        ]
+        return {'code': 'success', 'data': {
+            'count': cnt,
+            'logs': logs,
+        }}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
 
 
 def getBillsByDateRangeCheckout(start_date, end_date):
@@ -492,13 +606,16 @@ def getLiensesByOwnName(name):
 
 def arrange_parkings_by_floor(parkings_dict):
     """
-    @param parkings_dict {'id1': 'something', 'id2': '...', ...}
+    @param parkings_dict [{'parking_id': 'id', 'used': True, ...}, ...]
     """
     # TODO 异常处理
-    ps = db.Parking.objects(parkings_dict__1__in=parkings_dict.keys())
+    keys = []
+    for i in parkings_dict:
+        keys.append(i['parking_id'])
+    ps = db.Parking.objects(parkings_id__in=keys)
     lot = db.ParkingLot.objects().get()
     res = {}
-    for i, f in lot.floors.items:
+    for i, f in lot.floors.items()():
         al = ps.filter(floor=f).all()
         res[i] = {k.parking_id: parkings_dict[k] for k in al}
     return res
@@ -635,3 +752,50 @@ def getDoorNameById(id_in_map):
     except DoesNotExist:
         pass
     return {'code': 'error', 'info': 'todo'}
+
+
+def getParkingsFilter(offset=0, limit=20, floor_id='', region_id='',
+                      parking_id=''):
+    """
+    @offset 分页的第一条的偏移量
+    @param limit int, 分页大小, 记得在第2页及以后都要带上 gt_oid
+    @param floor_id 检索floor 的 id_in_map, 为空表示不限制楼层, region_id 同理
+    @param parking_id 指定 parking_id, 那么就只返回一个或者空了
+    """
+    try:
+        if parking_id and parking_id != '':
+            res = db.Parking.objects(parking_id=parking_id)
+        else:
+            res = db.Parking.objects()
+            if floor_id and floor_id != '':
+                res = res.filter(floor=db.Floor.objects(
+                    id_in_map=floor_id).get())
+            if region_id and region_id != '':
+                res = res.filter(region=db.Region.objects(
+                    id_in_map=region_id
+                ).get())
+            # if gt_oid and gt_oid != '':
+            #     res = res.filter(__raw__={
+            #         '_id': {
+            #             '$gt': gt_oid
+            #         }
+            #     })
+            res = res.order_by('parking_id')
+        count = len(res)
+        res = res.skip(offset).limit(limit)
+        res = [
+            {
+                'addition_info': p.addition_info,
+                'parking_id': p.parking_id,
+                'floor_id': p.floor.id_in_map,
+                'region_id': p.region.id_in_map,
+                'status': p.status,
+                'used': p.used,
+            } for p in list(res)
+        ]
+        res = {'parkings': res}
+        res['count'] = count
+        return {'code': 'success', 'data': res}
+    except Exception as e: # noqa
+        # traceback.print_exc(e)
+        return {'code': 'error', 'info': str(e)}

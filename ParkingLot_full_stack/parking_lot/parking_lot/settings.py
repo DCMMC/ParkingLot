@@ -41,11 +41,12 @@ redis_host = os.getenv('REDIS_HOST') or 'redis'
 # 虚拟网卡, 所以不能用 localhost
 # 只在 Linux 环境测试过
 if db_host == 'localhost':
+    # -1 用来移除后面奇怪的 '\n' newline char
     db_host = os.popen(
-        "echo $(ip route show | awk '/default/ {print $3}')").read()
+        "echo $(ip route show | awk '/default/ {print $3}')").read()[:-1]
 if redis_host == 'localhost':
     redis_host = os.popen(
-        "echo $(ip route show | awk '/default/ {print $3}')").read()
+        "echo $(ip route show | awk '/default/ {print $3}')").read()[:-1]
 
 
 # Application definition
@@ -67,6 +68,7 @@ INSTALLED_APPS = [
     # 把数据库作为一个单独的 instance app, 这样方便到时候
     # 部署到树莓派上(因为树莓派不需要运行 http server)
     'db_pool',
+    'corsheaders',
 ]
 
 # 该 routing 只用于核心服务器
@@ -116,6 +118,7 @@ connect('admin', host=db_host, port=27017,
         username='mongoadmin', password='xwt97294597')
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -230,3 +233,11 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Shanghai'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_ALLOW_ALL = False
+#
+# CORS_ORIGIN_WHITELIST = (
+#     'http//:localhost:8000',
+# )
