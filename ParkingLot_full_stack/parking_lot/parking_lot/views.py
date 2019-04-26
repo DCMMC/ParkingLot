@@ -219,9 +219,11 @@ def parking_lot_status_update(request):
                         'message': {}
                     }
                 )
-            return {'code': 'success'}
+            return JsonResponse({'code': 'success'})
         except Exception as e:
-            return {'code': 'error', 'info': str(e)}
+            import traceback # noqa
+            traceback.print_exc(e)
+            return JsonResponse({'code': 'error', 'info': str(e)})
     else:
         return HttpResponseForbidden()
 
@@ -235,6 +237,38 @@ def get_parkings_filter(request):
             parking_id=post.get('parking_id', ''),
             floor_id=post.get('floor_id', ''),
             region_id=post.get('region_id', ''),
+            limit=post.get('limit', 20)
+        )
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def get_card_logs_filter(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.getCardLogsFilter(
+            offset=post.get('offset', 0),
+            card_id=post.get('card_id', ''),
+            date_start=post.get('date_start', ''),
+            date_end=post.get('date_end', ''),
+            limit=post.get('limit', 20)
+        )
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def get_parking_logs_filter(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.getParkingLogsFilter(
+            offset=post.get('offset', 0),
+            event_type=post.get('event_type', ''),
+            date_start=post.get('date_start', ''),
+            date_end=post.get('date_end', ''),
             limit=post.get('limit', 20)
         )
         return JsonResponse(res)
@@ -312,3 +346,67 @@ def get_bill_log_filter(request):
         return HttpResponseForbidden()
 
 
+@csrf_exempt
+def get_member_cards(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.getMemberCardsFilter(**post)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def update_member_card(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        cardId = post.get('card_id', '')
+        new_val = post.get('value', '')
+        admin = ''
+        if request.user.is_authenticated:
+            admin = request.user.username
+        phone_number = post.get('phone_number', '')
+        res = operations.updateMemberCard(
+            cardId=cardId,
+            new_val=new_val,
+            admin=admin,
+            phone_number=phone_number,
+        )
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def add_member_card(request):
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        card_type = post.get('card_type', None)
+        value = post.get('value', None)
+        value = float(value) if value else None
+        admin = ''
+        if request.user.is_authenticated:
+            admin = request.user.username
+        phone = post.get('phone_number', '')
+        info = post.get('addition_info', '')
+        res = operations.addMemberCard(admin=admin,
+                                       card_type=card_type,
+                                       value=value,
+                                       info=info,
+                                       phone=phone)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()
+
+
+@csrf_exempt
+def rm_member_card(request):
+    """
+    TODO: 这里面有一堆需要登录才能操作的 CRUD, 懒得管了...
+    """
+    if request.method == 'POST' and request.content_type == 'application/json':
+        post = json.loads(request.body)
+        res = operations.removeMemberCard(**post)
+        return JsonResponse(res)
+    else:
+        return HttpResponseForbidden()

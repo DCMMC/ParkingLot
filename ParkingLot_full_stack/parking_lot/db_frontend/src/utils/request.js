@@ -41,7 +41,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    if (res.code && (res.code !== 'success' && res.code !== 20000)) {
+    if (res.code && (res.code !== 'error' && res.code !== 'success' && res.code !== 20000)) {
       Message({
         message: res.message || 'error',
         type: 'error',

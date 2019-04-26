@@ -53,7 +53,7 @@ class MemberCard(Document):
     value = DecimalField(min_value=0., require=True)
     addition_info = StringField(max_length=10000)
     # 会员卡与车辆双向绑定, 这个是可选的
-    bind_vehicles = MapField(ReferenceField(Vehicle))
+    bind_vehicles = ListField(ReferenceField(Vehicle))
 
 
 class MemberCardLog(Document):

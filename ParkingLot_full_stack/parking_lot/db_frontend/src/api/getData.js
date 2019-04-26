@@ -17,13 +17,11 @@ export function updateParkingApi(data) {
 }
 
 export function getVehiclesApi(data) {
-  var r = request({
+  return request({
     url: '/getVehicleFilter',
     method: 'post',
     data
   })
-  r.then(res => console.log(res)).catch(res => console.log(res))
-  return r
 }
 
 export function updateVehicleApi(data) {
@@ -53,6 +51,54 @@ export function addVehicleApi(data) {
 export function getBillLog(data) {
   return request({
     url: '/getBillLogFilter',
+    method: 'post',
+    data
+  })
+}
+
+export function getMemberCardApi(data) {
+  return request({
+    url: '/getMemberCard',
+    method: 'post',
+    data
+  })
+}
+
+export function rmMemberCardApi(data) {
+  return request({
+    url: '/rmMemberCard',
+    method: 'post',
+    data
+  })
+}
+
+export function updateMemberCardApi(data) {
+  return request({
+    url: '/updateMemberCard',
+    method: 'post',
+    data
+  })
+}
+
+export function addMemberCardApi(data) {
+  return request({
+    url: '/addMemberCard',
+    method: 'post',
+    data
+  })
+}
+
+export function getMemberCardLog(data) {
+  return request({
+    url: '/getMemberCardLog',
+    method: 'post',
+    data
+  })
+}
+
+export function getParkingLotLog(data) {
+  return request({
+    url: '/getParkingLotLog',
     method: 'post',
     data
   })

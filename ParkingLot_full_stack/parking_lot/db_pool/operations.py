@@ -138,32 +138,31 @@ def updateParking(parking_id, used=None,
         return {'code': 'error', 'info': str(e)}
 
 
-def updateParkingLot():
-    pass
-
-
 def addMemberCard(phone, card_type, value, admin, bind_license=[],
                   info=''):
-    # TODO: check params
-    c = db.MemberCard(phone_number=phone, card_type=card_type, value=value,
-                      addition_info=info)
-    for i in range(len(bind_license)):
-        try:
-            bind_license[i] = db.Vehicle.objects(license=bind_license[i]).get()
-        except DoesNotExist:
-            return {'code': 'error', 'info': '车牌 {} 不存在!'.format(
-                bind_license[i]
-            )}
-    c.bind_vehicles = bind_license
-    c.save()
-    log = db.MemberCardLog()
-    log.card_reference = c
-    log.event_type = 'create'
-    log.addition_info = '创建会员卡, 卡号={}, 值={}'.format(c.id, value)
-    log.admin_info = admin
-    log.save()
-    return {'code': 'success', 'info': '会员卡号: {}'.format(
-        str(c.id))}
+    try:
+        c = db.MemberCard(phone_number=phone, card_type=card_type, value=value,
+                          addition_info=info)
+        for i in range(len(bind_license)):
+            try:
+                bind_license[i] = db.Vehicle.objects(
+                    license=bind_license[i]).get()
+            except DoesNotExist:
+                return {'code': 'error', 'info': '车牌 {} 不存在!'.format(
+                    bind_license[i]
+                )}
+        c.bind_vehicles = bind_license
+        c.save()
+        log = db.MemberCardLog()
+        log.card_reference = c
+        log.event_type = 'create'
+        log.addition_info = '创建会员卡, 卡号={}, 值={}'.format(c.id, value)
+        log.admin_info = admin
+        log.save()
+        return {'code': 'success', 'info': '会员卡号: {}'.format(
+            str(c.id))}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
 
 
 def addVehicle(license, **kwargs):
@@ -203,6 +202,8 @@ def getVehiclesFilter(**kwargs):
             vs = vs.filter(phone_number=kwargs['phone_number'])
         if 'license_plate' in kwargs:
             vs = vs.filter(license_plate=kwargs['license_plate'])
+        if 'used' in kwargs:
+            vs = vs.filter(used=kwargs['used'])
         cnt = vs.count()
         if 'offset' in kwargs:
             vs = vs.skip(kwargs['offset'])
@@ -238,29 +239,50 @@ def rmVehicle(license, **kwargs):
         return {'code': 'error', 'info': str(e)}
 
 
-def updateMemberCard(cardId, new_val, admin, info=''):
+def updateMemberCard(cardId, new_val, admin, info='',
+                     bind_license='',
+                     phone_number=''):
     try:
-        c = db.MemberCard.objects(id=cardId).get()
-    except DoesNotExist:
-        return {'code': 'error', 'info': '会员卡("{}") 未找到!'.format(
-            cardId
-        )}
-    old = c.value
-    c.value = new_val
-    log = db.MemberCardLog()
-    log.admin_info = admin
-    log.card_reference = c
-    log.addition_info = info + '. old_value={}, new_value={}'.format(
-        old, new_val
-    )
-    log.event_type = 'update'
-    c.save()
-    log.save()
-    return {'code': 'success', 'info': ''}
+        try:
+            c = db.MemberCard.objects(id=cardId).get()
+        except DoesNotExist:
+            return {'code': 'error', 'info': '会员卡("{}") 未找到!'.format(
+                cardId
+            )}
+        old = c.value
+        c.update(set__value=new_val)
+        if phone_number and phone_number != '':
+            c.update(set__phone_number=phone_number)
+        if bind_license and bind_license != '':
+            arr = c.bind_vehicles
+            arr.append(db.Vehicle.objects(license_plate=bind_license).get())
+            c.update(set__bind_vehicles=arr)
+        log = db.MemberCardLog()
+        log.admin_info = admin
+        log.card_reference = c
+        log.addition_info = info + '. old_value={}, new_value={}'.format(
+            old, new_val
+        )
+        log.event_type = 'update'
+        log.save()
+        return {'code': 'success', 'info': ''}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
 
 
-def removeMemberCard():
-    pass
+def removeMemberCard(card_id=None, admin=''):
+    try:
+        if card_id:
+            c = db.MemberCard.objects(id=card_id).get()
+            c.delete()
+            log = db.MemberCardLog()
+            log.admin_info = admin
+            log.addition_info = '删除会员卡: ' + str(card_id)
+            log.event_type = 'remove'
+            log.save()
+        return {'code': 'success'}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
 
 
 def vehicle_enter(license, date_in, indoorId):
@@ -318,50 +340,53 @@ def vehicle_leave(license, outdoorId, date_out, admin, fee,
     在前端中选择是否使用会员卡, 或者直接输入一个会员卡号
     date_out 是 datetime.datetime 类型
     """
-    vehicle = db.Vehicle.objects(license_plate=license)
-    if len(vehicle) == 0:
-        # TODO: error
-        return
-    log = db.BillLog()
-    log.date_in = vehicle_enter.date_in
-    log.date_out = date_out
-    log.admin_info = admin
-    log.vehicle = vehicle
-    # 必须合法的 id!
     try:
-        card = db.MemberCard.objects(id=card_id).get() if \
-            card_id != '' else None
-    except DoesNotExist:
-        return {'code': 'error', 'info': 'card_id="{}" 不存在, 请检查'.format(
-            card_id)}
-    # TODO: 多停车场情况
-    if card:
-        log.member_card = card
-        if card.card_type == 'count':
-            log.addition_info = \
-                    '剩余次数: {}'.format(int(card.value))
-            card.value -= 1
-            updateMemberCard(card_id, card.value, admin,
-                             info='车牌号 {} 在 {} 使用'.format(
-                                 license, str(date_out)))
-            card.save()
-        elif card.card_type == 'top-up':
-            log.addition_info = \
-                '余额: {:.3f}'.format(float(card.value))
+        vehicle = db.Vehicle.objects(license_plate=license)
+        if len(vehicle) == 0:
+            # TODO: error
+            return
+        log = db.BillLog()
+        log.date_in = vehicle_enter.date_in
+        log.date_out = date_out
+        log.admin_info = admin
+        log.vehicle = vehicle
+        # 必须合法的 id!
+        try:
+            card = db.MemberCard.objects(id=card_id).get() if \
+                card_id != '' else None
+        except DoesNotExist:
+            return {'code': 'error', 'info': 'card_id="{}" 不存在, 请检查'.format(
+                card_id)}
+        # TODO: 多停车场情况
+        if card:
+            log.member_card = card
+            if card.card_type == 'count':
+                log.addition_info = \
+                        '剩余次数: {}'.format(int(card.value))
+                card.value -= 1
+                updateMemberCard(card_id, card.value, admin,
+                                 info='车牌号 {} 在 {} 使用'.format(
+                                     license, str(date_out)))
+                card.save()
+            elif card.card_type == 'top-up':
+                log.addition_info = \
+                    '余额: {:.3f}'.format(float(card.value))
+                log.fee = fee
+                card.value -= fee
+                updateMemberCard(card_id, card.value, admin,
+                                 info='车牌号 {} 在 {} 使用'.format(
+                                     license, str(date_out)
+                                 ))
+                card.save()
+        else:
             log.fee = fee
-            card.value -= fee
-            updateMemberCard(card_id, card.value, admin,
-                             info='车牌号 {} 在 {} 使用'.format(
-                                 license, str(date_out)
-                             ))
-            card.save()
-    else:
-        log.fee = fee
-    vehicle.date_in = None
-    vehicle.indoor_id = None
-    vehicle.save()
-    log.save()
-    return {'code': 'success', 'info': ''}
+        vehicle.date_in = None
+        vehicle.indoor_id = None
+        vehicle.save()
+        log.save()
+        return {'code': 'success', 'info': ''}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
 
 
 def updateDoor():
@@ -434,6 +459,94 @@ def getBillLogsFilter(**kwargs):
             'logs': logs,
         }}
     except Exception as e:
+        return {'code': 'error', 'info': str(e)}
+
+
+def getParkingLogsFilter(**kwargs):
+    try:
+        logs = db.ParkingLotLog.objects()
+        # DCMMC: TODO: 凉了, 我发现判断 kwargs 存在之后还要再判断是否为空的...
+        # 所有的类似逻辑都要这样..
+        if 'event_type' in kwargs and kwargs['event_type'] != '':
+            logs = logs.filter(event_type=kwargs['event_type'])
+        if 'date_start' in kwargs and kwargs['date_start'] != '':
+            s = datetime.datetime.strptime(kwargs['date_start'],
+                                           time_format)
+            logs = logs.filter(date_created__gte=s)
+        if 'date_end' in kwargs and kwargs['date_end'] != '':
+            e = datetime.datetime.strptime(kwargs['date_end'],
+                                           time_format)
+            logs = logs.filter(date_created__lte=e)
+        cnt = logs.count()
+        if 'offset' in kwargs:
+            logs = logs.skip(kwargs['offset'])
+        if 'limit' in kwargs:
+            logs = logs.limit(kwargs['limit'])
+        logs = [
+            {
+                'date_created': l.date_log.strftime(time_format),
+                'event_type': l.indoor.event_type,
+                'card_reference': l.card_reference.id,
+                'addition_info': l.addition_info,
+                'admin_info': l.admin_info,
+            } for l in logs
+        ]
+        return {'code': 'success', 'data': {
+            'count': cnt,
+            'logs': logs,
+        }}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
+
+
+def getCardLogsFilter(**kwargs):
+    try:
+        logs = db.MemberCardLog.objects()
+        if 'card_id' in kwargs and kwargs['card_id'] != '':
+            c = db.MemberCard.objects(id=kwargs['card_id']).get()
+            logs = logs.filter(card_reference=c)
+        if 'date_start' in kwargs and kwargs['date_start'] and \
+                kwargs['date_start'] != '':
+            s = datetime.datetime.strptime(kwargs['date_start'],
+                                           time_format)
+            logs = logs.filter(date_log__gte=s)
+        if 'date_end' in kwargs and kwargs['date_end'] and \
+                kwargs['date_end'] != '':
+            e = datetime.datetime.strptime(kwargs['date_end'],
+                                           time_format)
+            logs = logs.filter(date_log__lte=e)
+        cnt = logs.count()
+        if 'offset' in kwargs:
+            logs = logs.skip(kwargs['offset'])
+        if 'limit' in kwargs:
+            logs = logs.limit(kwargs['limit'])
+
+        def check_rm(l, e):
+            # workaround
+            import re # noqa
+            try:
+                return str(l.card_reference.id) if l.card_reference else ''
+            except Exception as ex:
+                print(ex)
+                r = re.search(".*ObjectId\\('([\\.0-9a-zA-Z]*)'.*", str(ex))
+                print(r)
+                return r.group(1)
+
+        logs = [
+            {
+                'date_log': l.date_log.strftime(time_format),
+                'event_type': l.event_type,
+                'card_reference': check_rm(l, l.event_type), # noqa
+                'addition_info': l.addition_info,
+                'admin_info': l.admin_info,
+            } for l in logs
+        ]
+        return {'code': 'success', 'data': {
+            'count': cnt,
+            'logs': logs,
+        }}
+    except Exception as e:
+        print(e)
         return {'code': 'error', 'info': str(e)}
 
 
@@ -615,7 +728,7 @@ def arrange_parkings_by_floor(parkings_dict):
     ps = db.Parking.objects(parkings_id__in=keys)
     lot = db.ParkingLot.objects().get()
     res = {}
-    for i, f in lot.floors.items()():
+    for i, f in lot.floors.items():
         al = ps.filter(floor=f).all()
         res[i] = {k.parking_id: parkings_dict[k] for k in al}
     return res
@@ -799,3 +912,41 @@ def getParkingsFilter(offset=0, limit=20, floor_id='', region_id='',
     except Exception as e: # noqa
         # traceback.print_exc(e)
         return {'code': 'error', 'info': str(e)}
+
+
+def getMemberCardsFilter(**kwargs):
+    try:
+        vs = db.MemberCard.objects().all()
+        cnt = vs.count()
+        if 'card_id' in kwargs:
+            vs = vs.filter(id=kwargs['card_id'])
+            cnt = len(list(vs))
+            if 'offset' in kwargs:
+                vs = vs.skip(kwargs['offset'])
+            if 'limit' in kwargs:
+                vs = vs.limit(kwargs['limit'])
+        elif 'license_plate' in kwargs and kwargs['license_plate'] != '':
+            vs = db.Vehicle.objects(
+                license_plate=kwargs['kwargs']).get().member_card()
+            cnt = len(vs)
+        vs = [{
+            'date_created': v.date_created,
+            'phone_number': v.phone_number,
+            'addition_info': v.addition_info,
+            'value': str(v.value),
+            'card_type': v.card_type,
+            'card_id': str(v.id),
+            'bind_vehicles': [
+                {
+                    'license_plate': p.license_plate,
+                } for p in v.bind_vehicles
+            ]
+        } for v in vs]
+        return {'code': 'success', 'data': {
+            'count': cnt,
+            'cards': vs
+        }}
+    except Exception as e:
+        return {'code': 'error', 'info': str(e)}
+
+

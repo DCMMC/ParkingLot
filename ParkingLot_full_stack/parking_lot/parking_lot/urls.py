@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from .views import login_handler, logout_handler, log_state
 from .views import admin_logout
+from .views import get_member_cards
+from .views import add_member_card
+from .views import rm_member_card
+from .views import update_member_card
 from .views import admin_login
 from .views import admin_info
 from .views import update_vehicle
@@ -25,6 +29,8 @@ from .views import debug_url
 from .views import parking_lot_status_update
 from .views import get_parkings_filter
 from .views import update_parking
+from .views import get_parking_logs_filter
+from .views import get_card_logs_filter
 from django.conf.urls import url
 from .views import add_vehicle
 from .views import rm_vehicle
@@ -77,4 +83,10 @@ urlpatterns = [
     path('updateVehicle', update_vehicle),
     path('getVehicleFilter', get_vehicles_filter),
     path('getBillLogFilter', get_bill_log_filter),
+    path('getMemberCard', get_member_cards),
+    path('addMemberCard', add_member_card),
+    path('rmMemberCard', rm_member_card),
+    path('updateMemberCard', update_member_card),
+    path('getMemberCardLog', get_card_logs_filter),
+    path('getParkingLotLog', get_parking_logs_filter)
 ]

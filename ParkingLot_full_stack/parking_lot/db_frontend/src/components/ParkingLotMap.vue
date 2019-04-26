@@ -105,6 +105,7 @@ export default {
       // 数据接收
       const redata = JSON.parse(e.data)
       if (redata.code === 'updateParking') {
+        console.log('updateParking')
         var t_out = 0
         if (!this.ready) {
           t_out = 1000
@@ -113,7 +114,7 @@ export default {
           for (var i in redata.data[this.layerNum]) {
             for (var j in redata.data[this.layerNum]['' + i]) {
               this.map.updateParkingLotStatus(i,
-                redata.data[this.layerNum]['' + i]['' + j] === 'used')
+                redata.data[this.layerNum]['' + i]['' + j])
             }
           }
         }, t_out)

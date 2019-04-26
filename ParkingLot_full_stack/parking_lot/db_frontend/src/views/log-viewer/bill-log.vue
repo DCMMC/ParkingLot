@@ -5,11 +5,14 @@
       <el-date-picker
         v-model="listQuery.date_in_start"
         type="datetime"
-        format=""
+        format="yyyy/MM/dd, HH:mm:ss"
+        value-format="yyyy/MM/dd, HH:mm:ss"
         placeholder="选择入场开始日期时间"
       />
       <el-date-picker
         v-model="listQuery.date_in_end"
+        format="yyyy/MM/dd, HH:mm:ss"
+        value-format="yyyy/MM/dd, HH:mm:ss"
         type="datetime"
         placeholder="选择入场结束日期时间"
       />
@@ -149,10 +152,10 @@ export default {
     handleDownload() {
       this.downloadLoading = true
               import('@/vendor/Export2Excel').then(excel => {
-                const tHeader = ['停车位id', '楼层id', '区域id', '状态信息',
-                  '可用信息', '备注']
-                const filterVal = ['parking_id', 'floor_id', 'region_id',
-                  'status', 'used', 'addition_info']
+                const tHeader = ['车牌', '入场时间',
+                  '入口', '出场时间', '出口', '费用', '备注']
+                const filterVal = ['license_plate', 'date_in', 'indoor',
+                  'date_out', 'outdoor', 'outdoor', 'fee', 'addition_info']
                 const data = this.formatJson(filterVal, this.tableData)
                 excel.export_json_to_excel({
                   header: tHeader,

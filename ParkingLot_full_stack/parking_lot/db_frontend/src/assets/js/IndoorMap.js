@@ -503,11 +503,16 @@ var default3dTheme = {
     // selected: "#ffff55",
     selected: {
         color: "#ff0000",
-        opacity: 0.4,
+        opacity: 0.7,
         transparent: true
     },
     unselected: {
         color: "#00c853",
+        opacity: 0.7,
+        transparent: true
+    },
+    unavailable: {
+        color: "#444444",
         opacity: 0.7,
         transparent: true
     },

@@ -3,6 +3,14 @@
     <div class="filter-container">
       <el-input v-model="listQuery.license_plate" :placeholder="'车牌号'" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.phone_number" :placeholder="'手机号'" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.used" :placeholder="'区域id'" style="width: 130px" class="filter-item">
+        <el-option
+          v-for="item, key in {'正在使用': true, '空车位': false}"
+          :key="key"
+          :label="key"
+          :value="item"
+        />
+      </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleAdd">
         新增车辆
       </el-button>
@@ -150,7 +158,8 @@ export default {
       listQuery: {
         limit: 20,
         license_plate: undefined,
-        phone_number: undefined
+        phone_number: undefined,
+        used: undefined
       },
       downloadLoading: false,
       offset: 0,
@@ -173,12 +182,12 @@ export default {
   },
   methods: {
     handleFilter() {
-      console.log('111')
       getVehiclesApi({
         offset: this.offset,
         limit: this.limit,
         license_plate: this.listQuery.license_plate,
-        phone_number: this.listQuery.phone_number
+        phone_number: this.listQuery.phone_number,
+        used: this.listQuery.used
       }).then(vehicles => {
         console.log(vehicles)
         if (vehicles['code'] === 'success') {

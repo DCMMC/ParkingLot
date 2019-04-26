@@ -256,12 +256,17 @@ var IndoorMap3d = function(mapdiv){
         for(var i = 0; i < floor.children.length; i++){
             if(floor.children[i].parkingNo &&
                     floor.children[i].parkingNo == parkingNo) {
-                if (status) {
+                if (status === 'used') {
+                    console.log('used' + _theme.selected.color)
                     floor.children[i].material.color = 
                         new THREE.Color(_theme.selected.color);
-                } else {
+                } else if (status === 'unused') {
                     floor.children[i].material.color = 
                         new THREE.Color(_theme.unselected.color);
+                } else if (status === 'unavailable') {
+                    console.log('unavailable' + _theme.unavailable.color)
+                    floor.children[i].material.color = 
+                        new THREE.Color(_theme.unavailable.color);
                 }
             }
         }
