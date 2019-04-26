@@ -178,7 +178,7 @@ def outdoorCameraRecognize(outdoorNum='1'):
                     last_pstr.value = bytes(pstr, encoding="utf8")
                     # TODO: 数据库更新
                     fee_dialog = operations.get_fee_and_cards(
-                        pstr, datetime.datetime.utcnow)
+                        pstr, datetime.datetime.utcnow())
                     fee_dialog['license_plate'] = pstr
                     fee_dialog['outdoorNum'] = outdoorNum
                     fee_dialog['outdoorName'] = operations.getDoorNameById(

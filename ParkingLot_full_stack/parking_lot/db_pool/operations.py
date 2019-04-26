@@ -309,29 +309,31 @@ def vehicle_enter(license, date_in, indoorId):
 
 
 def get_fee_and_cards(license, date_out):
-    vehicle = db.Vehicle.objects(license_plate=license)
-    if len(vehicle) == 0:
-        # TODO: error
+    try:
+        vehicle = db.Vehicle.objects(license_plate=license).get()
+        # TODO: 复杂计费系统
+        diff = date_out - vehicle.date_in
+        days, seconds = diff.days, diff.seconds
+        hours = math.ceil(days * 24 + seconds // 3600)
+        # TODO: 多停车场情况
+        fee = db.ParkingLot.objects().first().fee_per_hr * hours
+        cards = []
+        for i in vehicle.member_card:
+            cards.append({'id': i.id, 'card_type': i.card_type,
+                          'value': i.value})
+        return {
+            'fee': fee, 'cards': cards,
+            'date_in': vehicle.date_in.strftime(
+                    "%Y/%m/%d, %H:%M:%S"
+                ),
+            'date_out': date_out.strftime("%Y/%m/%d, %H:%M:%S"),
+            'indoorNum': vehicle.indoor_id,
+            'indoorName': getDoorNameById(vehicle.indoor_id)
+        }
+    except Exception as e:
+        import traceback # noqa
+        traceback.print_exc(e)
         return
-    # TODO: 复杂计费系统
-    diff = date_out - vehicle.date_in
-    days, seconds = diff.days, diff.seconds
-    hours = math.ceiling(days * 24 + seconds // 3600)
-    # TODO: 多停车场情况
-    fee = db.ParkingLot.objects().first().fee_per_hr * hours
-    cards = []
-    for i in vehicle.member_card:
-        cards.append({'id': i.id, 'card_type': i.card_type,
-                      'value': i.value})
-    return {
-        'fee': fee, 'cards': cards,
-        'date_in': vehicle.date_in.strftime(
-                "%Y/%m/%d, %H:%M:%S"
-            ),
-        'date_out': date_out.strftime("%Y/%m/%d, %H:%M:%S"),
-        'indoorNum': vehicle.indoor_id,
-        'indoorName': getDoorNameById(vehicle.indoor_id)
-    }
 
 
 def vehicle_leave(license, outdoorId, date_out, admin, fee,
@@ -725,12 +727,16 @@ def arrange_parkings_by_floor(parkings_dict):
     keys = []
     for i in parkings_dict:
         keys.append(i['parking_id'])
-    ps = db.Parking.objects(parkings_id__in=keys)
+    ps = db.Parking.objects(parking_id__in=keys)
     lot = db.ParkingLot.objects().get()
     res = {}
     for i, f in lot.floors.items():
         al = ps.filter(floor=f).all()
-        res[i] = {k.parking_id: parkings_dict[k] for k in al}
+        al = [al_p.parking_id for al_p in al]
+        res[i] = {}
+        for parking in parkings_dict:
+            if parking['parking_id'] in al:
+                res[i][parking['parking_id']] = parking
     return res
 
 

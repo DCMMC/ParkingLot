@@ -193,7 +193,7 @@ def parking_lot_status_update(request):
                                              'addition_info', ''))
             res = operations.arrange_parkings_by_floor(post['data'])
             channel_layer = get_channel_layer()
-            for f_id, f_data in res.items:
+            for f_id, f_data in res.items():
                 async_to_sync(channel_layer.group_send)(
                     'status_{}'.format(f_id),
                     {

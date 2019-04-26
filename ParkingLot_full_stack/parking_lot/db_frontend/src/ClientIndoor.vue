@@ -13,7 +13,7 @@
               <v-card-actions>
                 <v-expansion-panel :value="panel" expand light>
                   <v-expansion-panel-content
-                    v-for="(floor_region, floor_region_name) in parkings_status"
+                    v-for="(floor_region, floor_region_name) in parkings_status_unused"
                     :key="floor_region_name"
                   >
                     <template v-slot:header>
@@ -101,10 +101,9 @@ export default {
     parkings_status_unused() {
       var p = {}
       for (var i in this.parkings_status) {
-        p[i] = {}
-        for (var j in this.parkings_status) {
-          p[i][j] = this.parkings_status[i][j].filter(p => p === 'unused')
-        }
+          p[i] = Object.fromEntries(
+              Object.entries(this.parkings_status[i]).filter(
+                ([k,v]) => v === 'unused'));
       }
       return p
     }

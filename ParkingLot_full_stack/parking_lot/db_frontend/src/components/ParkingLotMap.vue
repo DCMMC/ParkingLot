@@ -30,7 +30,6 @@ export default {
     layerNum: 1
   }),
   created() {
-    this.initWebSocket()
   },
   destroyed() {
     this.websock.close() // 离开路由之后断开websocket连接
@@ -51,14 +50,16 @@ export default {
       var ul = IndoorMap.getUI(this.map)
       document.body.appendChild(ul)
       this.ready = true
+      // 先画好 3D 图再连接 ws
+      this.initWebSocket()
     })
     // if (!this.ready) {
     //   setTimeout(() => {
-    //     // console.log(this.ready)
+    //     console.log('ready')
     //     // 必须要在 callback 完成之后
     //     // true 表示正在被使用中
-    //     // this.map.updateParkingLotStatus('1', true)
-    //     // this.map.updateParkingLotStatus('车库3', true)
+    //     // this.map.updateParkingLotStatus('1', 'used')
+    //     // this.map.updateParkingLotStatus('4', 'used')
     //   }, 1000)
     // }
 
@@ -113,8 +114,18 @@ export default {
         setTimeout(() => {
           for (var i in redata.data[this.layerNum]) {
             for (var j in redata.data[this.layerNum]['' + i]) {
-              this.map.updateParkingLotStatus(i,
-                redata.data[this.layerNum]['' + i]['' + j])
+              // console.log(j + redata.data[this.layerNum]['' + i]['' + j])
+              var status = redata.data[this.layerNum]['' + i]['' + j]
+              // DCMMC: 入口那边来的数据... 可以说是很乱了...
+              if (typeof status !== typeof 'str') {
+                if (status['used']) {
+                  status = 'used'
+                } else {
+                  status = 'unused'
+                }
+              }
+              console.log('updateParkingLotStatus: ' + j + ', ' + status)
+              this.map.updateParkingLotStatus(j, status)
             }
           }
         }, t_out)

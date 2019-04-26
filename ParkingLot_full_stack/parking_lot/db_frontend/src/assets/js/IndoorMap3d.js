@@ -257,14 +257,14 @@ var IndoorMap3d = function(mapdiv){
             if(floor.children[i].parkingNo &&
                     floor.children[i].parkingNo == parkingNo) {
                 if (status === 'used') {
-                    console.log('used' + _theme.selected.color)
+                    // console.log('used' + _theme.selected.color)
                     floor.children[i].material.color = 
                         new THREE.Color(_theme.selected.color);
                 } else if (status === 'unused') {
                     floor.children[i].material.color = 
                         new THREE.Color(_theme.unselected.color);
                 } else if (status === 'unavailable') {
-                    console.log('unavailable' + _theme.unavailable.color)
+                    // console.log('unavailable' + _theme.unavailable.color)
                     floor.children[i].material.color = 
                         new THREE.Color(_theme.unavailable.color);
                 }
@@ -427,7 +427,9 @@ var IndoorMap3d = function(mapdiv){
             //check collision with the former sprites
             // DCMMC: 这个 visible 会导致有些 text 出不来
             // 不像是没有名称的实体(e.g. 墙体)
-            var visible = sprite.name !== '';
+            var visible = false;
+            // DCMMC: 现在这个 label 的位置好丑啊... 暂时不要
+            // var visible = sprite.name !== '';
             // var visibleMargin = 5;
             // for(var j = 0; j < i; j++){
             //     var img = sprite.material.map.image;
