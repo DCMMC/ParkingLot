@@ -72,7 +72,7 @@
         </el-table-column>
         <el-table-column
           label="车牌号"
-          prop="parking_id"
+          prop="license_plate"
         />
         <el-table-column
           label="费用"

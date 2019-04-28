@@ -69,6 +69,11 @@ class IndoorConsumer(AsyncJsonWebsocketConsumer):
             res['code'] = 'recommand_parkings'
             await self.send_json(res)
 
+    async def update_parking(self, event):
+        await self.send_json(
+            json.loads(event['message'])
+        )
+
 
 class OutdoorConsumer(AsyncJsonWebsocketConsumer):
     group_name = None
@@ -127,7 +132,7 @@ class OutdoorConsumer(AsyncJsonWebsocketConsumer):
         """
         await self.send_json({
             'code': 'confirm_fee',
-            'data': json.loads(event['message'])
+            'data': event['message']
         })
 
 
@@ -159,6 +164,7 @@ class OutdoorAdminConsumer(AsyncJsonWebsocketConsumer):
             )
 
     async def receive_json(self, content):
+        print(content)
         if content['type'] == 'confirm_fee':
             # 管理员确认支付
             fee = content['data'].get('fee_selected', 0)
@@ -168,18 +174,34 @@ class OutdoorAdminConsumer(AsyncJsonWebsocketConsumer):
             admin_info = str(self.scope['user'])
             date_out = datetime.datetime.strptime(content['data']['date_out'],
                                                   operations.time_format)
-            operations.vehicle_leave(license, doorNum, date_out, admin_info,
-                                     fee, card_id)
+            res = operations.vehicle_leave(license, doorNum,
+                                           date_out, admin_info,
+                                           fee, card_id)
             channel_layer = get_channel_layer()
-            await channel_layer.group_send('outdoor_'.format(doorNum), {
-                'type': 'confirm_fee',
-                'message': {
-                    'admin_info': admin_info,
-                    'card_id': card_id,
-                    'fee': fee,
-                    'license_plate': license
-                }
-            })
+            if res['code'] == 'success':
+                print('######## 群发消息 outdoor', doorNum)
+                await channel_layer.group_send('outdoor_{}'.format(doorNum), {
+                    'type': 'send_fee_success',
+                    'message': {
+                        'admin_info': admin_info,
+                        'card_id': card_id,
+                        'fee': fee,
+                        'license_plate': license
+                    }
+                })
+                await self.send_json({
+                    'code': 'confirm_fee',
+                    'data': {
+                        'type': 'success',
+                        'admin_info': admin_info,
+                        'card_id': card_id,
+                        'fee': fee,
+                        'license_plate': license
+                    }
+                })
+            else:
+                # TODO
+                print('############### 确认支付错误:' + res['info'])
 
     async def send_fee_cards(self, event):
         fee_cards_dict = json.loads(event['message'])

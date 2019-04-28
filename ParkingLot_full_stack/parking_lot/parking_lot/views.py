@@ -205,18 +205,28 @@ def parking_lot_status_update(request):
                         'type': 'update_parking',
                         # 后面的这些字段将会被 wrap 到 event
                         'message': json.dumps({
-                            'code': 'updateParking',
+                            'code': 'updateParkingPartial',
                             'data': f_data
                         })
                     }
                 )
             indoors = operations.getAllDoorIds(door_type='indoor')
-            for i in indoors.get('data', []):
+            for i in set(indoors.get('data', [])):
                 async_to_sync(channel_layer.group_send)(
                     'indoor_'.format(i),
                     {
                         'type': 'send_recommand',
                         'message': {}
+                    }
+                )
+                async_to_sync(channel_layer.group_send)(
+                    'indoor_'.format(i),
+                    {
+                        'type': 'update_parking',
+                        'message': {
+                            'code': 'updateParkingPartial',
+                            'data': res,
+                        }
                     }
                 )
             return JsonResponse({'code': 'success'})

@@ -101,9 +101,9 @@ export default {
     parkings_status_unused() {
       var p = {}
       for (var i in this.parkings_status) {
-          p[i] = Object.fromEntries(
-              Object.entries(this.parkings_status[i]).filter(
-                ([k,v]) => v === 'unused'));
+        p[i] = Object.fromEntries(
+          Object.entries(this.parkings_status[i]).filter(
+            ([k, v]) => v === 'unused'))
       }
       return p
     }
@@ -125,10 +125,10 @@ export default {
     initWebSocket() {
       // 初始化weosocket
       var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
-      // var ws_path = ws_scheme + '://' + window.location.host +
-      //   '/ws/indoor/' + this.indoorNum + '/'
-      var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      var ws_path = ws_scheme + '://' + window.location.host +
         '/ws/indoor/' + this.indoorNum + '/'
+      // var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      //   '/ws/indoor/' + this.indoorNum + '/'
       this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
       this.websock.onopen = this.websocketonopen
@@ -174,8 +174,11 @@ export default {
         // 全部展开
         // 对于 data 中的赋值, 必须要用 Object.assign 才能发出事件被 vue 捕获.
         Object.assign(this.panel, [...Array(Object.keys(this.parkings_status).length).keys()].map(_ => true))
+      } else if (redata.code === 'updateParkingPartial') {
+        // TODO
+        console.log(redata.data)
       }
-      // console.log(redata)
+      console.log(redata)
     },
     websocketsend(Data) {
       // 数据发送

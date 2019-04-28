@@ -31,3 +31,9 @@ $ cmake . && make -j5 && ./ParkingLotEditor
 
 * 修复画笔的位置问题: 统一改成 scenePos
 * 修复 TreeView点击当前结点时的崩溃: `DocumentView::updateSelection(const QModelIndex & index)`
+
+## 5. Screenshots
+
+![2019-04-28_16-41](assets/2019-04-28_16-41.png)
+
+![2019-04-28_16-43](assets/2019-04-28_16-43.png)

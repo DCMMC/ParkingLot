@@ -108,6 +108,7 @@ export default {
       cards: {},
       fee_not_editable: false,
       card_values: {},
+      fee_confirmed: null,
       validateFeeValue: (rule, value, callback) => {
         if (this.cards[this.fee_cards_form.card_id][1] === 'count' &&
           value < 0) {
@@ -120,18 +121,18 @@ export default {
       }
     }
   },
-  created() {
-    this.initWebSocket()
-  },
-  destroyed() {
-    this.websock.close() // 离开路由之后断开websocket连接
-  },
   computed: {
     ...mapGetters([
       'name',
       'avatar',
       'roles'
     ])
+  },
+  created() {
+    this.initWebSocket()
+  },
+  destroyed() {
+    this.websock.close() // 离开路由之后断开websocket连接
   },
   mounted() {
     // setTimeout(() => {
@@ -158,10 +159,10 @@ export default {
     initWebSocket() {
       // 初始化weosocket
       var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
-      // var ws_path = ws_scheme + '://' + window.location.host +
-      //   '/ws/indoor/' + this.indoorNum + '/'
-      var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      var ws_path = ws_scheme + '://' + window.location.host +
         '/ws/outdoor_admin/' + this.doorNum + '/'
+      // var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      //   '/ws/outdoor_admin/' + this.doorNum + '/'
       this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
       this.websock.onopen = this.websocketonopen
@@ -203,11 +204,24 @@ export default {
         this.fee_cards_form = dialog
         this.dialogVisible = true
         this.card_values = card_vals
+      } else if (redata.code === 'confirm_fee') {
+        this.fee_confirmed = true
+        if (redata.data.type === 'success') {
+          this.$message({
+            'type': 'success',
+            'message': '交易成功: ' + JSON.stringify(redata.data)
+          })
+        } else {
+          this.$message({
+            'type': 'error',
+            'message': '交易失败: ' + JSON.stringify(redata.data)
+          })
+        }
       }
     },
     websocketsend(Data) {
       // 数据发送
-      this.websock.send(Data)
+      this.websock.send(JSON.stringify(Data))
     },
     websocketclose(e) {
       // 关闭
@@ -223,7 +237,21 @@ export default {
           this.dialogVisible = false
           var content = this.fee_cards_form
           content.doorNum = content.outdoorNum
+          content = {
+            'type': 'confirm_fee',
+            'data': content
+          }
           this.websocketsend(content)
+          setTimeout(() => {
+            console.log('验证提交结果, ' + this.fee_confirmed)
+            if (this.fee_confirmed !== null && !this.fee_confirmed) {
+              this.$message({
+                'type': 'error',
+                'message': '交易失败!! 服务端未响应改请求'
+              })
+            }
+            this.fee_confirmed = null
+          }, 1500)
         } else {
           console.log('表单验证不通过')
           return false

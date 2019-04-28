@@ -30,6 +30,8 @@ def load_model_create_db(file_abspath, addition_info=''):
         db.Region.objects().delete()
     if len(db.Parking.objects()):
         db.Parking.objects().delete()
+    if len(db.Door.objects()):
+        db.Door.objects().delete()
     with open(file_abspath, 'r') as f:
         data = json.load(f)
         parking_lot = db.ParkingLot(parking_lot_name=data[
@@ -313,10 +315,12 @@ def get_fee_and_cards(license, date_out):
         vehicle = db.Vehicle.objects(license_plate=license).get()
         # TODO: 复杂计费系统
         diff = date_out - vehicle.date_in
+        print('耗时: ', diff)
         days, seconds = diff.days, diff.seconds
-        hours = math.ceil(days * 24 + seconds // 3600)
+        hours = math.ceil(days * 24 + seconds / 3600)
         # TODO: 多停车场情况
-        fee = db.ParkingLot.objects().first().fee_per_hr * hours
+        fee = db.ParkingLot.objects().get().fee_per_hr * hours
+        print('############## debug fee:', fee)
         cards = []
         for i in vehicle.member_card:
             cards.append({'id': i.id, 'card_type': i.card_type,
@@ -346,16 +350,17 @@ def vehicle_leave(license, outdoorId, date_out, admin, fee,
         vehicle = db.Vehicle.objects(license_plate=license)
         if len(vehicle) == 0:
             # TODO: error
-            return
+            return {'code': 'error', 'info': 'vehicle 不存在'}
+        vehicle = vehicle.get()
         log = db.BillLog()
-        log.date_in = vehicle_enter.date_in
+        log.date_in = vehicle.date_in
         log.date_out = date_out
         log.admin_info = admin
         log.vehicle = vehicle
         # 必须合法的 id!
         try:
             card = db.MemberCard.objects(id=card_id).get() if \
-                card_id != '' else None
+                (card_id and card_id != '') else None
         except DoesNotExist:
             return {'code': 'error', 'info': 'card_id="{}" 不存在, 请检查'.format(
                 card_id)}
@@ -365,25 +370,27 @@ def vehicle_leave(license, outdoorId, date_out, admin, fee,
             if card.card_type == 'count':
                 log.addition_info = \
                         '剩余次数: {}'.format(int(card.value))
-                card.value -= 1
-                updateMemberCard(card_id, card.value, admin,
-                                 info='车牌号 {} 在 {} 使用'.format(
-                                     license, str(date_out)))
-                card.save()
+                card_value = card.value - 1
+                up_res = updateMemberCard(card_id, card_value, admin,
+                                          info='车牌号 {} 在 {} 使用'.format(
+                                              license, str(date_out)))
+                if up_res['code'] != 'success':
+                    raise Exception(up_res['info'])
             elif card.card_type == 'top-up':
                 log.addition_info = \
                     '余额: {:.3f}'.format(float(card.value))
                 log.fee = fee
-                card.value -= fee
-                updateMemberCard(card_id, card.value, admin,
-                                 info='车牌号 {} 在 {} 使用'.format(
-                                     license, str(date_out)
-                                 ))
+                card_value = card.value - fee
+                up_res = updateMemberCard(card_id, card_value, admin,
+                                          info='车牌号 {} 在 {} 使用'.format(
+                                              license, str(date_out)
+                                          ))
+                if up_res['code'] != 'success':
+                    raise Exception(up_res['info'])
                 card.save()
         else:
             log.fee = fee
-        vehicle.date_in = None
-        vehicle.indoor_id = None
+        vehicle.update(set__date_in=None, set__indoor_id=None)
         vehicle.save()
         log.save()
         return {'code': 'success', 'info': ''}
@@ -448,8 +455,8 @@ def getBillLogsFilter(**kwargs):
                 'date_in': l.date_in.strftime(time_format),
                 'date_out': l.date_out.strftime(time_format),
                 'fee': str(l.fee),
-                'indoor': l.indoor.fetch().id_in_map,
-                'outdoor': l.outdoor.fetch().id_in_map,
+                'indoor': l.indoor.fetch().id_in_map if l.indoor else '',
+                'outdoor': l.outdoor.fetch().id_in_map if l.outdoor else '',
                 'addition_info': l.addition_info,
                 'card_id': l.member_card.id if l.member_card else None,
                 'card_type': l.member_card.card_type if l.member_card

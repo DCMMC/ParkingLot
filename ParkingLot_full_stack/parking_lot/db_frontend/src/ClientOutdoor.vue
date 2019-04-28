@@ -15,7 +15,7 @@
               <v-flex d-flex style="height: 70%;">
                 <v-card color="blue" dark hover ripple>
                   <v-card-title primary class="headline">收费信息</v-card-title>
-                  <v-card-text class="title">{{ fee_info }}</v-card-text>
+                  <v-card-text class="title" v-html="fee_info" />
                 </v-card>
               </v-flex>
               <v-flex d-flex style="height: 30%;">
@@ -65,10 +65,10 @@ export default {
     initWebSocket() {
       // 初始化weosocket
       var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
-      // var ws_path = ws_scheme + '://' + window.location.host +
-      //   '/ws/indoor/' + this.indoorNum + '/'
-      var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      var ws_path = ws_scheme + '://' + window.location.host +
         '/ws/outdoor/' + this.outdoorNum + '/'
+      // var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      //   '/ws/outdoor/' + this.outdoorNum + '/'
       this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
       this.websock.onopen = this.websocketonopen
@@ -97,7 +97,7 @@ export default {
           this.fee_info = ''
         }
       } else if (redata.code === 'fee_cards') {
-        info += ('出口号: ' + redata.data.doorNum + '<br/>')
+        info += ('出口号: ' + redata.data.outdoorNum + '<br/>')
         info += ('入场时间: ' + redata.data.date_in + '<br/>')
         info += ('出场时间: ' + redata.data.date_out + '<br/>')
         info += ('计时费用: ' + redata.data.fee + '<br/>')
@@ -123,7 +123,7 @@ export default {
       } else if (redata.code === 'confirm_fee') {
         info += '收费成功 <br/>'
         info += ('管理员: ' + redata.data.admin_info + '<br/>')
-        info += ('出口号: ' + redata.data.doorNum + '<br/>')
+        info += ('出口号: ' + redata.data.outdoorNum + '<br/>')
         if (info.card_id !== '') {
           if (redata.data.fee <= 0) {
             info += ('记次卡消费, 卡号: ' + redata.data.card_id + '<br/>')

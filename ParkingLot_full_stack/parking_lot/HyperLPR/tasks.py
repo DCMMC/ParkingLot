@@ -131,13 +131,13 @@ def indoorCameraRecognize(indoorNum='1'):
                 parkings = operations.getAvailableParkings()
                 if parkings['code'] == 'success' and len(parkings[
                         'data']) > 0:
-                    print('模拟进入停车场')
                     # TODO: 暂定 8080 端口
                     p_id = random.sample(parkings['data'], 1)[0]
+                    print('模拟进入停车场: ', p_id)
                     re = requests.post('http://' + redis_host +
                                        ':8080/parking_lot_status_update',
                                        json={
-                                           'code': 'updateParking',
+                                           'code': 'updateParkingPartial',
                                            'data': [{
                                             'parking_id': p_id,
                                             'used': True,
@@ -231,13 +231,13 @@ def outdoorCameraRecognize(outdoorNum='1'):
                 parkings = operations.getUsedParkings()
                 if parkings['code'] == 'success' and len(parkings[
                         'data']) > 0:
-                    print('模拟离开停车场')
                     # TODO: 暂定 8080 端口
                     p_id = random.sample(parkings['data'], 1)[0]
+                    print('模拟离开停车场: ', p_id)
                     re = requests.post('http://' + redis_host +
                                        ':8080/parking_lot_status_update',
                                        json={
-                                        'code': 'updateParking',
+                                        'code': 'updateParkingPartial',
                                         'data': [{
                                          'parking_id': p_id,
                                          'used': False,

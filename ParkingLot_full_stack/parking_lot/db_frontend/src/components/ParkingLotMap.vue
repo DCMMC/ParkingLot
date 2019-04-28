@@ -81,11 +81,10 @@ export default {
       // 原来写死的 127.0.0.1 跟 cookie 的 0.0.0.0 不一致
       // channels 死活得不到正确的 scope['user'] debug 了半天...
       var ws_scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
-
-      // var ws_path = ws_scheme + '://' + window.location.host +
-      //   '/ws/parkingLotStatus/' + this.layerNum + '/'
-      var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      var ws_path = ws_scheme + '://' + window.location.host +
         '/ws/parkingLotStatus/' + this.layerNum + '/'
+      // var ws_path = ws_scheme + '://' + 'localhost:8080' +
+      //   '/ws/parkingLotStatus/' + this.layerNum + '/'
       this.websock = new WebSocket(ws_path)
       this.websock.onmessage = this.websocketonmessage
       this.websock.onopen = this.websocketonopen
@@ -105,9 +104,9 @@ export default {
     websocketonmessage(e) {
       // 数据接收
       const redata = JSON.parse(e.data)
+      var t_out = 0
       if (redata.code === 'updateParking') {
-        console.log('updateParking')
-        var t_out = 0
+        // console.log('updateParking')
         if (!this.ready) {
           t_out = 1000
         }
@@ -116,17 +115,24 @@ export default {
             for (var j in redata.data[this.layerNum]['' + i]) {
               // console.log(j + redata.data[this.layerNum]['' + i]['' + j])
               var status = redata.data[this.layerNum]['' + i]['' + j]
-              // DCMMC: 入口那边来的数据... 可以说是很乱了...
-              if (typeof status !== typeof 'str') {
-                if (status['used']) {
-                  status = 'used'
-                } else {
-                  status = 'unused'
-                }
-              }
-              console.log('updateParkingLotStatus: ' + j + ', ' + status)
               this.map.updateParkingLotStatus(j, status)
             }
+          }
+        }, t_out)
+      } else if (redata.code === 'updateParkingPartial') {
+        if (!this.ready) {
+          t_out = 1000
+        }
+        setTimeout(() => {
+          for (var p in redata.data) {
+            var status = ''
+            if (redata.data['' + p]['used']) {
+              status = 'used'
+            } else {
+              status = 'unused'
+            }
+            // TODO: 错误处理
+            this.map.updateParkingLotStatus(p, status)
           }
         }, t_out)
       }
