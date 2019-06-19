@@ -207,7 +207,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "db_frontend", "dist", "static")
 ]
 
-
 # -- dynamic content is saved to here --
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
